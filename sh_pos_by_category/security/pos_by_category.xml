@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record model="res.groups" id="sh_group_pos_by_category">
+            <field name="name">Pos By Category Report</field>
+        </record>
+    </data>
+</odoo>

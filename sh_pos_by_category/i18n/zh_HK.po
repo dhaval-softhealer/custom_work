@@ -1,0 +1,210 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sh_pos_by_category
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.1alpha1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-09-11 11:54+0000\n"
+"PO-Revision-Date: 2021-09-11 11:54+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sh_pos_by_category
+#: model:ir.actions.report,print_report_name:sh_pos_by_category.sh_pos_by_category_action
+msgid "'Point of Sale By Product Category'"
+msgstr "产品类别的销售点"
+
+#. module: sh_pos_by_category
+#: model_terms:ir.ui.view,arch_db:sh_pos_by_category.sh_pos_by_category_doc
+msgid "<strong>Total</strong>"
+msgstr "全部的"
+
+#. module: sh_pos_by_category
+#: model_terms:ir.ui.view,arch_db:sh_pos_by_category.sh_pos_by_category_wizard
+msgid "Cancel"
+msgstr "取消"
+
+#. module: sh_pos_by_category
+#: model:ir.model.fields,field_description:sh_pos_by_category.field_sh_pos_category_wizard__sh_category_ids
+msgid "Categories"
+msgstr "类别"
+
+#. module: sh_pos_by_category
+#: model_terms:ir.ui.view,arch_db:sh_pos_by_category.sh_pos_by_category_xls_view
+msgid "Close"
+msgstr "关闭"
+
+#. module: sh_pos_by_category
+#: model:ir.model.fields,field_description:sh_pos_by_category.field_sh_pos_category_wizard__company_ids
+msgid "Companies"
+msgstr "公司"
+
+#. module: sh_pos_by_category
+#: model:ir.model.fields,field_description:sh_pos_by_category.field_sh_pos_category_wizard__create_uid
+#: model:ir.model.fields,field_description:sh_pos_by_category.field_sh_pos_category_xls__create_uid
+msgid "Created by"
+msgstr "由...制作"
+
+#. module: sh_pos_by_category
+#: model:ir.model.fields,field_description:sh_pos_by_category.field_sh_pos_category_wizard__create_date
+#: model:ir.model.fields,field_description:sh_pos_by_category.field_sh_pos_category_xls__create_date
+msgid "Created on"
+msgstr "创建于"
+
+#. module: sh_pos_by_category
+#: model_terms:ir.ui.view,arch_db:sh_pos_by_category.sh_pos_by_category_doc
+msgid "Date"
+msgstr "日期"
+
+#. module: sh_pos_by_category
+#: model:ir.model.fields,field_description:sh_pos_by_category.field_sh_pos_category_wizard__display_name
+#: model:ir.model.fields,field_description:sh_pos_by_category.field_sh_pos_category_xls__display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: sh_pos_by_category
+#: model:ir.model.fields,field_description:sh_pos_by_category.field_sh_pos_category_xls__excel_file
+msgid "Download report Excel"
+msgstr "下载excel."
+
+#. module: sh_pos_by_category
+#: model:ir.model.fields,field_description:sh_pos_by_category.field_sh_pos_category_wizard__sh_end_date
+msgid "End Date"
+msgstr "结束日期"
+
+#. module: sh_pos_by_category
+#: model:ir.model.fields,field_description:sh_pos_by_category.field_sh_pos_category_xls__file_name
+msgid "Excel File"
+msgstr "Excel文件"
+
+#. module: sh_pos_by_category
+#: model:ir.model.fields,field_description:sh_pos_by_category.field_sh_pos_category_wizard__id
+#: model:ir.model.fields,field_description:sh_pos_by_category.field_sh_pos_category_xls__id
+msgid "ID"
+msgstr "ID"
+
+#. module: sh_pos_by_category
+#: model:ir.model.fields,field_description:sh_pos_by_category.field_sh_pos_category_wizard____last_update
+#: model:ir.model.fields,field_description:sh_pos_by_category.field_sh_pos_category_xls____last_update
+msgid "Last Modified on"
+msgstr "最后修改了"
+
+#. module: sh_pos_by_category
+#: model:ir.model.fields,field_description:sh_pos_by_category.field_sh_pos_category_wizard__write_uid
+#: model:ir.model.fields,field_description:sh_pos_by_category.field_sh_pos_category_xls__write_uid
+msgid "Last Updated by"
+msgstr "最后更新"
+
+#. module: sh_pos_by_category
+#: model:ir.model.fields,field_description:sh_pos_by_category.field_sh_pos_category_wizard__write_date
+#: model:ir.model.fields,field_description:sh_pos_by_category.field_sh_pos_category_xls__write_date
+msgid "Last Updated on"
+msgstr "上次更新了"
+
+#. module: sh_pos_by_category
+#: model_terms:ir.ui.view,arch_db:sh_pos_by_category.sh_pos_by_category_doc
+msgid "Number"
+msgstr "数字"
+
+#. module: sh_pos_by_category
+#: model:ir.actions.act_window,name:sh_pos_by_category.action_pos_by_category
+#: model:ir.actions.act_window,name:sh_pos_by_category.action_pos_by_category_xls
+#: model:ir.actions.report,name:sh_pos_by_category.sh_pos_by_category_action
+#: model:ir.ui.menu,name:sh_pos_by_category.menu_pos_by_category
+#: model_terms:ir.ui.view,arch_db:sh_pos_by_category.sh_pos_by_category_doc
+#: model_terms:ir.ui.view,arch_db:sh_pos_by_category.sh_pos_by_category_wizard
+#: model_terms:ir.ui.view,arch_db:sh_pos_by_category.sh_pos_by_category_xls_view
+msgid "Point of Sale By Product Category"
+msgstr "产品类别的销售点"
+
+#. module: sh_pos_by_category
+#: model:ir.model,name:sh_pos_by_category.model_report_sh_pos_by_category_sh_pos_by_category_doc
+msgid "Point of Sale by category report abstract model"
+msgstr "销售点按类别报告摘要模型"
+
+#. module: sh_pos_by_category
+#: model:ir.model,name:sh_pos_by_category.model_sh_pos_category_wizard
+msgid "Point of sale By Category Wizard"
+msgstr "按类别向导出售点"
+
+#. module: sh_pos_by_category
+#: model:ir.model,name:sh_pos_by_category.model_sh_pos_category_xls
+msgid "Point of sale by Category Xls Report"
+msgstr "XLS报告类别的销售点"
+
+#. module: sh_pos_by_category
+#: model_terms:ir.ui.view,arch_db:sh_pos_by_category.sh_pos_by_category_doc
+msgid "Price"
+msgstr "价钱"
+
+#. module: sh_pos_by_category
+#: model_terms:ir.ui.view,arch_db:sh_pos_by_category.sh_pos_by_category_wizard
+msgid "Print"
+msgstr "打印"
+
+#. module: sh_pos_by_category
+#: model_terms:ir.ui.view,arch_db:sh_pos_by_category.sh_pos_by_category_wizard
+msgid "Print In XLS"
+msgstr "在XL中打印"
+
+#. module: sh_pos_by_category
+#: model_terms:ir.ui.view,arch_db:sh_pos_by_category.sh_pos_by_category_doc
+msgid "Product"
+msgstr "产品"
+
+#. module: sh_pos_by_category
+#: model_terms:ir.ui.view,arch_db:sh_pos_by_category.sh_pos_by_category_doc
+msgid "Qty"
+msgstr "QTY."
+
+#. module: sh_pos_by_category
+#: model:ir.model.fields,field_description:sh_pos_by_category.field_sh_pos_category_wizard__sh_session_id
+msgid "Session"
+msgstr "会议"
+
+#. module: sh_pos_by_category
+#: model:ir.model.fields,field_description:sh_pos_by_category.field_sh_pos_category_wizard__sh_start_date
+msgid "Start Date"
+msgstr "开始日期"
+
+#. module: sh_pos_by_category
+#: model_terms:ir.ui.view,arch_db:sh_pos_by_category.sh_pos_by_category_doc
+msgid "Subtotal"
+msgstr "小计"
+
+#. module: sh_pos_by_category
+#: model_terms:ir.ui.view,arch_db:sh_pos_by_category.sh_pos_by_category_doc
+msgid "Tax"
+msgstr "税"
+
+#. module: sh_pos_by_category
+#: model_terms:ir.ui.view,arch_db:sh_pos_by_category.sh_pos_by_category_doc
+msgid "To"
+msgstr "到"
+
+#. module: sh_pos_by_category
+#: model_terms:ir.ui.view,arch_db:sh_pos_by_category.sh_pos_by_category_doc
+msgid "Total"
+msgstr "全部的"
+
+#. module: sh_pos_by_category
+#: model_terms:ir.ui.view,arch_db:sh_pos_by_category.sh_pos_by_category_doc
+msgid "UOM"
+msgstr "uom."
+
+#. module: sh_pos_by_category
+#: model_terms:ir.ui.view,arch_db:sh_pos_by_category.sh_pos_by_category_wizard
+msgid "or"
+msgstr "或者"
+
+#. module: sh_pos_by_category
+#: code:addons/sh_pos_by_category/wizard/pos_by_category_wizard.py:0
+#, python-format
+msgid "start date must be less than end date."
+msgstr "开始日期必须少于结束日期"

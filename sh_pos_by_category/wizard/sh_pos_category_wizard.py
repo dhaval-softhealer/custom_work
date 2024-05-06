@@ -199,28 +199,28 @@ class POSByCategoryWizard(models.TransientModel):
                 category_order_dic.update({category.display_name: order_list})
         row = 4
         if category_order_dic:
+            worksheet.write(row, 0, "Order Number", bold)
+            worksheet.write(row, 1, "Order Date", bold)
+            worksheet.write(row, 2, "Product", bold)
+            worksheet.write(row, 3, "Category", bold)
+            worksheet.write(row, 4, "Quantity", bold)
+            worksheet.write(row, 5, "Discount", bold)
+            worksheet.write(row, 6, "UOM", bold)
+            worksheet.write(row, 7, "Price", bold)
+            worksheet.write(row, 8, "Tax", bold)
+            worksheet.write(row, 9, "Subtotal", bold)
+            worksheet.write(row, 10, "Total", bold)
+            row = row + 1
+            total_qty = 0.0
+            total_discount = 0.0
+            total_price = 0.0
+            total_tax = 0.0
+            total_subtotal = 0.0
+            total = 0.0
             for key in category_order_dic.keys():
-                total_qty = 0.0
-                total_discount = 0.0
-                total_price = 0.0
-                total_tax = 0.0
-                total_subtotal = 0.0
-                total = 0.0
-                worksheet.write_merge(
-                    row, row, 0, 10, key, bold_center)
-                row = row + 2
-                worksheet.write(row, 0, "Order Number", bold)
-                worksheet.write(row, 1, "Order Date", bold)
-                worksheet.write(row, 2, "Product", bold)
-                worksheet.write(row, 3, "Category", bold)
-                worksheet.write(row, 4, "Quantity", bold)
-                worksheet.write(row, 5, "Discount", bold)
-                worksheet.write(row, 6, "UOM", bold)
-                worksheet.write(row, 7, "Price", bold)
-                worksheet.write(row, 8, "Tax", bold)
-                worksheet.write(row, 9, "Subtotal", bold)
-                worksheet.write(row, 10, "Total", bold)
-                row = row + 1
+                # worksheet.write_merge(
+                #     row, row, 0, 10, key, bold_center)
+                # row = row + 2
                 for rec in category_order_dic[key]:
                     total_qty += rec.get('qty')
                     total_discount += rec.get('discount')
@@ -247,20 +247,20 @@ class POSByCategoryWizard(models.TransientModel):
                     worksheet.write(row, 10, str(rec.get('sale_currency_id')) + str("{:.2f}".format(
                         (rec.get('sale_price_total')))), center)
                     row = row + 1
-                worksheet.write(row, 3, "Total", bold_center_total)
-                worksheet.write(row, 4, "{:.2f}".format(
-                    total_qty), bold_center_total)
-                worksheet.write(row, 5, "{:.2f}".format(
-                    total_discount), bold_center_total)
-                worksheet.write(row, 7, "{:.2f}".format(
-                    total_price), bold_center_total)
-                worksheet.write(row, 8, "{:.2f}".format(
-                    total_tax), bold_center_total)
-                worksheet.write(row, 9, "{:.2f}".format(
-                    total_subtotal), bold_center_total)
-                worksheet.write(row, 10, "{:.2f}".format(
-                    total), bold_center_total)
-                row = row + 2
+            worksheet.write(row, 3, "Total", bold_center_total)
+            worksheet.write(row, 4, "{:.2f}".format(
+                total_qty), bold_center_total)
+            worksheet.write(row, 5, "{:.2f}".format(
+                total_discount), bold_center_total)
+            worksheet.write(row, 7, "{:.2f}".format(
+                total_price), bold_center_total)
+            worksheet.write(row, 8, "{:.2f}".format(
+                total_tax), bold_center_total)
+            worksheet.write(row, 9, "{:.2f}".format(
+                total_subtotal), bold_center_total)
+            worksheet.write(row, 10, "{:.2f}".format(
+                total), bold_center_total)
+            row = row + 2
        
         
         filename = ('Point of Sale By Product Category' + '.xls')

@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="product_template_view_tree" model="ir.ui.view">
+            <field name="name">product.template.tree</field>
+            <field name="model">product.template</field>
+            <field name="arch" type="xml">
+                <tree string="Products" sample="1">
+                    <field name="default_code" string="PharmX Code"/>
+                    <field name="name"/>
+                    <field name="categ_id" string="Product Category"/>
+                    <field name="product_brand_id"/>
+                    <field name="activity_exception_decoration" widget="activity_exception"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="product_product_action" model="ir.actions.act_window">
+            <field name="name">Products</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="view_id" ref="product_template_view_tree"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                  Create a new product
+                </p>
+            </field>
+        </record>
+
+        <record id="product_identifier_search_view" model="ir.ui.view">
+            <field name="name">product.template</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_search_view"/>
+            <field name="arch" type="xml">
+                <field name="attribute_line_ids" position="after">
+                    <!-- Not sure how to instruct odoo to filter baseed on the below value record... -->
+                    <field name="identifier_ids" string="Identifiers" />
+                </field>
+            </field>
+        </record>
+
+        <record id="product_management_template_form_view" model="ir.ui.view">
+            <field name="name">pharmx.product.management.template.common.form</field>
+            <field name="model">product.template</field>
+            <field name="mode">primary</field>
+            <field name="priority">5</field>
+            <field name="arch" type="xml">
+                <form string="Product">
+                    <sheet name="product_form">
+                        <field name="type" invisible="1"/>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+                        <field name="id" invisible="True"/>
+                        <field name="image_1920" widget="image" class="oe_avatar" options="{'preview_image': 'image_128'}"/>
+                        <div class="oe_title">
+                            <label for="name" string="Product Name"/>
+                            <h1>
+                                <div class="d-flex">
+                                    <field name="priority" widget="priority" class="mr-3"/>
+                                    <field class="o_text_overflow" name="name" placeholder="e.g. Cheese Burger"/>
+                                </div>
+                            </h1>
+                        </div>
+                        <style>
+                            div[name="options"] .o_field_boolean {
+                                margin-left: 10px;
+                                margin-right: 0px;
+                            }
+                        </style>
+                        <notebook>
+                            <page string="General Information" name="general_information">
+                                <group>
+                                    <group name="group_general">
+                                        <field name="active" invisible="1"/>
+                                        <field name="detailed_type"/>
+                                        <field name="uom_id" groups="uom.group_uom" options="{'no_create': True}"/>
+                                        <field name="uom_po_id" groups="uom.group_uom" options="{'no_create': True}"/>
+                                        <field name="default_code" string="PharmX Code" on_change="1"/>
+                                        <field name="shelf_label"/>
+                                    </group>
+                                    <group name="group_standard_price">
+                                        <field name="categ_id" string="Product Category"/>
+                                        <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                                        <field name="currency_id" invisible="1"/>
+                                        <field name="cost_currency_id" invisible="1"/>
+                                        <field name="product_variant_id" invisible="1"/>
+                                        <field name="product_brand_id"/>
+                                    </group>
+                                </group>
+                                <group string="Internal Notes">
+                                    <field name="description" nolabel="1" placeholder="This note is only for internal purposes."/>
+                                </group>
+                            </page>
+                            <page name="identifiers" string="Identifiers">
+                                <field name="identifier_ids" nolabel="1">
+                                    <tree string="Identifiers">
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="type" string="Scheme"/>
+                                        <field name="value" string="ID"/>
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <field name="type" string="Scheme"/>
+                                            <field name="value" string="ID"/>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                            <page name="attributes" string="Attributes">
+                                <field name="attribute_ids" nolabel="1">
+                                    <tree string="Attributes">
+                                        <field name="type" string="Attribute Name"/>
+                                        <field name="value" string="Attribute Value"/>
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <field name="type" string="Attribute Name"/>
+                                            <field name="value" string="Attribute Value"/>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                            <page name="supplierinfo" string="Linked Items">
+                                <field name="seller_ids" nolabel="1">
+                                    <tree string="Products" sample="1">
+                                        <field name="name" />
+                                        <field name="product_name" string="Product Name"/>
+                                        <field name="product_code" string="Product Code"/>
+                                        <field name="rrp" string="RRP"/>
+                                        <field name="min_order_qty" string="Min. Order Qty" optional="hide"/>
+                                        <field name="order_multiple" optional="hide"/>
+                                        <field name="shelf_pack" optional="hide"/>
+                                        <field name="items_per_box" optional="hide"/>
+                                        <field name="department" string="Department" optional="hide"/>
+                                        <field name="subdepartment" string="SubDepartment" optional="hide"/>
+                                    </tree>
+                                    <form string="Supplier Item">
+                                        <sheet>
+                                            <group>
+                                                <group name="vendor" string="Vendor">
+                                                    <field name="name" context="{'res_partner_search_mode': 'supplier'}"/>
+                                                    <field name="product_name" string="Supplier Name"/>
+                                                    <field name="product_code" string="Supplier Code"/>
+                                                    <field name="department" string="Department"/>
+                                                    <field name="subdepartment" string="Sub-Department"/>
+                                                    <field name="brand"/>
+                                                </group>
+                                                <group string="Quantities">
+                                                    <field name="min_order_qty" string="Min. Order Qty"/>
+                                                    <field name="order_multiple" />
+                                                    <field name="shelf_pack"/>
+                                                    <field name="items_per_box"/>
+                                                </group>
+                                                <notebook>
+                                                    <page string="Pricing">
+                                                        <group>
+                                                            <field name="rrp" string="RRP"/>
+                                                            <field name="company_id" invisible="1" options="{'no_create': True}"/>
+                                                            <field name="product_tmpl_id" invisible="1"/>
+                                                            <field name="prices" string="Prices">
+                                                            <tree string="Prices">
+                                                                <field name="min_quantity" string="Quantity Threshold"/>
+                                                                <field name="fixed_price" string="Price"/>
+                                                                <field name="currency_id" string="Currency"/>
+                                                                <field name="date_start"/>
+                                                                <field name="date_end"/>
+                                                            </tree>
+                                                            <form>
+                                                                <group>
+                                                                    <field name="min_quantity" string="Quantity Threshold"/>
+                                                                    <field name="fixed_price" string="Price"/>
+                                                                    <field name="currency_id" string="Currency"/>
+                                                                    <field name="date_start"/>
+                                                                    <field name="date_end"/>
+                                                                </group>
+                                                            </form>
+                                                            </field>
+                                                        </group>
+                                                    </page>
+                                                    <page name="identifiers" string="Identifiers">
+                                                        <field name="identifier_ids" nolabel="1">
+                                                            <tree string="Identifiers">
+                                                                <field name="sequence" widget="handle"/>
+                                                                <field name="type" string="Scheme"/>
+                                                                <field name="value" string="ID"/>
+                                                            </tree>
+                                                            <form>
+                                                                <group>
+                                                                    <field name="type" string="Scheme"/>
+                                                                    <field name="value" string="ID"/>
+                                                                </group>
+                                                            </form>
+                                                        </field>
+                                                    </page>
+                                                    <page name="attributes" string="Attributes">
+                                                        <field name="attribute_ids" nolabel="1">
+                                                            <tree string="Attributes">
+                                                                <field name="type" string="Attribute Name"/>
+                                                                <field name="value" string="Attribute Value"/>
+                                                            </tree>
+                                                            <form>
+                                                                <group>
+                                                                    <field name="type" string="Attribute Name"/>
+                                                                    <field name="value" string="Attribute Value"/>
+                                                                </group>
+                                                            </form>
+                                                        </field>
+                                                    </page>
+                                                    <page name="availability" string="Availability">
+                                                        <field name="availability" nolabel="1">
+                                                            <tree string="Availability">
+                                                                <field name="state" string="State"/>
+                                                                <field name="warehouse_id" string="Warehouse"/>
+                                                                <field name="partner_id" string="Warehouse" invisible="1"/>
+                                                                <field name="availability" string="Availability"/>
+                                                            </tree>
+                                                            <form>
+                                                                <group>
+                                                                    <field name="state" string="State"/>
+                                                                    <field name="warehouse_id" string="Warehouse"/>
+                                                                    <field name="partner_id" string="Warehouse" invisible="1"/>
+                                                                    <field name="availability" string="Availability"/>
+                                                                </group>
+                                                            </form>
+                                                        </field>
+                                                    </page>
+                                                    <page name="taxes" string="Taxes">
+                                                        <field name="tax_ids" nolabel="1">
+                                                            <tree string="Taxes">
+                                                                <field name="type" string="Tax Code"/>
+                                                                <field name="value" string="Value"/>
+                                                            </tree>
+                                                            <form>
+                                                                <group>
+                                                                    <field name="type" string="Tax Code"/>
+                                                                    <field name="value" string="Value"/>
+                                                                </group>
+                                                            </form>
+                                                        </field>
+                                                    </page>
+                                                </notebook>
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                </field>
+                            </page>
+                            <page name="manufacturer" string="Manufacturer Info">
+                                <group name="manufacturer" string="Manufacturer Provided Details">
+                                    <group>
+                                        <field name="manufacturer" context="{'res_partner_search_mode': 'supplier'}" can_create="true" can_write="true" modifiers="{}"/>
+                                        <field name="manufacturer_pname" string="Product Name" modifiers="{}"/>
+                                    </group>
+                                    <group>
+                                        <field name="manufacturer_pref" string="Product Code" modifiers="{}"/>
+                                        <field name="manufacturer_purl" string="Product Url" widget="url" modifiers="{}"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page name="taxes" string="Taxes">
+                                <field name="tax_ids" nolabel="1">
+                                    <tree string="Taxes">
+                                        <field name="type" string="Type"/>
+                                        <field name="value" string="Value"/>
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <field name="type" string="Type"/>
+                                            <field name="value" string="Value"/>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                            <page name="logistics" string="Logistics">
+                                <group name="group_lots_and_weight" string="Logistics" attrs="{'invisible': [('type', 'not in', ['product', 'consu'])]}" modifiers="{&quot;invisible&quot;: [[&quot;type&quot;, &quot;not in&quot;, [&quot;product&quot;, &quot;consu&quot;]]]}">
+
+                                    <label for="weight" />
+                                    <div class="o_row" name="weight" >
+                                        <field name="weight" modifiers="{}"/>
+                                        <span><field name="weight_uom_name" modifiers="{&quot;readonly&quot;: true}"/></span>
+                                    </div>
+                                    <label for="volume" />
+                                    <div class="o_row" name="volume" >
+                                        <field name="volume" string="Volume" modifiers="{}"/>
+                                        <span><field name="volume_uom_name" modifiers="{&quot;readonly&quot;: true}"/></span>
+                                    </div>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_category_property_form" model="ir.ui.view">
+            <field name="name">product.category.property.form.inherit</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="product.product_category_form_view"/>
+            <field name="arch" type="xml">
+                <group name="first" position="after">
+                    <group name="account_property" >
+                        <group string="Account Properties" groups="account.group_account_readonly">
+                            <field name="property_account_income_categ_id"/>
+                            <field name="property_account_expense_categ_id"/>
+                        </group>
+                    </group>
+                </group>
+            </field>
+        </record>
+
+    </data>
+</odoo>

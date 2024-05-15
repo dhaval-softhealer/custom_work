@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_pharmx_gateways,access_pharmx_gateways,model_pharmx_gateways,base.group_user,1,1,1,1
+access_sh_popup_message,access_sh_popup_message,model_sh_popup_message,base.group_user,1,1,1,1
+access_sh_pharmx_base,access_sh_pharmx_base,model_sh_pharmx_base,base.group_user,1,1,1,1
+access_pharmx_accounts,access_pharmx_accounts,model_pharmx_accounts,base.group_user,1,1,1,1
+access_sh_pharmx_log,access_sh_pharmx_log,model_sh_pharmx_log,base.group_user,1,1,1,1
+access_purchase_order_log,access_purchase_order_log,model_purchase_order_log,base.group_user,1,1,1,1
+access_failed_purchase_order_line,access_failed_purchase_order_line,model_failed_purchase_order_line,base.group_user,1,1,1,1

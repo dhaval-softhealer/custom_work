@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="sh_eod_wizard" model="ir.ui.view">
+        <field name="name">sh.eod.wizard.view</field>
+        <field name="model">sh.eod.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="start_date"/>
+                    </group>
+                    <group>
+                        <field name="end_date"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="on_screen_report" string="View Report" type="object" class="btn-primary"/>
+                    <button name="print_report" string="Export" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+
+        </field>
+    </record>
+
+    <record id="sh_eod_wizard_action" model="ir.actions.act_window">
+        <field name="name">EOD Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sh.eod.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="sh_eod_wizard"/>
+        <field name="target">new</field>
+    </record>
+</odoo>

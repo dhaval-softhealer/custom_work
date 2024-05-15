@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="sh_pos_customer_facing_display_form" model="ir.ui.view">
+        <field name="name">pos.config.customer.facing.inherit</field>
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.pos_config_view_form" />
+        <field name="arch" type="xml">
+           	<xpath expr="//div[@id='customer_display']" position='after'>
+           	
+           		<div class="col-xs-6 col-md-6 o_setting_box" attrs="{'invisible':[('iface_customer_facing_display_local','=',False)]}">
+                    <div class="o_setting_left_pane">
+                        <field name="sh_change_or_remove_logo" />
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="sh_change_or_remove_logo" />
+                    </div>
+                </div>
+                
+                <div class="col-xs-6 col-md-6 o_setting_box" attrs="{'invisible':['|',('iface_customer_facing_display_local','=',False),('sh_change_or_remove_logo','=',False)]}">
+                    <div class="o_setting_left_pane">
+                        
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="sh_is_logo_replace_remove" />
+                        <field name="sh_is_logo_replace_remove" widget="radio"/>
+                    </div>
+                </div>
+                
+                <div class="col-xs-6 col-md-6 o_setting_box" attrs="{'invisible':['|',('iface_customer_facing_display_local','=',False),('sh_change_or_remove_logo','=',False)]}">
+                    <div attrs="{'invisible':['|',('iface_customer_facing_display_local','=',False),('sh_is_logo_replace_remove','=','remove_logo')]}">
+	                    <div class="o_setting_left_pane">
+	                        
+	                    </div>
+	                    <div class="o_setting_right_pane" attrs="{'required':['|',('sh_change_or_remove_logo','=',True),('sh_is_logo_replace_remove','=','replace_logo')]}">
+	                        <label for="sh_customer_display_logo" />
+	                        <field name="sh_customer_display_logo" widget="image"/>
+	                    </div>
+                    </div>
+                </div>
+                    
+           		<!-- <div attrs="{'invisible':[('iface_customer_facing_display_local','=',False)]}">
+                    <field name="sh_change_or_remove_logo"/>
+                    <span class="o_form_label oe_edit_only">Change or Remove Logo ? </span>
+                </div>
+                <br/> -->
+                <!-- <div attrs="{'invisible':['|',('iface_customer_facing_display_local','=',False),('sh_change_or_remove_logo','=',False)]}">
+	           		<div attrs="{'invisible':[('iface_customer_facing_display_local','=',False)]}">
+	                    <span class="o_form_label oe_edit_only">Is Logo Remove or Replace ? </span>
+	                    <field name="sh_is_logo_replace_remove" widget="radio"/>
+	                </div>
+	                <br/>
+	                <div attrs="{'invisible':['|',('iface_customer_facing_display_local','=',False),('sh_is_logo_replace_remove','=','remove_logo')]}">
+	                    <span class="o_form_label oe_edit_only">Logo for Customer Display </span>
+	                    <field name="sh_customer_display_logo" widget="image"/>
+	                </div>
+                </div> -->
+            </xpath>
+        </field>
+    </record>
+</odoo>

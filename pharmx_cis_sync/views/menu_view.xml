@@ -1,0 +1,21 @@
+<!-- <?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Product Management Menus -->
+    <menuitem
+        name="Product Management"
+        id="product_management"
+        web_icon="pharmx_product_management,static/src/img/icons/Inventory.png"
+        sequence="8">
+
+        <menuitem id="product_management_products" name="Products" sequence="1">
+            <menuitem id="product_management_products_product" name="Products" action="product_product_action" sequence="10"/>
+        </menuitem>
+
+        <menuitem id="product_management_configuration" name="Configuration" sequence="50">
+            <menuitem id="product_management_product_categories" name="Product Categories" action="product.product_category_action_form" sequence="5"/>
+        </menuitem>
+
+    </menuitem>
+
+</odoo>
+ -->

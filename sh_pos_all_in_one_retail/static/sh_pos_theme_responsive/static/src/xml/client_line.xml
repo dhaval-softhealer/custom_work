@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+	<t t-name="ClientLine" t-inherit="point_of_sale.ClientLine" t-inherit-mode="extension" owl="1">
+		<xpath expr="//tr" position="replace">
+			<tr t-attf-class="client-line {{highlight}}" t-att-data-id="props.partner.id" t-on-click="trigger('click-client', {client: props.partner})">
+				<td>
+					<t t-esc="props.partner.name" />
+				</td>
+				<td t-if="!env.isMobile">
+					<t t-esc="props.partner.address" />
+				</td>
+				<td t-if="!env.isMobile" style="width: 130px;">
+					<t t-esc="props.partner.phone || ''" />
+				</td>
+				<td t-if="env.isMobile">
+					<t t-esc="props.partner.zip or ''" />
+					<span t-if="highlight">
+						<br/>
+					</span>
+				</td>
+				<td class="client-line-email">
+					<t t-esc="props.partner.email or ''" />
+					<span t-if="highlight">
+						<br/>
+					</span>
+				</td>
+				<t t-if="env.pos.config.sh_enable_customer_discount">
+					<td>
+						<t t-if="props.partner.sh_customer_discount">
+							<t t-esc="props.partner.sh_customer_discount || 0"/>
+						</t>
+						<t t-elif="props.partner.currunt_client and props.partner.currunt_client.sh_customer_discount">
+							<t t-esc="props.partner.currunt_client.sh_customer_discount"/>
+						</t>
+						<t t-else="">
+							0							
+						</t>
+					</td>
+				</t>
+				<t t-if="env.pos.config.sh_enable_loyalty">
+					<td>
+						<t t-esc="props.partner.sh_user_point" />
+					</td>
+				</t>
+				<t t-if="env.pos.config.enable_whatsapp">
+					<td>
+						<t t-esc='props.partner.mobile || ""'/>
+					</td>
+					<td>
+						<span t-att-data-id="props.partner.id" class="button send_wp" t-on-click="trigger('click-send_wp',props.partner)" role="img" aria-label="Send Whatsapp" title="Send Whatsapp Message">
+							<i class="fa fa-whatsapp"></i>
+						</span>
+					</td>
+				</t>
+				<td class="client-line-last-column-placeholder"></td>
+				<t t-if="env.pos.config.sh_customer_order_history and env.pos.config.sh_enable_order_list">
+					<td>
+						<i class="fa fa-history client_history_icon 85" aria-hidden="true" t-on-click="click_order_history_icon"></i>
+					</td>
+				</t>
+
+
+				<td>
+					<t t-if="highlight">
+						<button class="edit-client-button" t-on-click.stop="trigger('click-edit')">
+							<i class="fa fa-pencil" aria-hidden="true"></i>
+						</button>
+					</t>
+				</td>
+			</tr>
+		</xpath>
+	</t>
+
+</templates>

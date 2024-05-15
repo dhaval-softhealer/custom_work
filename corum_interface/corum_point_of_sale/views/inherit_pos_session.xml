@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="corum_view_pos_session_form" model="ir.ui.view">
+        <field name="name">corum.view.pos.session.form</field>
+        <field name="model">pos.session</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_session_form" />
+        <field name="arch" type="xml">
+
+            <xpath expr="//form/sheet/group" position="replace">
+                <group>
+                    <group>
+                        <field name="cash_control" invisible="1"/>
+                        <field name="user_id"/>
+                        <field name="currency_id" invisible="1"/>
+                        <field name="config_id" readonly="1"/>
+                        <field name="move_id" readonly="1" groups="account.group_account_readonly"/>
+                        <field name="start_at" attrs="{'invisible' : [('state', '=', 'opening_control')]}"/>
+                        <field name="stop_at" attrs="{'invisible' : [('state', '!=', 'closed')]}"/>
+                        <field name="opening_balance"/>
+                        <field name="closing_balance"/>
+                    </group>
+                    <group>
+                        <field name="total_cost"/>
+                        <field name="total_tax"/>
+                        <label for="margin_display" string="Total Margin"/>
+                        <div>
+                            <field name="margin_display"/>
+                        </div>
+                        <field name="total_returns"/>
+                        <field name="total_rounding"/>
+                        <field name="total_sales_excl"/>
+                        <field name="total_sales_incl"/>
+                    </group>
+                </group>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

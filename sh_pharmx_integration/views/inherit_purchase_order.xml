@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="pharmx_purchase_order_button" model="ir.ui.view">
+        <field name="name">pharmx.purchase.order.button</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//form/header/button[@name='action_rfq_send']" position="after">
+                <field name="pharmx_supplier_id" invisible="1"/>
+                <field name="connection_success" invisible="1"/>
+                <button name="send_by_pharmx" type="object" class="btn btn-primary" string="Send By PharmX" attrs="{'invisible': ['|',('state','!=', 'draft' ),'|', ('connection_success','=', False)  ,'|', ('pharmx_supplier_id','=', False), ('pharmx_supplier_id','=', '')]}"/>
+            </xpath>
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="account_id" attrs="{'invisible': ['|', ('pharmx_supplier_id','=', False), ('pharmx_supplier_id','=', '')], 'required': [('pharmx_supplier_id','!=', False), ('pharmx_supplier_id','!=', '')]}"/>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page name="pharmx" string="PharmX" attrs="{'invisible': ['|',('pharmx_order_id','=', False), ('pharmx_order_id','=', '')]}" >        
+                    <group name="pharmx" string="Extra Fields">
+                            <field name="unique_pos_number" invisible="1"/>
+                            <field name="pharmx_order_status" readonly="1"/>
+                            <field name="pharmx_order_id" readonly="1"/>
+                            <field name="purchase_logger_id" string="Logs" readonly="1">
+                                <tree decoration-success="state=='success'" decoration-danger="state=='error'">
+                                    <field name="type_"/>
+                                    <field name="state"/>
+                                    <field name="datetime"/>
+                                    <field name="error"/>                           
+                                </tree>
+                            </field>
+                    </group>
+                </page>
+            </xpath>
+            <xpath expr="//notebook/page[@name='products']/field[@name='order_line']/tree/field[@name='display_type']" position="after">
+                <field name="unique_pos_line_number" invisible="1"/>
+            </xpath>
+            <xpath expr="//notebook/page[@name='products']" position="after">
+                <page name="failed_products" string="Out Of Stocks Products" attrs="{'invisible': [('failed_po','=', [])]}">        
+                    <field name="failed_po" readonly="1">
+                        <tree>
+                            <field name="product_id"/>
+                            <field name="name"/>
+                            <field name="quantity_ordered"/>
+                            <field name="quantity_failed"/>
+                            <field name="quantity_final_ordered"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+    <record id="pharmx_purchase_order_button" model="ir.ui.view">
+    </record>
+</odoo>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="corum_res_partner_form" model="ir.ui.view">
+        <field name="name">corum.res.partner.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='vat']" position="attributes">
+                <attribute name="placeholder">ABN</attribute>
+                <attribute name="string">ABN</attribute>
+            </xpath>
+            <xpath expr="//field[@name='city']" position="attributes">
+                <attribute name="placeholder">Suburb</attribute>
+                <attribute name="string">Suburb</attribute>
+            </xpath>
+            <xpath expr="//field[@name='zip']" position="attributes">
+                <attribute name="placeholder">Postcode</attribute>
+                <attribute name="string">Postcode</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="corum_membership_partner_form" model="ir.ui.view">
+        <field name="name">corum.membership.partner.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="membership.view_partner_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='free_member']" position="before">
+                <field name="signup_company_id"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

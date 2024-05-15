@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="corum_inherit_purchase_order_form" model="ir.ui.view">
+        <field name="name">corum.inherit.purchase.order.form</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+
+            <!-- Add BILLED ribbon -->
+            <xpath expr="//form//sheet/div[hasclass('oe_button_box')]" position="after">
+                <widget name="web_ribbon" title="BILLED" bg_color="bg-success" attrs="{'invisible': [('invoice_status', '!=', 'invoiced')]}"/>
+            </xpath>
+
+            <!-- Rename supplier bills smart button -->
+            <xpath expr="//field[@name='invoice_count']" position="attributes">
+                <attribute name="string">Bills</attribute>
+            </xpath>
+
+            <!-- Add action_receive_and_bill button -->
+            <xpath expr="//button[@name='action_rfq_send' and @states='draft']" position="before">
+                <button name="action_receive_and_bill" string="Receive &amp; Bill" type="object" class="btn-primary" attrs="{'invisible': ['|', ('invoice_status', '!=', 'to invoice'), ('invoice_count', '!=', 0)]}"/>
+            </xpath>
+
+            <!-- Hide create bill buttons -->
+            <xpath expr="//button[@name='action_create_invoice'][1]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_create_invoice'][2]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!-- New create bill button -->
+            <xpath expr="//button[@name='button_cancel']" position="before">
+                <button name="action_create_invoice" string="Create Bill" type="object" class="btn-secondary" attrs="{'invisible': ['|', ('invoice_status', '!=', 'to invoice'), ('invoice_count', '!=', 0)]}"/>
+            </xpath>
+
+            <!-- Rename send po by email button -->
+            <xpath expr="//button[@name='action_rfq_send' and @states='sent']" position="attributes">
+                <attribute name="string">Send by Email</attribute>
+            </xpath>
+
+            <!-- Rename send po by email button -->
+            <xpath expr="//button[@name='action_rfq_send' and @states='purchase']" position="attributes">
+                <attribute name="string">Send by Email</attribute>
+            </xpath>
+
+            <!-- Hide confirm receipt date button -->
+            <xpath expr="//button[@name='confirm_reminder_mail']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!-- Hide print draft button -->
+            <xpath expr="//button[@name='print_quotation' and @states='draft']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//button[@name='print_quotation' and @states='sent']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            
+            <!-- Hide lock button -->
+            <xpath expr="//button[@name='button_done']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!-- Hide unlock button -->
+            <xpath expr="//button[@name='button_unlock']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!-- Locate the label for date_planned and set it to invisible -->
+            <xpath expr="//label[@for='date_planned']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!-- Locate the date_planned_div and set it to invisible -->
+            <xpath expr="//div[@name='date_planned_div']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!-- Locate the label for date_planned and set it to invisible -->
+            <xpath expr="//label[@for='date_planned']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!-- Rename effective_date field -->
+            <xpath expr="//field[@name='effective_date']" position="attributes">
+                <attribute name="string">Receipt Date</attribute>
+            </xpath>
+
+            <!-- Move source document field -->
+            <xpath expr="//field[@name='partner_ref']" position="after">
+                <xpath expr="//field[@name='origin']" position="move"/>
+            </xpath>
+
+            <!-- Make source document field read only -->
+            <xpath expr="//field[@name='origin']" position="attributes">
+                <attribute name="readonly">1</attribute>
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!-- Add bill date field -->
+            <field name='effective_date' position="after">
+                <field name="invoice_date"/>
+            </field>
+
+            <field name='price_unit' position="before">
+                <field name="price_unit_excl_color_type" invisible='1'/>
+                <field name="price_unit_color_type" invisible='1'/>
+                <field name="price_unit_incl" widget="monetary" readonly='0'/>
+                <field name="discount" widget="product_discount" optional='hide'/>
+            </field>
+
+            <field name='price_unit' position="attributes">
+                <attribute name="widget">monetary</attribute>
+                <attribute name="optional">hide</attribute>
+                <attribute name="decoration-success">price_unit_color_type == 'less'</attribute>
+                <attribute name="decoration-danger">price_unit_color_type == 'greater'</attribute>
+                <attribute name="decoration-dark">price_unit_color_type == 'equal'</attribute>
+                <attribute name="string">Unit Price (Disc.)</attribute>
+                <attribute name="force_save">True</attribute>
+                <attribute name="readonly">True</attribute>
+            </field>
+
+            <field name='price_unit_incl' position="attributes">
+                <attribute name="decoration-success">price_unit_excl_color_type == 'less'</attribute>
+                <attribute name="decoration-danger">price_unit_excl_color_type == 'greater'</attribute>
+                <attribute name="decoration-dark">price_unit_excl_color_type == 'equal'</attribute>
+            </field>
+
+            <field name='price_unit_incl' position="before">
+                <field name="price_unit_excl" widget="monetary" attrs="{'readonly': [('state', 'in', ('done', 'cancel'))]}"
+                decoration-success="price_unit_excl_color_type == 'less'"
+                decoration-danger="price_unit_excl_color_type == 'greater'"
+                decoration-dark="price_unit_excl_color_type == 'equal'"/>
+            </field>
+
+            <!-- Hide currency field -->
+            <xpath expr="//field[@name='currency_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//notebook//page[@name='purchase_delivery_invoice']/group/group" position="inside">
+                <field name="currency_id" groups="base.group_multi_currency" force_save="1"/>
+            </xpath>
+
+            <!-- Hide description column -->
+            <xpath expr="//notebook//page[@name='products']/field[@name='order_line']/tree/field[@name='name']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!-- Add tax amount column -->
+            <field name='taxes_id' position="after">
+                <field name="price_tax" string="Tax Amount" widget="monetary" optional='hide'/>
+            </field>
+
+            <!-- Make price_subtotal optional -->
+            <field name='price_subtotal' position="attributes">
+                <attribute name="optional">show</attribute>
+            </field>
+
+            <!-- Add price_total column -->
+            <field name='price_subtotal' position="after">
+                <field name="price_total" string="Subtotal (Incl. Tax)" widget="monetary" optional='show'/>
+            </field>
+
+            <!-- Hide product_packaging_qty field by default -->
+            <xpath expr="//field[@name='product_packaging_qty']" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </xpath>
+
+            <!-- Hide product_packaging_id field by default -->
+            <xpath expr="//field[@name='product_packaging_id']" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </xpath>
+
+            <!-- Update placeholder for note field -->
+            <xpath expr="//field[@name='notes']" position="attributes">
+                <attribute name="placeholder">Terms and conditions...</attribute>
+            </xpath>
+
+            <!-- Hide create & edit options for partners -->
+            <xpath expr="//field[@name='partner_id']" position="attributes">
+                <attribute name="options">{'no_create': True, 'no_create_edit': True}</attribute>
+            </xpath>
+
+            <!-- Hide create & edit options for products -->
+            <xpath expr="//field[@name='product_id']" position="attributes">
+                <attribute name="options">{'no_create': True, 'no_create_edit': True}</attribute>
+                <attribute name="widget">product_configurator</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="corum_purchase_order_view_form_inherit" model="ir.ui.view">
+        <field name="name">corum.purchase.order.view.form.inherit</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase_stock.purchase_order_view_form_inherit"/>
+        <field name="arch" type="xml">
+
+            <!-- Hide receive products button -->
+            <xpath expr="//header/button[@name='action_view_picking']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="corum_inherit_purchase_order_kpis_tree" model="ir.ui.view">
+        <field name="name">corum.inherit.purchase.order.kpis.tree</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_kpis_tree"/>
+        <field name="arch" type="xml">
+
+            <!-- Hide order deadline column -->
+            <xpath expr="//field[@name='date_order']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!-- Rename purchase representative column -->
+            <xpath expr="//field[@name='user_id']" position="attributes">
+                <attribute name="string">Representative</attribute>
+            </xpath>
+
+            <!-- Add date_order_formatted column -->
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="date_order_formatted" widget="date" string="Date"/>
+            </xpath>
+
+            <!-- Hide source document column -->
+            <xpath expr="//field[@name='origin']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- Depends on sh_barcode_scanner_adv module -->
+    <record id="sh_purchase_barcode_scanner_purchase_order_form_hide" model="ir.ui.view">
+        <field name="name">sh.purchase.barcode.scanner.purchase.order.form.hide</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="sh_barcode_scanner_adv.sh_purchase_barcode_scanner_purchase_order_form"/>
+        <field name="arch" type="xml">
+
+            <!-- Hide barcode scanned field -->
+            <xpath expr="//field[@name='_barcode_scanned']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- Custom search view for purchase order lines -->
+    <record id="corum_purchase_order_line_search_view" model="ir.ui.view">
+        <field name="name">corum.purchase.order.line.search.view</field>
+        <field name="model">purchase.order.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <filter string="Supplier" name="groupby_supplier" domain="[]" context="{'group_by': 'partner_id'}"/>
+                <filter string="Date" name="groupby_date" domain="[]" context="{'group_by': 'date_planned'}"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Custom list view for purchase order lines -->
+    <record id="corum_purchase_order_line_tree_view" model="ir.ui.view">
+        <field name="name">corum.purchase.order.line.tree.view</field>
+        <field name="model">purchase.order.line</field>
+        <field name="arch" type="xml">
+            <tree string="Purchase Order Line Tree">
+                <field name="currency_id" invisible="1"/>
+                <field name="order_id" string="Reference"/>
+                <field name="date_planned" string="Date" widget="date"/>
+                <field name="partner_id" string="Supplier"/>
+                <field name="product_id" string="Product"/>
+                <field name="product_qty" string="Quantity" sum="Total"/>
+                <field name="product_uom" string="UoM"/>
+                <field name="price_unit_excl" string="Unit Price" widget="monetary" options="{'currency_field':'currency_id'}" sum="Total"/>
+                <field name="price_subtotal" string="Subtotal" widget="monetary" options="{'currency_field':'currency_id'}" sum="Total"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Depends on sh_po_vendor_code module -->
+    <record id="sh_purchase_order_line_tree_view" model="ir.ui.view">
+        <field name="name">sh.purchase.order.line.tree.view</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet//notebook//page//field[@name='order_line']//tree//field[@name='sh_vendor_pro_code']" position="attributes">
+                <attribute name="optional">show</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

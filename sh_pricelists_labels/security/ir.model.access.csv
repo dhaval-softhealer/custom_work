@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+sh_pricelists_labels.access_sh_computed_price,access_sh_computed_price,sh_pricelists_labels.model_sh_computed_price,base.group_user,1,1,1,1
+sh_pricelists_labels.access_sh_label_queue,access_sh_label_queue,sh_pricelists_labels.model_sh_label_queue,base.group_user,1,1,1,1

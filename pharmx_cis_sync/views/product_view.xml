@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Renaming default code to UPI and making barcode readonly & invisible. -->
+        <record id="product_template_tree_view_cis" model="ir.ui.view">
+            <field name="name">product.template.product.tree.inherit</field>
+            <field name="model">product.template</field>
+            <field name="priority">5</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='default_code']" position="attributes">
+                    <attribute name="string">UPI</attribute>
+                    <attribute name="readonly">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='barcode']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Hiding Traceability -->
+        <record id="product_template_tree_view_cis" model="ir.ui.view">
+            <field name="name">stock.template.property.tree.inherit</field>
+            <field name="model">product.template</field>
+            <field name="priority">5</field>
+            <field name="inherit_id" ref="stock.view_template_property_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='traceability']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

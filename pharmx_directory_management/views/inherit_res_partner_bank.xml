@@ -1,0 +1,24 @@
+<odoo>
+    <!-- copied out by AS: always causing errors -->
+    <record id="pharmx_bank_account_form_inherit" model="ir.ui.view">
+        <field name="name">pharmx.bank.account.form.inherit</field>
+        <field name="model">res.partner.bank</field>
+        <field name="inherit_id" ref="base.view_partner_bank_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='acc_holder_name']" position="after">
+                <field name="pharmx_bank_types" string="Type" widget="many2many_tags"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="pharmx_bank_form_inherit" model="ir.ui.view">
+        <field name="name">pharmx.bank.form.inherit</field>
+        <field name="model">res.bank</field>
+        <field name="inherit_id" ref="base.view_res_bank_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='bic']" position="before">
+                <field name="bsb"/>
+            </xpath>    
+        </field>
+    </record>
+</odoo>

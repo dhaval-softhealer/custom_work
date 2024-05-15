@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="action_all" model="ir.actions.act_window">
+            <field name="name">All</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">kanban,tree,form,activity</field>
+            <field name="search_view_id" ref="base.view_res_partner_filter"/>
+            <field name="domain">['|', '|', ('sh_pharmx_type', '=', 'Supplier'), ('sh_pharmx_type', '=', 'Manufacturer'), ('sh_pharmx_type', '=', 'Wholesaler')]</field>
+            <field name="context">{'default_is_company': True}</field>
+        </record>
+
+        <record id="action_suppliers" model="ir.actions.act_window">
+            <field name="name">Suppliers</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">kanban,tree,form,activity</field>
+            <field name="search_view_id" ref="base.view_res_partner_filter"/>
+            <field name="domain">[('sh_pharmx_type', '=', 'Supplier')]</field>
+            <field name="context">{'default_is_company': True}</field>
+        </record>
+
+        <record id="action_manufacturers" model="ir.actions.act_window">
+            <field name="name">Manufacturers</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">kanban,tree,form,activity</field>
+            <field name="search_view_id" ref="base.view_res_partner_filter"/>
+            <field name="domain">[('sh_pharmx_type', '=', 'Manufacturer')]</field>
+            <field name="context">{'default_is_company': True}</field>
+        </record>
+
+        <record id="action_wholesalers" model="ir.actions.act_window">
+            <field name="name">Wholesalers</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">kanban,tree,form,activity</field>
+            <field name="search_view_id" ref="base.view_res_partner_filter"/>
+            <field name="domain">[('sh_pharmx_type', '=', 'Wholesaler')]</field>
+            <field name="context">{'default_is_company': True}</field>
+        </record>
+
+    </data>
+</odoo>

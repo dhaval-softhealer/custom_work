@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="corum_stock_picking_form_inherit" model="ir.ui.view">
+        <field name="name">corum.stock.picking.form.inherit</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+
+            <!-- Add bill and invoice smart buttons -->
+            <xpath expr="//form//sheet/div[hasclass('oe_button_box')]" position="inside">
+                <button type="object" name="action_invoices" class="oe_stat_button" icon="fa-pencil-square-o" 
+                        attrs="{'invisible': [('invoice_count', '=', 0)]}">
+                    <field name="invoice_count" widget="statinfo" string="Invoices"/>
+                </button>
+            </xpath>
+            <xpath expr="//form//sheet/div[hasclass('oe_button_box')]" position="inside">
+                <button type="object" name="action_bills" class="oe_stat_button" icon="fa-pencil-square-o"
+                        attrs="{'invisible': [('bill_count', '=', 0)]}">
+                    <field name="bill_count" widget="statinfo" string="Bills"/>
+                </button>
+            </xpath>
+
+            <!-- Add sale and purchase smart buttons -->
+            <xpath expr="//form//sheet/div[hasclass('oe_button_box')]" position="inside">
+                <button type="object" name="action_view_sale_orders"
+                        class="oe_stat_button" icon="fa-dollar"
+                        attrs="{'invisible': [('sale_order_count', '=', 0)]}">
+                    <field name="sale_order_count" widget="statinfo" string="Sale"/>
+                </button>
+                <button type="object" name="action_view_purchase_orders"
+                        class="oe_stat_button" icon="fa-credit-card"
+                        attrs="{'invisible': [('purchase_order_count', '=', 0)]}">
+                    <field name="purchase_order_count" widget="statinfo" string="Purchase"/>
+                </button>
+            </xpath>
+
+            <!-- Hide print buttons -->
+            <xpath expr="//button[@name='do_print_picking']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//button[@name='270']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            
+            <!-- Hide unreserve button -->
+            <xpath expr="//button[@name='do_unreserve']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!-- Hide scrap button -->
+            <xpath expr="//button[@name='button_scrap']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!-- Hide unlock button -->
+            <xpath expr="//button[@name='action_toggle_is_locked']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!-- Move source document field -->
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <xpath expr="//field[@name='origin']" position="move"/>
+            </xpath>
+
+            <!-- Rename effective date field -->
+            <xpath expr="//field[@name='date_done']" position="attributes">
+                <attribute name="string">Validation Date</attribute>
+            </xpath>
+
+            <!-- Hide deadline field -->
+            <xpath expr="//field[@name='date_deadline']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!-- Hide operation type field -->
+            <xpath expr="//field[@name='picking_type_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!-- Make description field read only -->
+            <field name='description_picking' position="attributes">
+                <attribute name="readonly">True</attribute>
+            </field>
+
+            <!-- Make packaging field optional -->
+            <field name='product_packaging_id' position="attributes">
+                <attribute name="optional">hide</attribute>
+            </field>
+
+            <!-- Hide create & edit options for products -->
+            <xpath expr="//field[@name='product_id']" position="attributes">
+                <attribute name="options">{'no_create': True, 'no_create_edit': True}</attribute>
+                <attribute name="widget">product_configurator</attribute>
+            </xpath>
+
+            <!-- Hide note page -->
+            <xpath expr="//notebook//page[@name='note']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

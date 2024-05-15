@@ -1,0 +1,63 @@
+"RetailTransactions": [
+    {
+        "ReceiptDateTime": "2022-08-23T06:29:08Z", (pos_order.write_date)
+        "LineItems": [
+            {
+                "VoidFlag": false,
+                "SequenceNumber": "271252", (pos_order.sequence_number)
+                "BeginDateTime": "2022-08-23T06:29:08Z", (pos_order.create_date)
+                "Sale": {
+                    "ItemType": "StockItem",
+                    "ItemID": "13161", (Link to Items.ItemID in JSON file)
+                    "ItemNotOnFileFlag": false,
+                    "Description": "FILL DOSSETT", (pos_order_line.full_product_name)
+                    "TaxIncludedInPriceFlag": true,
+                    "UnitCostPrice": 4.0, (pos_order_line.total_cost)
+                    "UnitListPrice": 6.8, (pos_order_line.price_unit)
+                    "RegularSalesUnitPrice": 6.8,
+                    "InventoryValuePrice": 4.0,
+                    "ActualSalesUnitPrice": 6.8, (pos_order_line.price_subtotal_incl)
+                    "ExtendedAmount": 6.8,
+                    "DiscountAmount": 0.0, (pos_order_line.discount = SUM(LineItems.DiscountAmount/LineItems.ActualSalesUnitPrice * 100))
+                    "ExtendedDiscountAmount": 0.0,
+                    "Quantity": 1.0, (pos_order_line.qty)
+                    "Tax": {
+			"Amount": 0.62, (pos_order.amount_tax = SUM(LineItems.Sale.Tax.Amount))
+			"TaxType": "GST"
+		    }
+                }
+            },
+            {
+                "Tender": {
+                    "TenderType": "CustomerAccount", (pos_payment_method.name)
+		    "Amount": 6.8, (pos_order.amount_paid = SUM(LineItems.Tender.Amount))
+	            "Cashback": 0 (pos_order.amount_return | SUM(LineItems.Tender.Cashback))
+		}
+            }
+        ],
+        "Total": {
+	    "Amount": 6.8 (pos_order.amount_total)
+        },
+        "TransactionID": "132649",
+        "DateTime": "2022-08-23T06:29:08Z", (pos_order.date_order)
+        "SequenceID": 0, (pos_order.sequence_number)
+        "BusinessDayDate": "2022-08-23",
+        "Operator": {
+            "ID": "1322", (Link to Employees.ID in JSON file)
+            "Name": "Andrew Stratigos",
+            "Email": "andrew.stratigos@corum.com.au"
+        },
+        "Customer": {
+            "ID": "12345", (Link to Customers.ID in JSON file)
+            "Name": "Mikes Gym",
+            "AlternateBusinessIDs": [
+                {
+                    "Type": "ABN",
+                    "ID": "1234567890"
+                }
+            ]
+        },
+        "VoidFlag": false,
+	"CurrencyCode": "AUD" (pos_order.currency_rate = 1 WHERE CurrencyCode = "AUD")
+    }
+],

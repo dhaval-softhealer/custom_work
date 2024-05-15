@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Renaming default code to UPI and making barcode readonly & invisible. -->
+        <record id="product_category_form_cis_extension" model="ir.ui.view">
+            <field name="name">product.category.form.inherit</field>
+            <field name="model">product.category</field>
+            <field name="priority">5</field>
+            <field name="inherit_id" ref="product.product_category_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='first']" position="after">
+                    <group name="first" string="CIS Mapping">
+                        <field name="suppliermapping" string="Supplier Mapping" nolabel="1">
+
+                            <tree string="Supplier Mapping">
+                                <field name="sequence" widget="handle" />
+                                <field name="type"/>
+                                <field name="partner" attrs="{'invisible': [('type', '=', 'cis')]}"/>
+                                <field name="department" />
+                                <field name="subdepartment" />
+                                <field name="map_categories" />
+                                <field name="pos_category" />
+                                <field name="map_product_names" />
+                                <!-- <field name="map_product_codes" /> -->
+                                <field name="map_gst_status" />
+                                <field name="map_rrp" />
+                                <!-- <field name="map_cost_price" /> -->
+                            </tree>
+
+                            <form>
+                                <group>
+                                    <field name="type" />
+                                    <field name="partner" attrs="{'invisible': [('type', '=', 'cis')]}"/>
+                                    <field name="department" />
+                                    <field name="subdepartment"/>
+                                    <field name="map_categories" />
+                                    <field name="pos_category" attrs="{'invisible': [('map_categories', '=', False)]}"/>
+                                    <field name="map_product_names" />
+                                    <!-- <field name="map_product_codes" /> -->
+                                    <field name="map_gst_status" />
+                                    <field name="map_rrp" />
+                                    <!-- <field name="map_cost_price" /> -->
+                                </group>
+                            </form>
+
+                        </field>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

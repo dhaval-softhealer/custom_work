@@ -1,0 +1,315 @@
+{
+   "Categories": [
+      {
+         "Level": "Department",
+         "Value": "ETHICALS"
+      },
+      {
+         "Level": "SubDepartment",
+         "Value": "Skin",
+         "ParentValue": "ETHICALS"
+      }
+   ],
+   "Brands": [
+      {
+         "Name": "2die4"
+      },
+      {
+         "Name": "Blooms"
+      }
+   ],
+   "Manufacturers": [
+      {
+         "Name": "ORGANON AUS P/L"
+      },
+      {
+         "Name": "Blooms"
+      }
+   ],
+   "Employees": [
+      {
+         "ID": "1321",
+         "Name": "Ryan McCrea",
+         "Email": "ryan.mccrea@corum.com.au"
+      },
+      {
+         "ID": "1322",
+         "Name": "Andrew Stratigos",
+         "Email": "andrew.stratigos@corum.com.au"
+      }
+   ],
+   "Customers": [
+      {
+         "ID": "12345",
+         "Name": "Mikes Gym",
+         "AlternateBusinessIDs": [
+            {
+               "Type": "ABN",
+               "ID": "1234567890"
+            }
+         ],
+         "ContactInformation": {
+            "Address": {
+               "Street": "123 Fake St",
+               "PostalCode": "2001",
+               "Locality": "Sydney",
+               "Country": "Australia"
+            },
+            "Email": "strat2131@gmail.com",
+            "Telephone": "+61415752121"
+         },
+         "Balance": 300.20
+      }
+   ],
+   "Suppliers": [
+      {
+         "ID": "1321",
+         "Name": "API NSW",
+         "OrganizationTypes": [{
+            "Code": "Supplier"
+         }],
+         "BusinessUnit": {
+            "SiteName": "API NSW",
+            "SiteID": 1102
+         },
+         "AlternateBusinessIDs": [
+            {
+               "Type": "ABN",
+               "ID": "1234567890"
+            },
+            {
+               "Type": "ASX",
+               "ID": "COO"
+            },
+            {
+               "Type": "Approval Number",
+               "ID": "1234567890"
+            }
+         ],
+         "ContactInformation": {
+            "Address": {
+               "Street": "123 Fake St",
+               "PostalCode": "2001",
+               "Locality": "Sydney",
+               "Country": "Australia"
+            }
+         }
+      }
+   ],
+   "Items": [
+      {
+         "ItemID": "13161",
+         "StatusCode": "Active",
+         "AlternativeItemIDs": [
+            {
+               "Type": "GTIN",
+               "ID": "840164513936"
+            },
+            {
+               "Type": "GTIN",
+               "ID": "9317935003138"
+            },
+            {
+               "Type": "GTIN",
+               "ID": "9310341025107"
+            }
+         ],
+         "ItemAttributes": [
+            {
+               "AttributeName": "ManufacturerName",
+               "AttributeValue": "ORGANON AUS P/L"
+            },
+            {
+               "AttributeName": "BrandName",
+               "AttributeValue": "ORGANON"
+            }
+         ],
+         "MerchandiseHierarchy": [
+            {
+               "Level": "Department",
+               "Value": "ETHICALS"
+            },
+            {
+               "Level": "SubDepartment",
+               "Value": "Skin"
+            }
+         ],
+         "ItemPrice": [
+            {
+               "Currency": "AUD",
+               "ValueTypeCode": "RegularSalesUnitPrice",
+               "Amount": 13.50
+            },
+            {
+               "Currency": "AUD",
+               "ValueTypeCode": "UnitListPrice",
+               "Amount": 12.25
+            },
+            {
+               "Currency": "AUD",
+               "ValueTypeCode": "UnitCostPrice",
+               "Amount": 11.20
+            }
+         ],
+         "TaxInformation": [
+            {
+               "TaxType": "GST",
+               "TaxGroupID": "No",
+               "TaxPercent": 10.0
+            }
+         ],
+         "Display": {
+            "Description": {
+               "Text": "DIPROSONE CREAM 0.05% 15G"
+            },
+            "ShelfLabel": {
+               "Text": "DIPROSONE CRM 0.05% 15G"
+            }
+         },
+         "SupplierInformation": [
+           {
+               "SupplierID": "1321",
+               "Description": "RIKODEINE LINCTUS 200ML",
+               "StoreOrderAllowedFlag": true,
+               "SupplierItemID": "794171",
+               "SalesUnitPerPackUnitQuantity": 1,
+               "SupplierPrices": [
+                  {
+                     "Currency": "AUD",
+                     "ValueTypeCode": "UnitCostPrice",
+                     "Amount": 13.50,
+                     "Eligibility": {
+                        "ThresholdQuantity": {
+                          "Units": 1,
+                          "UnitOfMeasureCode": "EA"
+                        },
+                        "EffectiveDateTimestamp": "2021-07-01",
+                        "ExpirationDateTimestamp": "2022-01-01"
+                      }
+                  },
+                  {
+                     "Currency": "AUD",
+                     "ValueTypeCode": "UnitCostPrice",
+                     "Amount": 12.25,
+                     "Eligibility": {
+                        "ThresholdQuantity": {
+                          "Units": 12,
+                          "UnitOfMeasureCode": "EA"
+                        },
+                        "EffectiveDateTimestamp": "2021-07-01",
+                        "ExpirationDateTimestamp": "2022-01-01"
+                      }
+                  },
+                  {
+                     "Currency": "AUD",
+                     "ValueTypeCode": "UnitCostPrice",
+                     "Amount": 11.20,
+                     "Eligibility": {
+                        "ThresholdQuantity": {
+                          "Units": 24,
+                          "UnitOfMeasureCode": "EA"
+                        },
+                        "EffectiveDateTimestamp": "2021-07-01",
+                        "ExpirationDateTimestamp": "2022-01-01"
+                      }
+                  }
+               ]
+           }
+         ]
+      }
+   ],
+   "RetailTransactions": [
+      {
+         "ReceiptDateTime": "2022-08-23T06:29:08Z",
+         "LineItems": [
+            {
+               "VoidFlag": false,
+               "SequenceNumber": "271252",
+               "BeginDateTime": "2022-08-23T06:29:08Z",
+               "Sale": {
+                  "ItemType": "StockItem",
+                  "ItemID": "13161",
+                  "ItemNotOnFileFlag": false,
+                  "Description": "FILL DOSSETT",
+                  "TaxIncludedInPriceFlag": true,
+                  "UnitCostPrice": 4.0,
+                  "UnitListPrice": 6.8,
+                  "RegularSalesUnitPrice": 6.8,
+                  "InventoryValuePrice": 4.0,
+                  "ActualSalesUnitPrice": 6.8,
+                  "ExtendedAmount": 6.8,
+                  "DiscountAmount": 0.0,
+                  "ExtendedDiscountAmount": 0.0,
+                  "Quantity": 1.0,
+                  "Tax": {
+                     "Amount": 0.62,
+                     "TaxType": "GST"
+                  }
+               }
+            },
+            {
+               "VoidFlag": false,
+               "Tender": {
+                  "TenderType": "CustomerAccount",
+                  "Amount": 6.8,
+                  "Cashback": 0.0
+               }
+            }
+         ],
+         "Total": {
+            "Amount": 6.8
+         },
+         "TransactionID": "132649",
+         "DateTime": "2022-08-23T06:29:08Z",
+         "SequenceID": 0,
+         "BusinessDayDate": "2022-08-23",
+         "Operator": {
+            "ID": "1322",
+            "Name": "Andrew Stratigos",
+            "Email": "andrew.stratigos@corum.com.au"
+         },
+         "Customer": {
+            "ID": "12345",
+            "Name": "Mikes Gym",
+            "AlternateBusinessIDs": [
+               {
+                  "Type": "ABN",
+                  "ID": "1234567890"
+               }
+            ]
+         },
+         "VoidFlag": false,
+         "CurrencyCode": "AUD"
+      }
+   ],
+   "PurchaseOrders": [
+      {
+         "SupplierID": "1321",
+         "Status": "Open",
+         "DocumentID": "1378",
+         "DateTime": "2022-08-23T06:29:08Z",
+         "AlternativeDocumentIDs": [
+           {
+             "Type": "PharmX",
+             "ID": "271234432"
+           }
+         ],
+         "LineItem": [
+           {
+             "SupplierItemID": "ABCD123",
+             "TypeCode": "Merchandise",
+             "ItemID": "13161",
+             "ItemDescription": "DIPROSONE CRM 0.05% 15G",
+             "UnitCount": 3,
+             "UnitBaseCostAmount": 11.20, 
+             "UnitsShippedCount": 0,
+             "Tax": {
+                  "TaxType": "GST",
+                  "Amount": 1.36
+             },
+             "TaxIncludedInPriceFlag": "true"
+           }
+         ]
+      }
+   ]
+}

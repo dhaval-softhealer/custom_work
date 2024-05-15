@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <!-- Gateways Fetch Cron -->
+    <record id="sh_pharmx_fetch_gateways_cron" model="ir.cron">
+        <field name="name">PharmX Gateways</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False" />
+        <field name="model_id" ref="sh_pharmx_integration.model_pharmx_gateways" />
+        <field name="code">model.list_all_gateways()</field>
+        <field name="state">code</field>
+        <field name="active" eval="True" />
+    </record>
+
+    <!-- List Order Acknowledgement Cron -->
+    <record id="sh_pharmx_order_acknowledgement_cron" model="ir.cron">
+        <field name="name">PharmX Order Acknowledgement</field>
+        <field name="interval_number">10</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False" />
+        <field name="model_id" ref="sh_pharmx_integration.model_purchase_order" />
+        <field name="code">model.list_order_acknowledgement()</field>
+        <field name="state">code</field>
+        <field name="active" eval="True" />
+    </record>
+
+    <!-- List Invoice Cron -->
+    <record id="sh_pharmx_list_invoice_cron" model="ir.cron">
+        <field name="name">PharmX List Invoice</field>
+        <field name="interval_number">10</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False" />
+        <field name="model_id" ref="sh_pharmx_integration.model_account_move" />
+        <field name="code">model.list_pharmx_invoice()</field>
+        <field name="state">code</field>
+        <field name="active" eval="True" />
+    </record>
+
+    <!-- List-Credit Cron -->
+    <record id="sh_pharmx_Credit_note_cron" model="ir.cron">
+        <field name="name">PharmX List Credit Note</field>
+        <field name="interval_number">10</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False" />
+        <field name="model_id" ref="sh_pharmx_integration.model_account_move" />
+        <field name="code">model.list_pharmx_credit_note()</field>
+        <field name="state">code</field>
+        <field name="active" eval="True" />
+    </record>
+
+    <!-- Auto Import Supplier and Account-->
+    <record id="sh_import_pharmx_supplier_cron" model="ir.cron">
+        <field name="name">Auto Import Supplier and Account</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False" />
+        <field name="model_id" ref="sh_pharmx_integration.model_sh_pharmx_base" />
+        <field name="code">model.auto_pharmx_supplier_account()</field>
+        <field name="state">code</field>
+    </record>
+</odoo>

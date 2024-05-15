@@ -1,0 +1,259 @@
+<odoo>
+    <record id="corum_migrations_form" model='ir.ui.view'>
+        <field name="name">corum.migrations.form</field>
+        <field name="model">corum.migration</field>
+        <field name="arch" type="xml">
+            <form string="Migration">
+                <header>
+                    <!-- <button name="action_rfq_send" states="draft" string="Send by Email" type="object" context="{'send_rfq':True}" class="oe_highlight" data-hotkey="g"/>
+                    <button name="print_quotation" string="Print RFQ" type="object" states="draft" class="oe_highlight" groups="base.group_user" data-hotkey="k"/>
+                    <button name="button_confirm" type="object" states="sent" string="Confirm Order" class="oe_highlight" id="bid_confirm" data-hotkey="v"/>
+                    <button name="button_approve" type="object" states='to approve' string="Approve Order" class="oe_highlight" groups="purchase.group_purchase_manager" data-hotkey="z"/>
+                    <button name="action_create_invoice" string="Create Bill" type="object" class="oe_highlight" context="{'create_bill':True}" attrs="{'invisible': ['|', ('state', 'not in', ('purchase', 'done')), ('invoice_status', 'in', ('no', 'invoiced'))]}" data-hotkey="w"/>
+                    <button name="action_rfq_send" states="sent" string="Re-Send by Email" type="object" context="{'send_rfq':True}" data-hotkey="g"/>
+                    <button name="print_quotation" string="Print RFQ" type="object" states="sent" groups="base.group_user" data-hotkey="k"/>
+                    <button name="button_confirm" type="object" states="draft" string="Confirm Order" id="draft_confirm"/>
+                    <button name="action_rfq_send" states="purchase" string="Send PO by Email" type="object" context="{'send_rfq':False}" data-hotkey="g"/>
+                    <button name="confirm_reminder_mail" string="Confirm Receipt Date" type="object" attrs="{'invisible': ['|','|', ('state', 'not in', ('purchase', 'done')), ('mail_reminder_confirmed', '=', True), ('date_planned', '=', False)]}" groups="base.group_no_one" data-hotkey="o"/>
+                    <button name="action_create_invoice" string="Create Bill" type="object" context="{'create_bill':True}" attrs="{'invisible': ['|', '|', ('state', 'not in', ('purchase', 'done')), ('invoice_status', 'not in', ('no', 'invoiced')), ('order_line', '=', [])]}" data-hotkey="w"/>
+                    <button name="button_draft" states="cancel" string="Set to Draft" type="object" data-hotkey="o"/>
+                    <button name="button_cancel" states="draft,to approve,sent,purchase" string="Cancel" type="object" data-hotkey="x" />
+                    <button name="button_done" type="object" string="Lock" states="purchase" data-hotkey="l"/>
+                    <button name="button_unlock" type="object" string="Unlock" states="done" groups="purchase.group_purchase_manager" data-hotkey="l"/> -->
+
+                    <button type="object" name="process_file" string="Process File" attrs="{'invisible': ['|', ('data_file', '=', False), ('state', '!=', 'new')]}" />
+                    <button type="object" states="mapping" name="import_migration" string="Import Migration" />
+
+                    <field name="state" widget="statusbar" statusbar_visible="new,mapping,importing,complete"  readonly="1"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" />
+                            <field name="source" />
+                            <field name="company_id" />
+                            <field name="data_file"/>
+                            <field name="record_count" />
+                            <field name="succesful_record_count" />
+                            <field name="failed_record_count" />
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <notebook>
+                                <page name="employee_mapping_rules" string="Employees">
+                                    <field name="employee_mapping_rules" attrs="{'readonly': [('state', '=', 'complete')]}">
+                                        <tree string="Employee Mapping Rules">
+                                            <field name="name" readonly="1"/>
+                                            <field name="email" readonly="1"/>
+                                            <field name="code" readonly="1"/>
+                                            <field name="target_create"/>
+                                            <field name="target" attrs="{'required': [('target_create', '=', False)], 'readonly': [('target_create', '=', True)]}"/>
+                                        </tree>
+                                        <form>
+                                            <group>
+                                                <field name="name" readonly="1"/>
+                                                <field name="email" readonly="1"/>
+                                                <field name="code" readonly="1"/>
+                                                <field name="target_create"/>
+                                                <field name="target" attrs="{'required': [('target_create', '=', False)], 'readonly': [('target_create', '=', True)]}"/>
+                                            </group>
+                                        </form>
+                                    </field>
+                                </page>
+                                <page name="supplier_mapping_rules" string="Suppliers">
+                                    <field name="supplier_mapping_rules" attrs="{'readonly': [('state', '=', 'complete')]}">
+                                        <tree string="Supplier Mapping Rules">
+                                            <field name="name" readonly="1"/>
+                                            <field name="abn" readonly="1"/>
+                                            <field name="asx" readonly="1"/>
+                                            <field name="pharmx_supplier_id" readonly="1"/>
+                                            <field name="code" readonly="1"/>
+                                            <field name="target_create"/>
+                                            <field name="target" attrs="{'required': [('target_create', '=', False)], 'readonly': [('target_create', '=', True)]}"/>
+                                        </tree>
+                                        <form>
+                                            <group>
+                                                <field name="name" readonly="1"/>
+                                                <field name="abn" readonly="1"/>
+                                                <field name="asx" readonly="1"/>
+                                                <field name="pharmx_supplier_id" readonly="1"/>
+                                                <field name="code" readonly="1"/>
+                                                <field name="target_create"/>
+                                                <field name="target" attrs="{'required': [('target_create', '=', False)], 'readonly': [('target_create', '=', True)]}"/>
+                                            </group>
+                                        </form>
+                                    </field>
+                                </page>
+                                <page name="brand_mapping_rules" string="Brands">
+                                    <field name="brand_mapping_rules" attrs="{'readonly': [('state', '=', 'complete')]}">
+                                        <tree string="Brand Mapping Rules">
+                                            <field name="name" readonly="1"/>
+                                            <field name="target_create"/>
+                                            <field name="target" attrs="{'required': [('target_create', '=', False)], 'readonly': [('target_create', '=', True)]}"/>
+                                        </tree>
+                                        <form>
+                                            <group>
+                                                <field name="name" readonly="1"/>
+                                                <field name="target_create"/>
+                                                <field name="target" attrs="{'required': [('target_create', '=', False)], 'readonly': [('target_create', '=', True)]}"/>
+                                            </group>
+                                        </form>
+                                    </field>
+                                </page>
+                                <page name="manufacturer_mapping_rules" string="Manufacturers">
+                                    <field name="manufacturer_mapping_rules" attrs="{'readonly': [('state', '=', 'complete')]}">
+                                        <tree string="Manufacturer Mapping Rules">
+                                            <field name="name" readonly="1"/>
+                                            <field name="target_create"/>
+                                            <field name="target" attrs="{'required': [('target_create', '=', False)], 'readonly': [('target_create', '=', True)]}"/>
+                                        </tree>
+                                        <form>
+                                            <group>
+                                                <field name="name" readonly="1"/>
+                                                <field name="target_create"/>
+                                                <field name="target" attrs="{'required': [('target_create', '=', False)], 'readonly': [('target_create', '=', True)]}"/>
+                                            </group>
+                                        </form>
+                                    </field>
+                                </page>
+                                <page name="category_mapping_rules" string="Categories">
+                                    <field name="category_mapping_rules" attrs="{'readonly': [('state', '=', 'complete')]}">
+                                        <tree string="Category Mapping Rules">
+                                            <field name="parent" readonly="1"/>
+                                            <field name="name" readonly="1"/>
+                                            <field name="target_create"/>
+                                            <field name="target" attrs="{'required': [('target_create', '=', False)], 'readonly': [('target_create', '=', True)]}"/>
+                                        </tree>
+                                        <form>
+                                            <group>
+                                                <field name="parent" readonly="1"/>
+                                                <field name="name" readonly="1"/>
+                                                <field name="target_create"/>
+                                                <field name="target" attrs="{'required': [('target_create', '=', False)], 'readonly': [('target_create', '=', True)]}"/>
+                                            </group>
+                                        </form>
+                                    </field>
+                                </page>
+                                <page name="customer_mapping_rules" string="Customers">
+                                    <field name="customer_mapping_rules" attrs="{'readonly': [('state', '=', 'complete')]}">
+                                        <tree string="Customer Mapping Rules">
+                                            <field name="name" readonly="1"/>
+                                            <field name="email" readonly="1"/>
+                                            <field name="phone" readonly="1"/>
+                                            <field name="target_create"/>
+                                            <field name="target" attrs="{'required': [('target_create', '=', False)], 'readonly': [('target_create', '=', True)]}"/>
+                                        </tree>
+                                        <form>
+                                            <group>
+                                                <field name="name" readonly="1"/>
+                                                <field name="email" readonly="1"/>
+                                                <field name="phone" readonly="1"/>
+                                                <field name="target_create"/>
+                                                <field name="target" attrs="{'required': [('target_create', '=', False)], 'readonly': [('target_create', '=', True)]}"/>
+                                            </group>
+                                        </form>
+                                    </field>
+                                </page>
+                                <page name="item_mapping_rules" string="Items">
+                                    <field name="item_mapping_rules" attrs="{'readonly': [('state', '=', 'complete')]}">
+                                        <tree string="Item Mapping Rules">
+                                            <field name="label" readonly="1"/>
+                                            <field name="barcode" readonly="1"/>
+                                            <field name="brand" readonly="1"/>
+                                            <field name="code" readonly="1"/>
+                                            <field name="target_create"/>
+                                            <field name="target" attrs="{'required': [('target_create', '=', False)], 'readonly': [('target_create', '=', True)]}"/>
+                                        </tree>
+                                        <form>
+                                            <group>
+                                                <field name="label" readonly="1"/>
+                                                <field name="barcode" readonly="1"/>
+                                                <field name="brand" readonly="1"/>
+                                                <field name="code" readonly="1"/>
+                                                <field name="target_create"/>
+                                                <field name="target" attrs="{'required': [('target_create', '=', False)], 'readonly': [('target_create', '=', True)]}"/>
+                                            </group>
+                                        </form>
+                                    </field>
+                                </page>
+                                <page name="retailtransactions" string="Retail Transactions">
+                                    <field name="retail_transactions" readonly="1">
+                                        <tree string="Retail Transactions">
+                                            <field name="code" readonly="1"/>
+                                            <field name="date_order" readonly="1"/>
+                                            <field name="amount_total" readonly="1"/>
+                                            <field name="amount_tax" readonly="1"/>
+                                            <field name="amount_paid" readonly="1"/>
+                                            <field name="amount_return" readonly="1"/>
+                                        </tree>
+                                        <form>
+                                            <group>
+                                                <field name="code" readonly="1"/>
+                                                <field name="date_order" readonly="1"/>
+                                                <field name="amount_total" readonly="1"/>
+                                                <field name="amount_tax" readonly="1"/>
+                                                <field name="amount_paid" readonly="1"/>
+                                                <field name="amount_return" readonly="1"/>
+                                            </group>
+                                        </form>
+                                    </field>
+                                </page>
+                                <page name="purchase_orders" string="Purchase Orders">
+                                    <field name="purchase_orders" readonly="1">
+                                        <tree string="Purchase Orders">
+                                            <field name="code" readonly="1"/>
+                                            <field name="date_order" readonly="1"/>
+                                            <field name="amount_total" readonly="1"/>
+                                            <field name="amount_tax" readonly="1"/>
+                                            <field name="amount_untaxed" readonly="1"/>
+                                        </tree>
+                                        <form>
+                                            <group>
+                                                <field name="code" readonly="1"/>
+                                                <field name="date_order" readonly="1"/>
+                                                <field name="amount_total" readonly="1"/>
+                                                <field name="amount_tax" readonly="1"/>
+                                                <field name="amount_untaxed" readonly="1"/>
+                                            </group>
+                                        </form>
+                                    </field>
+                                </page>
+                            </notebook>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="corum_migration_tree_view" model="ir.ui.view">
+        <field name="name">corum.migrations.tree.view</field>
+        <field name="model">corum.migration</field>
+        <field name="arch" type="xml">
+            <tree name="corum_migrations">                
+                <field name="name" />
+                <field name="source" />
+                <field name="company_id" />
+                <field name="record_count" />
+                <field name="succesful_record_count" />
+                <field name="failed_record_count" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="corum_migration_action" model="ir.actions.act_window">
+        <field name="name">Migration</field>
+        <field name="res_model">corum.migration</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Migrations
+            </p>
+        </field>
+    </record>
+    
+    <menuitem name="Migrations" action="corum_migration_action" parent="base.menu_administration" id="corum_migration_base" sequence="8"/>
+
+</odoo>

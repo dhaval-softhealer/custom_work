@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="corum_view_warehouse_orderpoint_tree_editable" model="ir.ui.view">
+        <field name="name">corum.view.warehouse.orderpoint.tree.editable</field>
+        <field name="model">stock.warehouse.orderpoint</field>
+        <field name="inherit_id" ref="stock.view_warehouse_orderpoint_tree_editable"/>
+        <field name="arch" type="xml">
+        
+            <!-- Hide action_stock_replenishment_info button -->
+            <xpath expr="//button[@name='action_stock_replenishment_info']" position="attributes">
+                <attribute name="class">d-none</attribute>
+            </xpath>
+
+            <!-- Move action_stock_replenishment_info button -->
+            <xpath expr="//field[@name='supplier_id']" position="after">
+                <button name="action_stock_replenishment_info" type="object" icon="fa-info-circle"/>
+            </xpath>
+            
+            <!-- Add new fields -->
+            <xpath expr="//field[@name='product_id']" position="after">
+                <field name="product_brand_id" optional="hide"/>
+                <field name="one_week" optional="hide"/>
+                <field name="two_weeks" optional="hide"/>
+                <field name="three_weeks" optional="hide"/>
+                <field name="one_month" optional="hide"/>
+                <field name="two_months" optional="hide"/>
+                <field name="three_months" optional="hide"/>
+            </xpath>
+
+            <!-- Add on_order field -->
+            <xpath expr="//field[@name='qty_on_hand']" position="after">
+                <field name="on_order" optional="hide"/>
+            </xpath>
+
+            <!-- Make preferred route field optional -->
+            <xpath expr="//field[@name='route_id']" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </xpath>
+
+            <!-- Make forecast field optional -->
+            <xpath expr="//field[@name='qty_forecast']" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </xpath>
+
+            <!-- Make location field optional -->
+            <xpath expr="//field[@name='location_id']" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </xpath>
+
+            <!-- Hide create & edit options for products -->
+            <xpath expr="//field[@name='product_id']" position="attributes">
+                <attribute name="options">{'no_create': True, 'no_create_edit': True}</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="corum_stock_reorder_report_search" model="ir.ui.view">
+        <field name="name">corum.stock.reorder.report.search</field>
+        <field name="model">stock.warehouse.orderpoint</field>
+        <field name="inherit_id" ref="stock.stock_reorder_report_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_id']" position="after">
+                <field name='product_brand_id'/>
+                <field name='on_order'/>
+            </xpath>
+            <xpath expr="//filter[@name='filter_not_snoozed']" position="after">
+                <filter name="product_brand_id_is_true" string="Brand" domain="[('product_brand_id', '!=', False)]"/>
+            </xpath>
+        </field>
+    </record>
+    
+</odoo>

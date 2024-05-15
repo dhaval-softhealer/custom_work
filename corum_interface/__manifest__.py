@@ -1,0 +1,48 @@
+{
+    "name" : "Corum Interface Changes",
+    "author" : "Corum Health",
+    "website": "https://corumhealth.com.au/",
+    "support": "https://corumhealth.com.au/",    
+    "category": "Interface",
+    "summary": "Consolidate interface changes for various modules.",
+    "description": "Consolidate interface changes for various modules.",
+    "application" : True, 
+    "version":"15.0.3",
+    "depends" : [
+        "purchase",
+        "sale",
+        "stock",
+        "pos_sale",
+        "sale_management",
+        "point_of_sale",
+        "sh_pos_all_in_one_retail",
+        "sh_barcode_scanner_adv",
+    ],
+    "data" : [
+        "corum_account_move/views/inherit_account_move.xml",
+        "corum_inventory/views/inherit_stock_picking.xml",
+        "corum_inventory/views/inherit_stock_warehouse_orderpoint.xml",
+        "corum_partner/views/inherit_res_partner.xml",
+        "corum_point_of_sale/views/inherit_pos_config.xml",
+        "corum_point_of_sale/views/inherit_pos_order.xml",
+        "corum_point_of_sale/views/inherit_pos_session.xml",
+        "corum_product/views/inherit_product_product.xml",
+        "corum_product/views/inherit_product_supplierinfo.xml",
+        "corum_product/views/inherit_product_template.xml",
+        "corum_purchase_order/views/inherit_purchase_order.xml",
+        "corum_sale_order/views/inherit_sale_order.xml",
+    ],
+    "assets": {
+        "point_of_sale.assets": [
+            "corum_interface/static/src/js/pos.js",
+            "corum_interface/static/src/css/pos.css",
+        ],
+        "web.assets_qweb": [
+            "corum_interface/static/src/xml/pos.xml",
+        ],
+    },
+    "auto_install": False,
+    "installable" : True,
+    "license": "OPL-1",
+    "currency": "AUD"  
+}

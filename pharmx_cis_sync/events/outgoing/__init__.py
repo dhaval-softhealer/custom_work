@@ -1,0 +1,1 @@
+from . import on_product_template_created

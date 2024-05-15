@@ -1,0 +1,14 @@
+.sh_disabled {
+    background: lightgrey !important;
+    pointer-events: none;
+    cursor: not-allowed;
+}
+.leftpane .sh_product_numpad{
+    cursor: not-allowed;
+}
+.sh_disabled_qty {
+    background: lightgrey !important;
+    border-color: #bfbfbf !important;
+    color: #555555 !important;
+    pointer-events: none;
+}

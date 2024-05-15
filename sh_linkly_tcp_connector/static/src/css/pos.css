@@ -1,0 +1,23 @@
+.pos .paymentline.selected.linkly_swipe_pending, .pos .paymentline.linkly_swipe_pending {
+    background: rgb(239, 153, 65);
+}
+
+.transaction-table {
+    width: 100%;
+}
+
+.field-name {
+    width: 40%;
+    font-weight: bold;
+    text-align: right;
+    padding-right: 10px;
+}
+
+.field-value {
+    width: 60%;
+    text-align: left;
+}
+
+.empty-row {
+    height: 13px;
+}

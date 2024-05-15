@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="corum_account_move_inherit_form" model="ir.ui.view">
+        <field name="name">corum.account.move.inherit.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+
+            <!-- Add smart buttons showing related sale/purchase orders -->
+            <xpath expr="//form//sheet/div[hasclass('oe_button_box')]" position="inside">
+                <button type="object" name="action_view_sale_orders"
+                        class="oe_stat_button" icon="fa-dollar"
+                        attrs="{'invisible': [('sale_order_count', '=', 0)]}">
+                    <field name="sale_order_count" widget="statinfo" string="Sale"/>
+                </button>
+                <button type="object" name="action_view_purchase_orders"
+                        class="oe_stat_button" icon="fa-credit-card"
+                        attrs="{'invisible': [('purchase_order_count', '=', 0)]}">
+                    <field name="purchase_order_count" widget="statinfo" string="Purchase"/>
+                </button>
+            </xpath>
+
+            <!-- Hide preview button -->
+            <xpath expr="//button[@name='preview_invoice']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!-- Hide send & print button -->
+            <xpath expr="//button[@name='action_invoice_sent']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!-- Hide header_left_group group -->
+            <xpath expr="//group[@id='header_left_group']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!-- Add new_header_left_group group -->
+            <xpath expr="//group[@id='header_left_group']" position="after">
+                <group id="new_header_left_group">
+                    <div class="o_td_label">
+                        <label for="partner_id" string="Customer" style="font-weight:bold;" attrs="{'invisible': [('move_type', 'not in', ('out_invoice', 'out_refund', 'out_receipt'))]}"/>
+                        <label for="partner_id" string="Supplier" style="font-weight:bold;" attrs="{'invisible': [('move_type', 'not in', ('in_invoice', 'in_refund', 'in_receipt'))]}"/>
+                    </div>
+                    <field name="partner_id" widget="res_partner_many2one" nolabel="1" context="{'res_partner_search_mode': (context.get('default_move_type', 'entry') in ('out_invoice', 'out_refund', 'out_receipt') and 'customer') or (context.get('default_move_type', 'entry') in ('in_invoice', 'in_refund', 'in_receipt') and 'supplier') or False, 'show_address': 1, 'default_is_company': True, 'show_vat': True}"
+                           domain="[('type', '!=', 'private'), ('company_id', 'in', (False, company_id))]" options="{&quot;always_reload&quot;: True, &quot;no_quick_create&quot;: True}" attrs="{'invisible': [('move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt'))]}"/>
+                    <field name="ref" string="Customer Reference" attrs="{'invisible': [('move_type', 'not in', ('out_invoice', 'out_refund', 'out_receipt'))]}"/>
+                    <field name="ref" string="Supplier Reference" attrs="{'invisible': [('move_type', 'not in', ('in_invoice', 'in_refund', 'in_receipt'))]}"/>
+                    <field name="invoice_origin" string="Source Document"/>
+                </group>
+            </xpath>
+
+            <!-- Hide accounting date field -->
+            <xpath expr="//group[@id='header_right_group']/field[@name='date']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!-- Hide accounting date field -->
+            <xpath expr="//group[@id='header_right_group']/field[@name='date']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!-- Rename label field -->
+            <xpath expr="//notebook//page[@id='invoice_tab']/field[@name='invoice_line_ids']/tree//field[@name='name']" position="attributes">
+                <attribute name="string">Description</attribute>
+                <attribute name="optional">hide</attribute>
+            </xpath>
+
+            <!-- Add product code field -->
+            <xpath expr="//notebook//page[@id='invoice_tab']/field[@name='invoice_line_ids']/tree//field[@name='name']" position="after">
+                <field name="sh_product_code" readonly='0' />
+                <!-- Color fields -->
+                <field name="price_unit_excl_color_type" invisible='1'/>
+                <field name="price_unit_color_type" invisible='1'/>
+            </xpath>
+
+            <field name='price_unit' position="before">
+                <field name='price_unit_excl' widget='monetary' readonly='0' />
+                <field name='price_unit_incl' widget='monetary' readonly='0' />
+            </field>
+
+            <xpath expr="//field[@name='line_ids']//tree" position="inside">
+                <field name="sh_product_code" invisible="1" />
+                <field name="price_unit_excl" invisible="1" />
+                <field name="price_unit_incl" invisible="1" />
+                <field name='discount' invisible="1" />
+                <field name='sh_price_bool' invisible="1" />
+            </xpath>
+
+            <!-- Modify price_unit field -->
+            <field name='price_unit' position="attributes">
+                <attribute name="string">Unit Price (Disc.)</attribute>
+                <attribute name="force_save">True</attribute>
+                <attribute name="readonly">True</attribute>
+                <attribute name="optional">hide</attribute>
+                <attribute name="decoration-success">price_unit_color_type == 'less'</attribute>
+                <attribute name="decoration-danger">price_unit_color_type == 'greater'</attribute>
+                <attribute name="decoration-dark">price_unit_color_type == 'equal'</attribute>
+            </field>
+
+            <field name='price_unit_excl' position="attributes">
+                <attribute name="decoration-success">price_unit_excl_color_type == 'less'</attribute>
+                <attribute name="decoration-danger">price_unit_excl_color_type == 'greater'</attribute>
+                <attribute name="decoration-dark">price_unit_excl_color_type == 'equal'</attribute>
+            </field>
+
+            <field name='tax_ids' position="after">
+                <field name="price_tax" widget="monetary" optional='hide'/>
+            </field>
+
+            <!-- Make UoM field optional -->
+            <field name='product_uom_id' position="attributes">
+                <attribute name="string">Unit of Measure</attribute>
+                <attribute name="optional">hide</attribute>
+            </field>
+
+            <!-- Make account name optional -->
+            <field name='account_id' position="attributes">
+                <attribute name="optional">hide</attribute>
+            </field>
+
+            <!-- Add price_total field -->
+            <field name='price_subtotal' position="after">
+                <field name="price_total" string="Subtotal (Incl. Tax)" widget="monetary" optional='show'/>
+            </field>
+
+            <!-- Make price_subtotal optional -->
+            <field name='price_subtotal' position="attributes">
+                <attribute name="optional">show</attribute>
+            </field>
+
+            <!-- Auto product code and remove create & edit options -->
+            <field name='product_id' position="replace">
+                <field name="product_id" optional="show" context="{'default_detailed_type': 'product', 'partner_id':parent.partner_id, 'company_id': parent.company_id}" options="{'no_create': True, 'no_create_edit': True}" widget="product_configurator"
+                    domain="context.get('default_move_type') in ('out_invoice', 'out_refund', 'out_receipt') and [('sale_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]or [('purchase_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"/>
+            </field>
+
+        </field>
+    </record>
+
+    <!-- Depends on sh_barcode_scanner_adv module -->
+    <record id="sh_invoice_barcode_scanner_invoice_form_hide" model="ir.ui.view">
+        <field name="name">sh.invoice.barcode.scanner.invoice.form.hide</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="sh_barcode_scanner_adv.sh_invoice_barcode_scanner_invoice_form" />
+        <field name="arch" type="xml">
+
+            <!-- Hide barcode scanned field -->
+            <xpath expr="//field[@name='_barcode_scanned']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

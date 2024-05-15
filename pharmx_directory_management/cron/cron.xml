@@ -1,0 +1,16 @@
+<!-- <?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="sh_fetch_datasync_messages_cron" model="ir.cron">
+        <field name="name">Import Pharmacies</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False" />
+        <field name="model_id" ref="pharmx_directory_management.res_partner" />
+        <field name="code">model.receive(1, 1)</field>
+        <field name="state">code</field>
+        <field name="active" eval="True" />
+    </record>
+
+</odoo> -->

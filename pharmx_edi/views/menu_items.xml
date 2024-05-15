@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Product Management Menus -->
+    <menuitem
+        id="queue_job.menu_queue_job_root"
+        name="Job Queue"
+        web_icon="pharmx_edi,static/src/img/icons/Timesheets.png"
+        groups="queue_job.group_queue_job_manager"
+    />
+</odoo>

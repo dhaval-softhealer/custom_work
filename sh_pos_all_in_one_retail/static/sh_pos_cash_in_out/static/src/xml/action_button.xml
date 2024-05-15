@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="CashInOutStatementButton" owl="1">
+        <div class="control-button">
+            <a style="color: #565656; display: block;" class="btn btn-primary" t-on-click="trigger('click-cash-in-out-statement')">
+                <i class="fa fa-print" aria-hidden="true"></i>
+                Cash In / Out Statement
+            </a>
+        </div>
+    </t>
+
+    <t t-name="PaymentsButton" owl="1">
+        <div class="control-button sh_payments_ctrl_btn" t-on-click="trigger('click-cash-in-out-statement')">
+            <a style="color: #565656; display: block;" class="btn btn-primary">
+                <i class="fa fa-money" aria-hidden="true"></i>
+                Payments
+            </a>
+        </div>
+    </t>
+</templates>

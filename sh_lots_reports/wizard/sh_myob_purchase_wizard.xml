@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="view_myob_purchase_wizard" model="ir.ui.view">
+        <field name="name">sh.myob.wizard.purchase.view</field>
+        <field name="model">sh.myob.purchase.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="start_date"/>
+                        <field name="company_id"/>
+                    </group>
+                    <group class="oe_title">
+                        <field name="end_date"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="print_report" string="Export" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+
+        </field>
+    </record>
+
+    <record id="sh_myob_purchase_wizard" model="ir.actions.act_window">
+        <field name="name">MYOB Purchase</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sh.myob.purchase.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_myob_purchase_wizard"/>
+        <field name="target">new</field>
+    </record>
+</odoo>

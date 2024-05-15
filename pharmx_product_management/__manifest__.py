@@ -1,0 +1,25 @@
+{
+    "name": "Pharmx - Product Management",
+    "summary": "An extension to the PharmX EDI Service for managing products",
+    "category": "Website",
+    "description": "PharmX Product Management",
+    "author": "Corum Group",
+    'price': 0,
+    'currency': 'USD',
+    "website": "https://pharmx.com.au",
+    "depends": ['pharmx_edi', 'product', 'product_brand', 'product_manufacturer', 'base_automation'],    
+    "data": [
+        "security/ir.model.access.csv",
+        "security/product_security.xml",
+        "views/product_view.xml",
+        "views/supplierinfo_view.xml",
+        "views/pricelist_view.xml",
+        "views/subscription_view.xml",
+        "views/partner_view.xml",
+        "actions/partner_actions.xml",
+        "views/menu_view.xml",
+        "actions/product_template_actions.xml",
+        "actions/supplierinfo_actions.xml",
+        "actions/price_actions.xml"
+    ],
+}

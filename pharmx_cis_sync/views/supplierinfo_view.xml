@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="product_supplierinfo_tree_view3" model="ir.ui.view">
+            <field name="name">product.supplierinfo.tree.view3</field>
+            <field name="model">product.supplierinfo</field>
+            <field name="inherit_id" ref="purchase.product_supplierinfo_tree_view2" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="min_order_qty" string="Min. Order Qty" optional="hide"/>
+                    <field name="order_multiple" string="Order Qty Multiple" optional="hide"/>
+                    <field name="shelf_pack" string="Shelf Pack" optional="hide"/>
+
+                    <field name="rrp" string="Recommended Retail Price" optional="hide"/>
+                    <field name="gst_status" string="GST Status" optional="hide"/>
+                    <field name="department" string="Department" optional="hide"/>
+                    <field name="subdepartment" string="SubDepartment" optional="hide"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

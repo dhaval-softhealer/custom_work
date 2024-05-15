@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_pharmx_type,access_pharmx_type,model_pharmx_type,base.group_user,1,1,1,1
+access_pharmx_bank_type,access_pharmx_bank_type,model_pharmx_bank_type,base.group_user,1,1,1,1
+access_res_partner_retailservices,access_res_partner_retailservices,model_res_partner_retailservices,base.group_user,1,1,1,1
+access_res_partner_proposed_changes,access_res_partner_proposed_changes,model_res_partner_proposed_changes,base.group_user,1,1,1,1
+access_affiliate_company,access_affiliate_company,model_affiliate_company,base.group_user,1,1,1,1
+access_res_partner_identifiers,access_res_partner_identifiers,model_res_partner_identifier,base.group_user,1,1,1,1

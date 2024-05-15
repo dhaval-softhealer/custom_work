@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="ShLinklyLastTransationPopup" owl="1">
+        <div role="dialog" class="modal-dialog">
+            <Draggable>
+                <div class="popup sh-last-transaction-popup">
+                    <header class="title">
+                        Last EFT Transaction
+                    </header>
+                    <main class="body">
+                        <table class="transaction-table">
+                            <tr>
+                                <td class="field-name">Sale:</td>
+                                <td class="field-value" t-esc="txnRef"/>
+                            </tr>
+                            <tr>
+                                <td class="field-name">Time:</td>
+                                <td class="field-value" t-esc="dateTime"/>
+                            </tr>
+                            <tr>
+                                <td class="field-name">Status:</td>
+                                <td class="field-value" t-esc="lastTransactionSuccessUpdated"/>
+                            </tr>
+                            <tr class="empty-row"></tr>
+                            <tr>
+                                <td class="field-name">Card:</td>
+                                <td class="field-value" t-esc="cardType"/>
+                            </tr>
+                            <tr>
+                                <td class="field-name">Account:</td>
+                                <td class="field-value" t-esc="cardAccountType"/>
+                            </tr>
+                            <tr>
+                                <td class="field-name">Type:</td>
+                                <td class="field-value" t-esc="txnTypeUpdated"/>
+                            </tr>
+                            <tr>
+                                <td class="field-name">Amount:</td>
+                                <td class="field-value" t-esc="amtPurchaseUpdated"/>
+                            </tr>
+                        </table>
+                    </main>
+                    <footer class="footer">
+                        <div class="button cancel" t-on-click="cancel">
+                            Close
+                        </div>
+                    </footer>
+                </div>
+            </Draggable>
+        </div>
+    </t>
+</templates>

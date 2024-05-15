@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-extend="TicketButton" t-inherit="point_of_sale.TicketButton" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('ticket-button')]" position="replace">
+            <div class="ticket-button" t-att-class="{ highlight: props.isTicketScreenShown }" t-on-click="onClick">
+                <div class="with-badge" t-att-badge="count">
+                    <i class="fa fa-ticket" aria-hidden="true"></i>
+                </div>
+                <div t-if="!env.isMobile">Sales</div>
+            </div>
+        </xpath>
+    </t>
+
+    <t t-extend="ProductInfoPopup" t-inherit="point_of_sale.ProductInfoPopup" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('section-financials-body')]//table[1]//tr[1]//td[1]" position="replace">
+            <td>Price Excluding GST:</td>
+        </xpath>
+        <xpath expr="//div[hasclass('section-order-body')]//table[1]//tr[1]//td[1]" position="replace">
+            <td>Total Price Excluding GST:</td>
+        </xpath>
+    </t>
+
+    <t t-name="SetSaleOrderButton" t-inherit="pos_sale.SetSaleOrderButton" t-inherit-mode="extension" owl="1">
+         <xpath expr="//div[hasclass('control-button')]" position="attributes">
+            <attribute name="t-attf-class">{{ env.pos.config.allow_quotation_order  ? 'sh_quotation_button' : '' }}</attribute>
+        </xpath>
+    </t>
+
+    <t t-name="OrderReceipt" t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension" owl="1">
+         <xpath expr="//div[hasclass('sh_customer_detail')]" position="replace">
+            <div class="sh_customer_detail">
+                <t t-if="env.pos.config.sh_pos_receipt_customer_detail">
+                    <t t-if="receipt.client">                        
+                        <br/>
+                        <t t-if="env.pos.config.sh_pos_receipt_customer_name">
+                            <div class="sh_customer_name">Customer : <t t-esc="receipt.client.name" /></div>
+                        </t>
+                        <t t-if="env.pos.config.sh_pos_receipt_customer_address">
+                            <div class="sh_customer_address">Address : <t t-esc="receipt.client.address" /></div>
+                        </t>
+                        <t t-if="env.pos.config.sh_pos_receipt_customer_mobile">
+                            <div class="sh_customer_mobile">Mobile : <t t-esc="receipt.client.mobile" /></div>
+                        </t>
+                        <t t-if="env.pos.config.sh_pos_receipt_customer_phone">
+                            <div class="sh_customer_phone">Phone : <t t-esc="receipt.client.phone" /></div>
+                        </t>
+                        <t t-if="env.pos.config.sh_pos_receipt_customer_email">
+                            <div class="sh_customer_email">Email : <t t-esc="receipt.client.email" /></div>
+                        </t>
+                    </t>
+                </t>
+            </div>
+        </xpath>
+    </t>
+
+</templates>

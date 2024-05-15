@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="sh_product_pricelist_product_template_form_inherit_view" model="ir.ui.view">
+        <field name="name">sh.product.template.form.inherit.view</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='general_information']" position="after">
+                <page string="Prices" name="price_information">
+                    <group>
+                        <field string="Prices" name="computed_prices" multi_edit="1" nolabel="1">
+                            <tree editable="bottom" delete="0" create="0">
+                                <field name="pricelist_id" readonly="1"/>
+                                <field name="min_quantity" optional="show"/>
+                                <field name="source" optional="show"/>
+                                <field name="sales_price" widget="monetary" optional="show"/>
+                                <field name="computed_price" widget="monetary" readonly="1" optional="show"/>
+                                <field name="overridden_price" widget="monetary"  attrs="{'invisible': [('source', '=', 'strategy')]}" optional="show"/>
+                                <field name="cost_price" widget="monetary"  readonly="1" optional="show"/>
+                                <field name="markup_price" widget="monetary" readonly="1" optional="show"/>
+                                <field name="markup_percentage" readonly="1" optional="show"/>
+                                <field name="company_id" readonly="1" optional="show"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <group colspan="4">
+                        <div>
+                            <span class="oe_inline">These prices have been generated based on a pricing strategy. To add more rows, adjust the pricing strategy on the pricelist.</span>
+                        </div>
+                    </group>
+                </page>
+            </xpath>
+
+            <xpath expr="//button[@name='open_pricelist_rules']" position="attributes">
+                <attribute name="invisible">1</attribute> 
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

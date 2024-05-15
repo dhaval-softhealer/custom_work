@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+	<!--  <t t-name="AddSignatureButton" owl="1">
+        <div class="control-button">
+            <a style="color: #000; display: block;" class="btn btn-primary" t-on-click="trigger('click-add-signature')">
+                Signature
+            </a>
+        </div>
+    </t>
+    
+    <t t-name="AddSignatureButton1" owl="1">
+        <div class="control-button">
+            <a style="color: #000; display: block;" class="btn btn-primary" t-on-click="trigger('click-add-signature')">
+                Signature1
+            </a>
+        </div>
+    </t>
+    
+    <t t-name="AddSignatureButton2" owl="1">
+        <div class="control-button">
+            <a style="color: #000; display: block;" class="btn btn-primary" t-on-click="trigger('click-add-signature')">
+                Signature2
+            </a>
+        </div>
+    </t>
+    <t t-name="AddSignatureButton3" owl="1">
+        <div class="control-button">
+            <a style="color: #000; display: block;" class="btn btn-primary" t-on-click="trigger('click-add-signature')">
+                Signature3
+            </a>
+        </div>
+    </t>
+    <t t-name="AddSignatureButton4" owl="1">
+        <div class="control-button">
+            <a style="color: #000; display: block;" class="btn btn-primary" t-on-click="trigger('click-add-signature')">
+                Signature4
+            </a>
+        </div>
+    </t>
+    <t t-name="AddSignatureButton5" owl="1">
+        <div class="control-button">
+            <a style="color: #000; display: block;" class="btn btn-primary" t-on-click="trigger('click-add-signature')">
+                Signature5
+            </a>
+        </div>
+    </t>
+    <t t-name="AddSignatureButton6" owl="1">
+        <div class="control-button">
+            <a style="color: #000; display: block;" class="btn btn-primary" t-on-click="trigger('click-add-signature')">
+                Signature6
+            </a>
+        </div>
+    </t> -->
+</templates>

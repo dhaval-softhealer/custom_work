@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="product_subscription_view_tree" model="ir.ui.view">
+            <field name="name">product.subscription.tree</field>
+            <field name="model">product.subscription</field>
+            <field name="arch" type="xml">
+                <tree string="Products" sample="1">
+                    <field name="partner_id"/>
+                    <field name="serviceendpoint"/>
+                    <field name="rule_products_domain" placeholder="Select product" widget="domain" options="{'model': 'product.product', 'in_dialog': true}"/>
+                    <field name="rule_supplierinfo_domain" placeholder="Select item" widget="domain" options="{'model': 'product.supplierinfo', 'in_dialog': true}"/>
+                    <field name="rule_prices_domain" placeholder="Select price" widget="domain" options="{'model': 'product.pricelist.item', 'in_dialog': true}"/>
+                    <field name="rule_partners_domain" placeholder="Select partner" widget="domain" options="{'model': 'res.partner', 'in_dialog': true}"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="resync_all" model="ir.actions.server">
+            <field name="name">Resynchronize All</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_product_subscription"></field>
+            <field name="state">code</field>
+            <field name="code">records.with_delay().resynchronize_all()</field>
+        </record>
+
+        <record id="resync_products" model="ir.actions.server">
+            <field name="name">Resynchronize Products</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_product_subscription"></field>
+            <field name="state">code</field>
+            <field name="code">records.with_delay().resynchronize_products()</field>
+        </record>
+
+        <record id="resync_items" model="ir.actions.server">
+            <field name="name">Resynchronize Items</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_product_subscription"></field>
+            <field name="state">code</field>
+            <field name="code">records.with_delay().resynchronize_items()</field>
+        </record>
+
+        <record id="resync_prices" model="ir.actions.server">
+            <field name="name">Resynchronize Prices</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_product_subscription"></field>
+            <field name="state">code</field>
+            <field name="code">records.with_delay().resynchronize_prices()</field>
+        </record>
+
+        <record id="product_subscription_action" model="ir.actions.act_window">
+            <field name="name">Product Subscriptions</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.subscription</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="view_id" ref="product_subscription_view_tree"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                  Create a new subscription
+                </p>
+            </field>
+        </record>
+
+        <record id="product_management_subscription_form_view" model="ir.ui.view">
+            <field name="name">pharmx.product.management.subscription.common.form</field>
+            <field name="model">product.subscription</field>
+            <field name="mode">primary</field>
+            <field name="priority">5</field>
+            <field name="arch" type="xml">
+                <form string="Product Subscriptions">
+                    <group>
+                    <field name="partner_id"/>
+                        <field name="serviceendpoint"/>
+                        <field name="rule_products_domain" placeholder="Select product" widget="domain" options="{'model': 'product.product', 'in_dialog': true}"/>
+                        <field name="rule_supplierinfo_domain" placeholder="Select item" widget="domain" options="{'model': 'product.supplierinfo', 'in_dialog': true}"/>
+                        <field name="rule_prices_domain" placeholder="Select price" widget="domain" options="{'model': 'product.pricelist.item', 'in_dialog': true}"/>
+                        <field name="rule_partners_domain" placeholder="Select partner" widget="domain" options="{'model': 'res.partner', 'in_dialog': true}"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

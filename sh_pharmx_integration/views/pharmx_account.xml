@@ -1,0 +1,45 @@
+<odoo>
+    <record id="sh_pharmx_accounts_form" model='ir.ui.view'>
+        <field name="name">sh.pharmx.accounts.form</field>
+        <field name="model">pharmx.accounts</field>
+        <field name="arch" type="xml">
+            <form string="PharmX Accounts">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" />
+                            <field name="partner_id" />
+                            <field name="company_id" />
+                        </group>
+                    </group>                
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sh_pharmx_account_tree_view" model="ir.ui.view">
+        <field name="name">sh.pharmx.account.tree.view</field>
+        <field name="model">pharmx.accounts</field>
+        <field name="arch" type="xml">
+            <tree name="pharmx_accounts">                
+                <field name="name" />
+                <field name="partner_id" />
+                <field name="company_id" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="sh_pharmx_account_action" model="ir.actions.act_window">
+        <field name="name">PharmX Account</field>
+        <field name="res_model">pharmx.accounts</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Accounts
+            </p>
+        </field>
+    </record>
+    
+    <menuitem name="Accounts" action="sh_pharmx_account_action" parent="purchase.menu_procurement_management" id="sh_pharmx_account_base" sequence="112"/>
+</odoo>

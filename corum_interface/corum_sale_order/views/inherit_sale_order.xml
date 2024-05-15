@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="corum_sale_order_form" model="ir.ui.view">
+        <field name="name">corum.sale.order.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+
+            <!-- Add INVOICED ribbon -->
+            <xpath expr="//form//sheet/div[hasclass('oe_button_box')]" position="after">
+                <widget name="web_ribbon" title="INVOICED" bg_color="bg-success" attrs="{'invisible': [('invoice_count', '=', 0)]}"/>
+            </xpath>
+
+            <!-- Rename invoices button -->
+            <xpath expr="//field[@name='invoice_count']" position="attributes">
+                <attribute name="string">Invoices</attribute>
+            </xpath>
+
+            <!-- Add new action_view_invoice smart button -->
+            <xpath expr="//button[@name='action_view_invoice']" position="after">
+                <button type="object" name="action_view_delivery" class="oe_stat_button" icon="fa-truck" attrs="{'invisible': [('delivery_count', '=', 0)]}" groups="stock.group_stock_user">
+                    <field name="delivery_count" widget="statinfo" string="Delivery"/>
+                </button>
+            </xpath>
+
+            <!-- Add action_deliver_and_invoice button -->
+            <xpath expr="//button[@name='action_quotation_send'][1]" position="before">
+                <button name="action_deliver_and_invoice" string="Deliver &amp; Invoice" type="object" class="btn-primary" attrs="{'invisible': ['|', ('state', 'not in', ['sale', 'done']), ('invoice_status', '=', 'invoiced')]}"/>
+            </xpath>
+
+            <!-- Make create invoice buttons secondary -->
+            <xpath expr="//button[@name='396'][1]" position="attributes">
+                <attribute name="class">btn-secondary</attribute>
+            </xpath>
+            <xpath expr="//button[@name='396'][2]" position="attributes">
+                <attribute name="class">btn-secondary</attribute>
+            </xpath>
+
+            <!-- Move create invoice buttons -->
+            <xpath expr="//button[@name='action_cancel']" position="before">
+                <xpath expr="//button[@name='396'][1]" position="move"/>
+            </xpath>
+            <xpath expr="//button[@name='action_cancel']" position="before">
+                <xpath expr="//button[@name='396'][2]" position="move"/>
+            </xpath>
+
+            <!-- Rename confirm buttons -->
+            <xpath expr="//button[@name='action_confirm'][1]" position="attributes">
+                <attribute name="string">Confirm Order</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_confirm'][2]" position="attributes">
+                <attribute name="string">Confirm Order</attribute>
+            </xpath>
+
+            <!-- Hide preview_sale_order button -->
+            <xpath expr="//button[@name='preview_sale_order']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!-- Move reference field -->
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <xpath expr="//field[@name='client_order_ref']" position="move"/>
+            </xpath>
+
+            <!-- Rename reference field -->
+            <xpath expr="//field[@name='client_order_ref']" position="attributes">
+                <attribute name="string">Customer Reference</attribute>
+            </xpath>
+
+            <!-- Move source document field -->
+            <xpath expr="//field[@name='client_order_ref']" position="after">
+                <xpath expr="//field[@name='origin']" position="move"/>
+            </xpath>
+
+            <!-- Make source document field read only -->
+            <xpath expr="//field[@name='origin']" position="attributes">
+                <attribute name="readonly">1</attribute>
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!-- Hide order_details group -->
+            <xpath expr="//group[@name='order_details']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!-- Add new_order_details group -->
+            <xpath expr="//group[@name='partner_details']" position="after">
+                <group name="new_order_details">
+                    <field name="date_order" string="Confirmation Date" readonly="1"/>
+                    <field name="effective_date" string="Delivery Date" readonly="1"/>
+                    <field name="show_update_pricelist" invisible="1"/>
+                    <label for="pricelist_id" groups="product.group_product_pricelist"/>
+                    <div groups="product.group_product_pricelist" class="o_row">
+                        <field name="pricelist_id" options="{'no_open':True,'no_create': True}"/>
+                        <button name="update_prices" type="object" string=" Update Prices" help="Recompute all prices based on this pricelist" class="btn-link mb-1 px-0" icon="fa-refresh" confirm="This will update all unit prices based on the currently set pricelist." attrs="{'invisible': ['|', ('show_update_pricelist', '=', False), ('state', 'in', ['sale', 'done','cancel'])]}"/>
+                    </div>
+                </group>
+            </xpath>
+
+            <!-- Add price_tax field -->
+            <xpath expr="//field[@name='price_subtotal' and @groups='account.group_show_line_subtotals_tax_excluded']" position="before">
+                <field name="price_tax" string="Tax Amount" readonly="1"/>
+            </xpath>
+
+            <!-- Rename price_subtotal field -->
+            <xpath expr="//field[@name='price_subtotal' and @groups='account.group_show_line_subtotals_tax_excluded']" position="attributes">
+                <attribute name="string">Subtotal</attribute>
+            </xpath>
+
+            <!-- Add price_total field -->
+            <xpath expr="//field[@name='price_subtotal' and @groups='account.group_show_line_subtotals_tax_excluded']" position="after">
+                <field name="price_total" string="Subtotal (Incl. Tax)" readonly="1"/>
+            </xpath>
+
+            <!-- Hide description field -->
+            <xpath expr="//notebook//page[@name='order_lines']/field[@name='order_line']/tree/field[@name='name']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!-- Hide product_packaging_qty field by default -->
+            <xpath expr="//field[@name='product_packaging_qty']" position="attributes">
+                <attribute name="default">False</attribute>
+            </xpath>
+
+            <!-- Remove class from note field -->
+            <xpath expr="//field[@name='note']" position="attributes">
+                <attribute name="class"></attribute>
+            </xpath>
+
+            <!-- Hide product_packaging_id field by default -->
+            <xpath expr="//field[@name='product_packaging_id']" position="attributes">
+                <attribute name="default">False</attribute>
+            </xpath>
+
+            <!-- Hide create & edit options for products -->
+            <xpath expr="//notebook//page[@name='order_lines']/field[@name='order_line']/tree/field[@name='product_id']" position="attributes">
+                <attribute name="options">{'no_create': True, 'no_create_edit': True}</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="corum_sale_order_form_payment" model="ir.ui.view">
+        <field name="name">corum.sale.order.form.payment</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale_management.sale_order_form_quote" />
+        <field name="arch" type="xml">
+
+            <!-- Hide optional products page -->
+            <xpath expr="//page[@name='optional_products']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="corum_view_order_form_inherit_sale_stock" model="ir.ui.view">
+        <field name="name">corum.view.order.form.inherit.sale.stock</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale_stock.view_order_form_inherit_sale_stock" />
+        <field name="arch" type="xml">
+
+            <!-- Hide old action_view_invoice smart button -->
+            <xpath expr="//button[@name='action_view_delivery']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- Depends on sh_barcode_scanner_adv module -->
+    <record id="sh_sale_barcode_scanner_sale_view_order_form_hide" model="ir.ui.view">
+        <field name="name">sh.sale.barcode.scanner.sale.view.order.form.hide</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sh_barcode_scanner_adv.sh_sale_barcode_scanner_sale_view_order_form" />
+        <field name="arch" type="xml">
+
+            <!-- Hide barcode scanned field -->
+            <xpath expr="//field[@name='_barcode_scanned']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

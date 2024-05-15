@@ -1,0 +1,13 @@
+<odoo>
+    <!-- Partner GeoLocation -->
+    <record model="ir.actions.server" id="sh_partner_geoloaction">
+        <field name="name">Get Partner Geolocation</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_res_partner" />
+        <field name="binding_model_id" ref="model_res_partner" />
+        <field name="state">code</field>
+        <field name="code">
+            action = records.get_partner_geolocation()
+        </field>
+    </record>
+</odoo>

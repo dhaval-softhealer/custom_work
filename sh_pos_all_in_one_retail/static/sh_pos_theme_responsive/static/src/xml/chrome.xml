@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="Chrome" t-inherit="point_of_sale.Chrome" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('pos-topheader')]" position="replace">
+            <div class="pos-topheader" t-att-class="{ oe_hidden: state.uiState !== 'READY' }">
+                <div t-if="tempScreen.isShown" class="block-top-header" />
+                <div class="pos-branding" t-if= "!env.isMobile">
+                    <t t-if="env.pos and env.pos.config and env.pos.config.sh_pos_header_logo and env.pos.get_order()">
+                        <img t-att-src="env.pos.get_order().get_header_logo_url(env.pos.config.id)" alt="Logo" class="pos-logo" />
+                    </t>
+                    <t t-else="">
+                        <t t-if="env.pos and env.pos.company and env.pos.company.sh_pos_global_header_logo and env.pos.get_order()">
+                            <img t-att-src="env.pos.get_order().get_global_header_logo_url(env.pos.company.id)" alt="Logo" class="pos-logo" />
+                        </t>
+                        <t t-else="">
+                            <img class="pos-logo" t-on-click="trigger('toggle-debug-widget')" src="/point_of_sale/static/src/img/logo.png" alt="Logo" />
+                        </t>
+                    </t>
+                    <CashMoveButton t-if="showCashMoveButton()" />
+                    <CartIconButton t-if="env.isMobile" />
+                    <ProductIconButton t-if="env.isMobile" />
+                    <TicketButton isTicketScreenShown="isTicketScreenShown" />
+                </div>
+                <div class="pos-rightheader">
+                    <CartIconButton t-if="env.isMobile" />
+                    <ProductIconButton t-if="env.isMobile" />
+                    <TicketButton isTicketScreenShown="isTicketScreenShown" t-if="env.isMobile" />
+                    <div class="search-bar-portal" />
+                    <div class="status-buttons-portal" />
+                </div>
+            </div>
+
+        </xpath>
+    </t>
+
+    <t t-name="ProductIconButton" owl="1">
+        <div class="oe_status sh_cart_management" t-on-click="onClick">
+            <div class="oe_icon oe_green">
+                <i class="fa fa-cube product_screen_show" aria-hidden="true"></i>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="CartIconButton" owl="1">
+        <div class="oe_status sh_product_management" t-on-click="onClick">
+            <div class="oe_icon oe_green">
+                <i class="fa fa-shopping-cart cart_screen_show" aria-hidden="true"></i>
+            </div>
+        </div>
+    </t>
+
+</templates>

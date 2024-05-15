@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="sh_product_pricelist_form_inherit_view" model="ir.ui.view">
+        <field name="name">sh.product.pricelist.form.inherit.view</field>
+        <field name="model">product.pricelist</field>
+        <field name="inherit_id" ref="product.product_pricelist_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='pricelist_rules']" position="attributes">
+                <attribute name="string">Price Strategy</attribute>
+            </xpath>
+            <xpath expr="//field[@name='country_group_ids']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//group[@name='pricelist_settings']" position="after">
+                <group>
+                    <field name="goods_label_format"></field>
+                    <field name="shelf_label_format"></field>
+                </group>
+            </xpath>
+            <!-- Compute Price Buton -->
+            <xpath expr="//field[@name='company_id']" position="after">
+                <field name="cron_id" />
+                <button type="object" string="Compute Prices" name="compute_prices"/>
+            </xpath>
+
+            <!--Price Tab -->
+            <xpath expr="//page[last()]" position="after">
+                <page name="prices" string="Prices">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-3">
+                            <label for="brand_filter">Brand</label>
+                            <field name="brand_filter" />
+                        </div>
+                        <div class="col-md-3 col-sm-3">
+                            <label for="pos_category_filter">Category</label>
+                            <field name="pos_category_filter" />
+                        </div>
+                        <div class="col-md-3 col-sm-3">
+                            <label for="modified_date_start">Manufacturer Date Start</label>
+                            <field name="modified_date_start" widget="daterange" options="{'related_end_date': 'modified_date_end'}"/>
+                        </div>
+                        <div class="col-md-3 col-sm-3">
+                            <label for="modified_date_end">Manufacturer Date End </label>
+                            <field name="modified_date_end" widget="daterange" options="{'related_start_date': 'modified_date_start'}"/>
+                        </div>
+                        <div class="col-md-3 col-sm-3">
+                            <label for="manufacturer_filter">Manufacturer</label>
+                            <field name="manufacturer_filter" />
+                        </div>
+                        <div class="col-md-3 col-sm-3">
+                            <label for="tag_filter">Tags</label>
+                            <field name="tag_filter"/>
+                        </div>
+                        <div class="col-md-3 col-sm-3">
+                            <label for="source_filter">Source</label>
+                            <field name="source_filter" />
+                        </div>
+                        <div class="col-md-3 col-sm-3">
+                            <button type="object" name="apply_price_filters" string="Apply"></button>
+                        </div>
+                    </div>
+                    <field name="compute_price_lines" >
+                        <tree editable="bottom" delete="0">
+                            <field name="product_tmpl_id" readonly="1"/>
+                            <field name="pos_categ_id" readonly="1" optional="hide"/>
+                            <field name="product_brand_id" readonly="1" optional="hide"/>
+                            <field name="min_quantity" optional="hide"/>
+                            <field name="qty_available" optional="hide"/>
+                            <field name="source" />
+                            <field name="currency_id" invisible="1"/>
+                            <field name="sales_price" widget="monetary" />
+                            <field name="computed_price" widget="monetary" readonly="1"/>
+                            <field name="overridden_price" widget="monetary"  attrs="{'invisible': [('source', '=', 'strategy')]}"/>
+                            <field name="cost_price" widget="monetary"  readonly="1" optional="show"/>
+                            <field name="markup_price" widget="monetary" readonly="1" optional="show"/>
+                            <field name="markup_percentage" readonly="1" optional="show"/>
+                        </tree>                        
+                    </field>
+                </page>
+            </xpath>            
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,1003 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+
+	<t t-name="SelectionPopup" t-inherit="point_of_sale.SelectionPopup" t-inherit-mode="extension" owl="1">
+		<xpath expr="//div[hasclass('modal-dialog')]" position="replace">
+			<div role="dialog" class="modal-dialog">
+				<Draggable>
+					<div class="popup popup-selection sh_popup_selection">
+						<header class="title">
+							<t t-esc="props.title" />
+						</header>
+						<div class="selection scrollable-y">
+							<table class="sh_selection_popup_table" style="width: 100%;">
+								<tbody>
+									<t t-foreach="props.list" t-as="item" t-key="item.id">
+										<tr class="selection-item" t-att-class="{ selected: item.isSelected }" t-on-click="selectItem(item.id)">
+											<td>
+												<t t-esc="item.label" />
+											</td>
+										</tr>
+									</t>
+								</tbody>
+							</table>
+						</div>
+
+						<footer class="footer 78">
+							<div class="button cancel" t-on-click="cancel">
+								<t t-esc="props.cancelText" />
+							</div>
+						</footer>
+					</div>
+				</Draggable>
+			</div>
+		</xpath>
+	</t>
+
+	<t t-name="ProductScreen" t-inherit="point_of_sale.ProductScreen" t-inherit-mode="extension" owl="1">
+		<xpath expr="//div[hasclass('product-screen')]" position="replace">
+			<div class="product-screen screen" t-att-class="{ oe_hidden: !props.isShown }">
+				<div class="screen-full-width">
+					<t t-if="controlButtons.length != 0">
+						<t t-if="!env.isMobile and env.pos.pos_theme_settings_data and env.pos.pos_theme_settings_data.length > 0 and env.pos.pos_theme_settings_data[0] and env.pos.pos_theme_settings_data[0].sh_action_button_position and env.pos.pos_theme_settings_data[0].sh_action_button_position == 'left_side'">
+							<div class="control-buttons sh_left_control_buttons">
+								<t t-foreach="controlButtons" t-as="cb" t-key="cb.name">
+									<t t-component="cb.component" t-key="cb.name" />
+								</t>
+							</div>
+						</t>
+					</t>
+					<t t-if="env.pos.pos_theme_settings_data and env.pos.pos_theme_settings_data.length > 0 and env.pos.pos_theme_settings_data[0] and env.pos.pos_theme_settings_data[0].sh_cart_position and env.pos.pos_theme_settings_data[0].sh_cart_position == 'left_side'">
+						<!-- <div class="leftpane" t-if="!env.isMobile || mobile_pane === 'left'"> -->
+						<div class="leftpane">
+							<t t-if="state.cashControl">
+								<CashBoxOpening cashControl="state"/>
+							</t>
+							<t t-else="">
+								<OrderWidget/>
+								<div class="pads">
+									<t t-if="env.isMobile">
+										<div class="control-buttons 456">
+											<t t-foreach="controlButtons" t-as="cb" t-key="cb.name">
+												<t t-component="cb.component" t-key="cb.name" />
+											</t>
+										</div>
+									</t>
+									<div class="subpads">
+
+										<NumpadWidget activeMode="state.numpadMode" />
+										<ActionpadWidget client="client"/>
+									</div>
+								</div>
+								<t t-if="env.isMobile">
+									<MobileOrderWidget pane="mobile_pane" t-on-switchpane="switchPane"/>
+								</t>
+							</t>
+						</div>
+						<!-- <div class="rightpane" t-if="!env.isMobile || mobile_pane === 'right'"> -->
+						<div class="rightpane">
+							<ProductsWidget t-if="!state.cashControl"/>
+							<t t-if="env.isMobile">
+								<MobileOrderWidget pane="mobile_pane" t-on-switchpane="switchPane"/>
+							</t>
+						</div>
+
+						<!-- 12-02-2021 -->
+						<t t-if="controlButtons.length != 0">
+							<t t-if="!env.isMobile and env.pos.pos_theme_settings_data and env.pos.pos_theme_settings_data.length > 0 and env.pos.pos_theme_settings_data[0] and env.pos.pos_theme_settings_data[0].sh_action_button_position and env.pos.pos_theme_settings_data[0].sh_action_button_position == 'right_side'">
+								<div class="control-buttons sh_left_control_buttons">
+									<t t-foreach="controlButtons" t-as="cb" t-key="cb.name">
+										<t t-component="cb.component" t-key="cb.name" />
+									</t>
+								</div>
+							</t>
+						</t>
+						<!-- 12-02-2021 finish-->
+						<div t-if="env.isMobile and mobile_pane === 'both'">
+
+							<div class="leftpane">
+								<t t-if="state.cashControl">
+									<CashBoxOpening cashControl="state"/>
+								</t>
+								<t t-else="">
+									<OrderWidget/>
+									<div class="pads">
+										<t t-if="env.isMobile">
+											<div class="control-buttons 74">
+												<t t-foreach="controlButtons" t-as="cb" t-key="cb.name">
+													<t t-component="cb.component" t-key="cb.name" />
+												</t>
+											</div>
+										</t>
+										<div class="subpads">
+
+											<NumpadWidget activeMode="state.numpadMode" />
+											<ActionpadWidget client="client"/>
+										</div>
+									</div>
+									<t t-if="env.isMobile">
+										<MobileOrderWidget pane="mobile_pane" t-on-switchpane="switchPane"/>
+									</t>
+								</t>
+							</div>
+							<div class="rightpane">
+								<ProductsWidget t-if="!state.cashControl"/>
+								<t t-if="env.isMobile">
+									<MobileOrderWidget pane="mobile_pane" t-on-switchpane="switchPane"/>
+								</t>
+							</div>
+						</div>
+					</t>
+
+					<t t-if="env.pos.pos_theme_settings_data and env.pos.pos_theme_settings_data.length > 0 and env.pos.pos_theme_settings_data[0] and env.pos.pos_theme_settings_data[0].sh_cart_position and env.pos.pos_theme_settings_data[0].sh_cart_position == 'right_side'">
+						<t t-if="!env.isMobile">
+							<div class="rightpane">
+								<ProductsWidget t-if="!state.cashControl"/>
+								<t t-if="env.isMobile">
+									<MobileOrderWidget pane="mobile_pane" t-on-switchpane="switchPane"/>
+								</t>
+							</div>
+						</t>
+
+						<div class="leftpane">
+							<t t-if="state.cashControl">
+								<CashBoxOpening cashControl="state"/>
+							</t>
+							<t t-else="">
+								<OrderWidget/>
+								<div class="pads">
+
+									<t t-if="env.isMobile">
+										<div class="control-buttons 23">
+											<t t-foreach="controlButtons" t-as="cb" t-key="cb.name">
+												<t t-component="cb.component" t-key="cb.name" />
+											</t>
+										</div>
+									</t>
+
+
+									<div class="subpads">
+
+										<NumpadWidget activeMode="state.numpadMode" />
+										<ActionpadWidget client="client"/>
+									</div>
+								</div>
+								<t t-if="env.isMobile">
+									<MobileOrderWidget pane="mobile_pane" t-on-switchpane="switchPane"/>
+								</t>
+							</t>
+						</div>
+						<!-- 12-02-2021 -->
+						<t t-if="controlButtons.length != 0">
+							<t t-if="!env.isMobile and env.pos.pos_theme_settings_data and env.pos.pos_theme_settings_data.length > 0 and env.pos.pos_theme_settings_data[0] and env.pos.pos_theme_settings_data[0].sh_action_button_position and env.pos.pos_theme_settings_data[0].sh_action_button_position == 'right_side'">
+								<div class="control-buttons sh_left_control_buttons">
+									<t t-foreach="controlButtons" t-as="cb" t-key="cb.name">
+										<t t-component="cb.component" t-key="cb.name" />
+									</t>
+								</div>
+							</t>
+						</t>
+						<!-- 12-02-2021 finish-->
+						<t t-if="env.isMobile">
+							<div class="rightpane">
+								<ProductsWidget t-if="!state.cashControl"/>
+								<t t-if="env.isMobile">
+									<MobileOrderWidget pane="mobile_pane" t-on-switchpane="switchPane"/>
+								</t>
+							</div>
+						</t>
+					</t>
+				</div>
+				<t t-if="controlButtons.length != 0">
+					<t t-if="!env.isMobile and env.pos.pos_theme_settings_data and env.pos.pos_theme_settings_data.length > 0 and env.pos.pos_theme_settings_data[0] and env.pos.pos_theme_settings_data[0].sh_action_button_position and env.pos.pos_theme_settings_data[0].sh_action_button_position == 'bottom'">
+
+						<div id="owl-demo" class="owl-carousel owl-theme">
+							<t t-foreach="controlButtons" t-as="cb" t-key="cb.name">
+								<t t-if="cb.name == 'SetSaleOrderButton'">
+									<t t-if="!env.pos.config.allow_quotation_order">
+										<div class="item">
+											<t t-component="cb.component" t-key="cb.name" />
+										</div>
+									</t>
+								</t>
+								<t t-else="">
+									<div class="item">
+										<t t-component="cb.component" t-key="cb.name" />
+									</div>
+								</t>
+							</t>
+						</div>
+					</t>
+				</t>
+			</div>
+		</xpath>
+	</t>
+	<t t-extend="ProductItem" t-inherit="point_of_sale.ProductItem" t-inherit-mode="extension">
+		<xpath expr="//i[hasclass('product-info-button')]" position="replace">
+			<t t-if="props.product.sh_qty_in_bag">
+				<i role="img" aria-label="Info" title="Info" class="product-info-button product-info-bag-button fa fa-info-circle" t-on-click.stop="onProductInfoClick()" />
+			</t>
+			<t t-else="">
+				<i role="img" aria-label="Info" title="Info" class="product-info-button fa fa-info-circle" t-on-click.stop="onProductInfoClick()" />
+			</t>
+		</xpath>
+		<xpath expr="//div[hasclass('product-name')]" position="replace">
+
+			<t t-if="env.pos.config.sh_enable_prduct_code">
+				<div class="product_ref_code">
+					<span class="sh_ref_cd">
+						<t t-if="props.product.default_code">
+							<p class="sh_ref_code_value">
+							[
+								<t t-esc="props.product.default_code" />
+							]
+							</p>
+						</t>
+					</span>
+				</div>
+			</t>
+
+			<t t-if="(env.pos.config.sh_display_stock and env.pos.config.sh_show_qty_location and !env.pos.config.sh_display_stock_from_other_companies) and (env.pos.config.enable_product_bundle) and (env.pos.config.sh_dispaly_bag_qty)">
+				<t t-if="props.product.type=='product' and props.product.sh_is_bundle and props.product.sh_qty_in_bag">
+					<t t-if="env.pos and env.pos.config.sh_enable_prduct_code">
+						<div class="product-name sh_product_name_3_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+					<t t-else="">
+						<div class="product-name product_name_no_ref_code sh_product_name_3_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+
+					<t t-if="env.pos.config.sh_display_stock">
+						<span class="product-image-icon sh_product_img_3_icon" style="position: absolute; bottom: 5px; font-size: 20px; right: 0px; line-height: 13px; border-radius: 2px; z-index: 1000; color: #919191; padding: 3px;margin-right: 48px;" t-on-click.stop="trigger('click-product-image-icon',props.product)">
+							<svg id="Layer_1" data-name="Layer 1"
+								xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 122">
+								<path d="M100,62V25L70,9,40,26l-.5,35.5L10,77v37l31,17,29-16,31,16,29-17V76ZM40,91,15,78,41,65,66,77Zm28,21L42,127V94L68,79ZM44,27,70,13,95,25,70,39ZM72,42,97,28V61L72,74ZM99,91,74,78,99,65l25,12Zm27,22-25,14V94l25-14Z" transform="translate(-10 -9)"></path>
+							</svg>
+						</span>
+					</t>
+					<t t-if="env.pos.config.enable_product_bundle and props.product.sh_is_bundle">
+						<span class="product-bundle-icon sh_product_img_3_icon" style="position: absolute; bottom: 5px; font-size: 20px; right: 0px; line-height: 13px; border-radius: 2px; z-index: 1000; color: #7f82ac; padding: 3px;margin-right: 28px;" t-on-click.stop="trigger('click-product-bundle-icon',props.product)">
+							<svg id="Layer_1" data-name="Layer 1"
+								xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120.5 107">
+								<path d="M70,17,9.5,47.5,70,78l60-31Zm-.07,51.9L25.5,46.5,69.93,24.1l44.07,22Z" transform="translate(-9.5 -17)"></path>
+								<polygon points="0.5 53 16.5 53 60.5 76 103.5 53 120.5 53 60.5 84 0.5 53"></polygon>
+								<polygon points="0.5 76 16.5 76 60.5 99 103.5 76 120.5 76 60.5 107 0.5 76"></polygon>
+							</svg>
+						</span>
+						<img src="/sh_pos_all_in_one_retail/static/src/img/ribbon/ribbon.png" alt="ribbon" style="position: absolute;top: 0;right: 0;" />
+					</t>
+					<t t-if="props.product.sh_qty_in_bag">
+						<span class="product-image-icon-qty-add sh_product_img_3_icon" style="position: absolute;bottom: 5px;font-size: 20px;right: 0px;border-radius: 2px;z-index: 1000;color: #fff;padding: 3px 4px;line-height: 0;margin-right:06px;" t-on-click.stop="trigger('Add_Product',props.product)">
+							<svg style='width: 13px;' id="Layer_1" data-name="Layer 1"
+								xmlns="http://www.w3.org/2000/svg" viewBox="0 0 125 125">
+								<rect y="48" width="125" height="29" rx="3.57"/>
+								<rect x="8" y="56" width="125" height="29" rx="3.57" transform="translate(133 -8) rotate(90)"/>
+							</svg>
+
+
+						</span>
+					</t>
+				</t>
+				<t t-elif="props.product.type=='product' and props.product.sh_is_bundle and !props.product.sh_qty_in_bag">
+					<t t-if="env.pos and env.pos.config.sh_enable_prduct_code">
+						<div class="product-name sh_product_name_2_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+					<t t-else="">
+						<div class="product-name product_name_no_ref_code sh_product_name_2_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+
+					<t t-if="env.pos.config.sh_display_stock">
+						<span class="product-image-icon sh_product_img_2_icon" style="position: absolute; bottom: 5px; font-size: 20px; right: 0px; line-height: 13px; border-radius: 2px; z-index: 1000; color: #919191; padding: 3px;margin-right: 28px;" t-on-click.stop="trigger('click-product-image-icon',props.product)">
+							<svg id="Layer_1" data-name="Layer 1"
+								xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 122">
+								<path d="M100,62V25L70,9,40,26l-.5,35.5L10,77v37l31,17,29-16,31,16,29-17V76ZM40,91,15,78,41,65,66,77Zm28,21L42,127V94L68,79ZM44,27,70,13,95,25,70,39ZM72,42,97,28V61L72,74ZM99,91,74,78,99,65l25,12Zm27,22-25,14V94l25-14Z" transform="translate(-10 -9)"></path>
+							</svg>
+						</span>
+					</t>
+					<t t-if="env.pos.config.enable_product_bundle and props.product.sh_is_bundle">
+						<span class="product-bundle-icon sh_product_img_2_icon" style="position: absolute; bottom: 5px; font-size: 20px; right: 0px; line-height: 13px; border-radius: 2px; z-index: 1000; color: #7f82ac; padding: 3px;margin-right: 6px;" t-on-click.stop="trigger('click-product-bundle-icon',props.product)">
+							<svg id="Layer_1" data-name="Layer 1"
+								xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120.5 107">
+								<path d="M70,17,9.5,47.5,70,78l60-31Zm-.07,51.9L25.5,46.5,69.93,24.1l44.07,22Z" transform="translate(-9.5 -17)"></path>
+								<polygon points="0.5 53 16.5 53 60.5 76 103.5 53 120.5 53 60.5 84 0.5 53"></polygon>
+								<polygon points="0.5 76 16.5 76 60.5 99 103.5 76 120.5 76 60.5 107 0.5 76"></polygon>
+							</svg>
+						</span>
+						<img src="/sh_pos_all_in_one_retail/static/src/img/ribbon/ribbon.png" alt="ribbon" style="position: absolute;top: 0;right: 0;" />
+					</t>
+				</t>
+				<t t-elif="props.product.type=='product' and !props.product.sh_is_bundle and props.product.sh_qty_in_bag">
+					<t t-if="env.pos and env.pos.config.sh_enable_prduct_code">
+						<div class="product-name sh_product_name_2_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+					<t t-else="">
+						<div class="product-name product_name_no_ref_code sh_product_name_2_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+
+					<t t-if="env.pos.config.sh_display_stock">
+						<span class="product-image-icon sh_product_img_2_icon" style="position: absolute; bottom: 5px; font-size: 20px; right: 0px; line-height: 13px; border-radius: 2px; z-index: 1000; color: #919191; padding: 3px;margin-right: 28px;" t-on-click.stop="trigger('click-product-image-icon',props.product)">
+							<svg id="Layer_1" data-name="Layer 1"
+								xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 122">
+								<path d="M100,62V25L70,9,40,26l-.5,35.5L10,77v37l31,17,29-16,31,16,29-17V76ZM40,91,15,78,41,65,66,77Zm28,21L42,127V94L68,79ZM44,27,70,13,95,25,70,39ZM72,42,97,28V61L72,74ZM99,91,74,78,99,65l25,12Zm27,22-25,14V94l25-14Z" transform="translate(-10 -9)"></path>
+							</svg>
+						</span>
+					</t>
+					<t t-if="props.product.sh_qty_in_bag">
+						<span class="product-image-icon-qty-add sh_product_img_2_icon" style="position: absolute;bottom: 5px;font-size: 20px;right: 0px;border-radius: 2px;z-index: 1000;color: #fff;padding: 3px 4px;line-height: 0;margin-right:6px;" t-on-click.stop="trigger('Add_Product',props.product)">
+							<svg style='width: 13px;' id="Layer_1" data-name="Layer 1"
+								xmlns="http://www.w3.org/2000/svg" viewBox="0 0 125 125">
+								<rect y="48" width="125" height="29" rx="3.57"/>
+								<rect x="8" y="56" width="125" height="29" rx="3.57" transform="translate(133 -8) rotate(90)"/>
+							</svg>
+
+
+						</span>
+					</t>
+				</t>
+				<t t-elif="props.product.type!='product' and props.product.sh_is_bundle and props.product.sh_qty_in_bag">
+					<t t-if="env.pos and env.pos.config.sh_enable_prduct_code">
+						<div class="product-name sh_product_name_2_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+					<t t-else="">
+						<div class="product-name product_name_no_ref_code sh_product_name_2_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+
+					<t t-if="env.pos.config.enable_product_bundle and props.product.sh_is_bundle">
+						<span class="product-bundle-icon sh_product_img_2_icon" style="position: absolute; bottom: 5px; font-size: 20px; right: 0px; line-height: 13px; border-radius: 2px; z-index: 1000; color: #7f82ac; padding: 3px;margin-right: 28px;" t-on-click.stop="trigger('click-product-bundle-icon',props.product)">
+							<svg id="Layer_1" data-name="Layer 1"
+								xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120.5 107">
+								<path d="M70,17,9.5,47.5,70,78l60-31Zm-.07,51.9L25.5,46.5,69.93,24.1l44.07,22Z" transform="translate(-9.5 -17)"></path>
+								<polygon points="0.5 53 16.5 53 60.5 76 103.5 53 120.5 53 60.5 84 0.5 53"></polygon>
+								<polygon points="0.5 76 16.5 76 60.5 99 103.5 76 120.5 76 60.5 107 0.5 76"></polygon>
+							</svg>
+						</span>
+						<img src="/sh_pos_all_in_one_retail/static/src/img/ribbon/ribbon.png" alt="ribbon" style="position: absolute;top: 0;right: 0;" />
+					</t>
+					<t t-if="props.product.sh_qty_in_bag">
+						<span class="product-image-icon-qty-add sh_product_img_2_icon" style="position: absolute;bottom: 5px;font-size: 20px;right: 0px;border-radius: 2px;z-index: 1000;color: #fff;padding: 3px 4px;line-height: 0;margin-right:6px;" t-on-click.stop="trigger('Add_Product',props.product)">
+							<svg style='width: 13px;' id="Layer_1" data-name="Layer 1"
+								xmlns="http://www.w3.org/2000/svg" viewBox="0 0 125 125">
+								<rect y="48" width="125" height="29" rx="3.57"/>
+								<rect x="8" y="56" width="125" height="29" rx="3.57" transform="translate(133 -8) rotate(90)"/>
+							</svg>
+
+
+						</span>
+					</t>
+				</t>
+				<t t-elif="props.product.type!='product' and !props.product.sh_is_bundle and props.product.sh_qty_in_bag">
+					<t t-if="env.pos and env.pos.config.sh_enable_prduct_code">
+						<div class="product-name sh_product_name_1_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+					<t t-else="">
+						<div class="product-name product_name_no_ref_code sh_product_name_1_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+
+					<t t-if="props.product.sh_qty_in_bag">
+						<span class="product-image-icon-qty-add sh_product_img_1_icon" style="position: absolute;bottom: 5px;font-size: 20px;right: 0px;border-radius: 2px;z-index: 1000;color: #fff;padding: 3px 4px;line-height: 0;margin-right:6px;" t-on-click.stop="trigger('Add_Product',props.product)">
+							<svg style='width: 13px;' id="Layer_1" data-name="Layer 1"
+								xmlns="http://www.w3.org/2000/svg" viewBox="0 0 125 125">
+								<rect y="48" width="125" height="29" rx="3.57"/>
+								<rect x="8" y="56" width="125" height="29" rx="3.57" transform="translate(133 -8) rotate(90)"/>
+							</svg>
+
+
+						</span>
+					</t>
+				</t>
+				<t t-elif="props.product.type!='product' and props.product.sh_is_bundle and !props.product.sh_qty_in_bag">
+					<t t-if="env.pos and env.pos.config.sh_enable_prduct_code">
+						<div class="product-name sh_product_name_1_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+					<t t-else="">
+						<div class="product-name product_name_no_ref_code sh_product_name_1_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+
+					<t t-if="env.pos.config.enable_product_bundle and props.product.sh_is_bundle">
+						<span class="product-bundle-icon sh_product_img_1_icon" style="position: absolute; bottom: 5px; font-size: 20px; right: 0px; line-height: 13px; border-radius: 2px; z-index: 1000; color: #7f82ac; padding: 3px;margin-right: 6px;" t-on-click.stop="trigger('click-product-bundle-icon',props.product)">
+							<svg id="Layer_1" data-name="Layer 1"
+								xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120.5 107">
+								<path d="M70,17,9.5,47.5,70,78l60-31Zm-.07,51.9L25.5,46.5,69.93,24.1l44.07,22Z" transform="translate(-9.5 -17)"></path>
+								<polygon points="0.5 53 16.5 53 60.5 76 103.5 53 120.5 53 60.5 84 0.5 53"></polygon>
+								<polygon points="0.5 76 16.5 76 60.5 99 103.5 76 120.5 76 60.5 107 0.5 76"></polygon>
+							</svg>
+						</span>
+						<img src="/sh_pos_all_in_one_retail/static/src/img/ribbon/ribbon.png" alt="ribbon" style="position: absolute;top: 0;right: 0;" />
+					</t>
+				</t>
+				<t t-elif="props.product.type=='product' and !props.product.sh_is_bundle and !props.product.sh_qty_in_bag">
+					<t t-if="env.pos and env.pos.config.sh_enable_prduct_code">
+						<div class="product-name sh_product_name_1_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+					<t t-else="">
+						<div class="product-name product_name_no_ref_code sh_product_name_1_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+
+					<t t-if="env.pos.config.sh_display_stock">
+						<span class="product-image-icon sh_product_img_1_icon" style="position: absolute; bottom: 5px; font-size: 20px; right: 0px; line-height: 13px; border-radius: 2px; z-index: 1000; color: #919191; padding: 3px;margin-right: 06px;" t-on-click.stop="trigger('click-product-image-icon',props.product)">
+							<svg id="Layer_1" data-name="Layer 1"
+								xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 122">
+								<path d="M100,62V25L70,9,40,26l-.5,35.5L10,77v37l31,17,29-16,31,16,29-17V76ZM40,91,15,78,41,65,66,77Zm28,21L42,127V94L68,79ZM44,27,70,13,95,25,70,39ZM72,42,97,28V61L72,74ZM99,91,74,78,99,65l25,12Zm27,22-25,14V94l25-14Z" transform="translate(-10 -9)"></path>
+							</svg>
+						</span>
+					</t>
+				</t>
+				<t t-else="">
+					<t t-if="env.pos and env.pos.config.sh_enable_prduct_code">
+						<div class="product-name sh_product_name_0_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+					<t t-else="">
+						<div class="product-name product_name_no_ref_code sh_product_name_0_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+
+				</t>
+			</t>
+			<t t-elif="(env.pos.config.sh_display_stock and env.pos.config.sh_show_qty_location and !env.pos.config.sh_display_stock_from_other_companies) and (!env.pos.config.enable_product_bundle) and (env.pos.config.sh_dispaly_bag_qty)">
+				<t t-if="props.product.type=='product' and props.product.sh_qty_in_bag">
+					<t t-if="env.pos and env.pos.config.sh_enable_prduct_code">
+						<div class="product-name sh_product_name_2_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+					<t t-else="">
+						<div class="product-name product_name_no_ref_code sh_product_name_2_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+
+					<t t-if="props.product.type=='product'">
+						<span class="product-image-icon sh_product_img_2_icon" style="position: absolute; bottom: 5px; font-size: 20px; right: 0px; line-height: 13px; border-radius: 2px; z-index: 1000; color: #919191; padding: 3px;margin-right: 28px;" t-on-click.stop="trigger('click-product-image-icon',props.product)">
+							<svg id="Layer_1" data-name="Layer 1"
+								xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 122">
+								<path d="M100,62V25L70,9,40,26l-.5,35.5L10,77v37l31,17,29-16,31,16,29-17V76ZM40,91,15,78,41,65,66,77Zm28,21L42,127V94L68,79ZM44,27,70,13,95,25,70,39ZM72,42,97,28V61L72,74ZM99,91,74,78,99,65l25,12Zm27,22-25,14V94l25-14Z" transform="translate(-10 -9)"></path>
+							</svg>
+						</span>
+					</t>
+					<t t-if="props.product.sh_qty_in_bag">
+						<span class="product-image-icon-qty-add sh_product_img_2_icon" style="position: absolute;bottom: 5px;font-size: 20px;right: 0px;border-radius: 2px;z-index: 1000;color: #fff;padding: 3px 4px;line-height: 0;margin-right:06px;" t-on-click.stop="trigger('Add_Product',props.product)">
+							<svg style='width: 13px;' id="Layer_1" data-name="Layer 1"
+								xmlns="http://www.w3.org/2000/svg" viewBox="0 0 125 125">
+								<rect y="48" width="125" height="29" rx="3.57"/>
+								<rect x="8" y="56" width="125" height="29" rx="3.57" transform="translate(133 -8) rotate(90)"/>
+							</svg>
+
+
+						</span>
+					</t>
+				</t>
+				<t t-elif="props.product.type=='product' and !props.product.sh_qty_in_bag">
+					<t t-if="env.pos and env.pos.config.sh_enable_prduct_code">
+						<div class="product-name sh_product_name_1_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+					<t t-else="">
+						<div class="product-name product_name_no_ref_code sh_product_name_1_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+
+					<t t-if="props.product.type=='product'">
+						<span class="product-image-icon sh_product_img_1_icon" style="position: absolute; bottom: 5px; font-size: 20px; right: 0px; line-height: 13px; border-radius: 2px; z-index: 1000; color: #919191; padding: 3px;margin-right: 06px;" t-on-click.stop="trigger('click-product-image-icon',props.product)">
+							<svg id="Layer_1" data-name="Layer 1"
+								xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 122">
+								<path d="M100,62V25L70,9,40,26l-.5,35.5L10,77v37l31,17,29-16,31,16,29-17V76ZM40,91,15,78,41,65,66,77Zm28,21L42,127V94L68,79ZM44,27,70,13,95,25,70,39ZM72,42,97,28V61L72,74ZM99,91,74,78,99,65l25,12Zm27,22-25,14V94l25-14Z" transform="translate(-10 -9)"></path>
+							</svg>
+						</span>
+					</t>
+				</t>
+				<t t-elif="props.product.type!='product' and props.product.sh_qty_in_bag">
+					<t t-if="env.pos and env.pos.config.sh_enable_prduct_code">
+						<div class="product-name sh_product_name_1_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+					<t t-else="">
+						<div class="product-name product_name_no_ref_code sh_product_name_1_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+
+					<t t-if="props.product.sh_qty_in_bag">
+						<span class="product-image-icon-qty-add sh_product_img_1_icon" style="position: absolute;bottom: 5px;font-size: 20px;right: 0px;border-radius: 2px;z-index: 1000;color: #fff;padding: 3px 4px;line-height: 0;margin-right:06px;" t-on-click.stop="trigger('Add_Product',props.product)">
+							<svg style='width: 13px;' id="Layer_1" data-name="Layer 1"
+								xmlns="http://www.w3.org/2000/svg" viewBox="0 0 125 125">
+								<rect y="48" width="125" height="29" rx="3.57"/>
+								<rect x="8" y="56" width="125" height="29" rx="3.57" transform="translate(133 -8) rotate(90)"/>
+							</svg>
+
+
+						</span>
+					</t>
+				</t>
+				<t t-else="">
+					<t t-if="env.pos and env.pos.config.sh_enable_prduct_code">
+						<div class="product-name sh_product_name_0_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+					<t t-else="">
+						<div class="product-name product_name_no_ref_code sh_product_name_0_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+
+				</t>
+			</t>
+			<t t-elif="(env.pos.config.sh_display_stock and env.pos.config.sh_show_qty_location and !env.pos.config.sh_display_stock_from_other_companies) and (env.pos.config.enable_product_bundle) and (!env.pos.config.sh_dispaly_bag_qty)">
+				<t t-if="props.product.type=='product' and props.product.sh_is_bundle">
+					<t t-if="env.pos and env.pos.config.sh_enable_prduct_code">
+						<div class="product-name sh_product_name_2_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+					<t t-else="">
+						<div class="product-name product_name_no_ref_code sh_product_name_2_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+
+					<span class="product-image-icon sh_product_img_2_icon" style="position: absolute; bottom: 5px; font-size: 20px; right: 0px; line-height: 13px; border-radius: 2px; z-index: 1000; color: #919191; padding: 3px;margin-right: 28px;" t-on-click.stop="trigger('click-product-image-icon',props.product)">
+						<svg id="Layer_1" data-name="Layer 1"
+							xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 122">
+							<path d="M100,62V25L70,9,40,26l-.5,35.5L10,77v37l31,17,29-16,31,16,29-17V76ZM40,91,15,78,41,65,66,77Zm28,21L42,127V94L68,79ZM44,27,70,13,95,25,70,39ZM72,42,97,28V61L72,74ZM99,91,74,78,99,65l25,12Zm27,22-25,14V94l25-14Z" transform="translate(-10 -9)"></path>
+						</svg>
+					</span>
+					<t t-if="env.pos.config.enable_product_bundle and props.product.sh_is_bundle">
+						<span class="product-bundle-icon sh_product_img_2_icon" style="position: absolute; bottom: 5px; font-size: 20px; right: 0px; line-height: 13px; border-radius: 2px; z-index: 1000; color: #7f82ac; padding: 3px;margin-right: 6px;" t-on-click.stop="trigger('click-product-bundle-icon',props.product)">
+							<svg id="Layer_1" data-name="Layer 1"
+								xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120.5 107">
+								<path d="M70,17,9.5,47.5,70,78l60-31Zm-.07,51.9L25.5,46.5,69.93,24.1l44.07,22Z" transform="translate(-9.5 -17)"></path>
+								<polygon points="0.5 53 16.5 53 60.5 76 103.5 53 120.5 53 60.5 84 0.5 53"></polygon>
+								<polygon points="0.5 76 16.5 76 60.5 99 103.5 76 120.5 76 60.5 107 0.5 76"></polygon>
+							</svg>
+						</span>
+						<img src="/sh_pos_all_in_one_retail/static/src/img/ribbon/ribbon.png" alt="ribbon" style="position: absolute;top: 0;right: 0;" />
+					</t>
+				</t>
+				<t t-elif="props.product.type=='product' and !props.product.sh_is_bundle">
+					<t t-if="env.pos and env.pos.config.sh_enable_prduct_code">
+						<div class="product-name sh_product_name_1_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+					<t t-else="">
+						<div class="product-name product_name_no_ref_code sh_product_name_1_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+
+					<span class="product-image-icon sh_product_img_1_icon" style="position: absolute; bottom: 5px; font-size: 20px; right: 0px; line-height: 13px; border-radius: 2px; z-index: 1000; color: #919191; padding: 3px;margin-right: 06px;" t-on-click.stop="trigger('click-product-image-icon',props.product)">
+						<svg id="Layer_1" data-name="Layer 1"
+							xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 122">
+							<path d="M100,62V25L70,9,40,26l-.5,35.5L10,77v37l31,17,29-16,31,16,29-17V76ZM40,91,15,78,41,65,66,77Zm28,21L42,127V94L68,79ZM44,27,70,13,95,25,70,39ZM72,42,97,28V61L72,74ZM99,91,74,78,99,65l25,12Zm27,22-25,14V94l25-14Z" transform="translate(-10 -9)"></path>
+						</svg>
+					</span>
+				</t>
+				<t t-elif="props.product.type!='product' and props.product.sh_is_bundle">
+					<t t-if="env.pos and env.pos.config.sh_enable_prduct_code">
+						<div class="product-name sh_product_name_1_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+					<t t-else="">
+						<div class="product-name product_name_no_ref_code sh_product_name_1_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+
+					<t t-if="env.pos.config.enable_product_bundle and props.product.sh_is_bundle">
+						<span class="product-bundle-icon sh_product_img_1_icon" style="position: absolute; bottom: 5px; font-size: 20px; right: 0px; line-height: 13px; border-radius: 2px; z-index: 1000; color: #7f82ac; padding: 3px;margin-right: 6px;" t-on-click.stop="trigger('click-product-bundle-icon',props.product)">
+							<svg id="Layer_1" data-name="Layer 1"
+								xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120.5 107">
+								<path d="M70,17,9.5,47.5,70,78l60-31Zm-.07,51.9L25.5,46.5,69.93,24.1l44.07,22Z" transform="translate(-9.5 -17)"></path>
+								<polygon points="0.5 53 16.5 53 60.5 76 103.5 53 120.5 53 60.5 84 0.5 53"></polygon>
+								<polygon points="0.5 76 16.5 76 60.5 99 103.5 76 120.5 76 60.5 107 0.5 76"></polygon>
+							</svg>
+						</span>
+						<img src="/sh_pos_all_in_one_retail/static/src/img/ribbon/ribbon.png" alt="ribbon" style="position: absolute;top: 0;right: 0;" />
+					</t>
+				</t>
+				<t t-else="">
+					<t t-if="env.pos and env.pos.config.sh_enable_prduct_code">
+						<div class="product-name sh_product_name_0_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+					<t t-else="">
+						<div class="product-name product_name_no_ref_code sh_product_name_0_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+
+				</t>
+			</t>
+			<t t-elif="(!(env.pos.config.sh_display_stock and env.pos.config.sh_show_qty_location and !env.pos.config.sh_display_stock_from_other_companies)) and (env.pos.config.enable_product_bundle) and (env.pos.config.sh_dispaly_bag_qty)">
+				<t t-if="props.product.sh_qty_in_bag and props.product.sh_is_bundle">
+					<t t-if="env.pos and env.pos.config.sh_enable_prduct_code">
+						<div class="product-name sh_product_name_2_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+					<t t-else="">
+						<div class="product-name product_name_no_ref_code sh_product_name_2_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+
+					<span class="product-image-icon-qty-add sh_product_img_2_icon" style="position: absolute;bottom: 5px;font-size: 20px;right: 0px;border-radius: 2px;z-index: 1000;color: #fff;padding: 3px 4px;line-height: 0;margin-right:28px;" t-on-click.stop="trigger('Add_Product',props.product)">
+						<svg style='width: 13px;' id="Layer_1" data-name="Layer 1"
+							xmlns="http://www.w3.org/2000/svg" viewBox="0 0 125 125">
+							<rect y="48" width="125" height="29" rx="3.57"/>
+							<rect x="8" y="56" width="125" height="29" rx="3.57" transform="translate(133 -8) rotate(90)"/>
+						</svg>
+
+
+					</span>
+
+					<t t-if="env.pos.config.enable_product_bundle and props.product.sh_is_bundle">
+						<span class="product-bundle-icon sh_product_img_2_icon" style="position: absolute; bottom: 5px; font-size: 20px; right: 0px; line-height: 13px; border-radius: 2px; z-index: 1000; color: #7f82ac; padding: 3px;margin-right: 6px;" t-on-click.stop="trigger('click-product-bundle-icon',props.product)">
+							<svg id="Layer_1" data-name="Layer 1"
+								xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120.5 107">
+								<path d="M70,17,9.5,47.5,70,78l60-31Zm-.07,51.9L25.5,46.5,69.93,24.1l44.07,22Z" transform="translate(-9.5 -17)"></path>
+								<polygon points="0.5 53 16.5 53 60.5 76 103.5 53 120.5 53 60.5 84 0.5 53"></polygon>
+								<polygon points="0.5 76 16.5 76 60.5 99 103.5 76 120.5 76 60.5 107 0.5 76"></polygon>
+							</svg>
+						</span>
+						<img src="/sh_pos_all_in_one_retail/static/src/img/ribbon/ribbon.png" alt="ribbon" style="position: absolute;top: 0;right: 0;" />
+					</t>
+
+				</t>
+				<t t-elif="props.product.sh_qty_in_bag and !props.product.sh_is_bundle">
+					<t t-if="env.pos and env.pos.config.sh_enable_prduct_code">
+						<div class="product-name sh_product_name_1_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+					<t t-else="">
+						<div class="product-name product_name_no_ref_code sh_product_name_1_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+
+					<span class="product-image-icon-qty-add sh_product_img_1_icon" style="position: absolute;bottom: 5px;font-size: 20px;right: 0px;border-radius: 2px;z-index: 1000;color: #fff;padding: 3px 4px;line-height: 0;margin-right:06px;" t-on-click.stop="trigger('Add_Product',props.product)">
+						<svg style='width: 13px;' id="Layer_1" data-name="Layer 1"
+							xmlns="http://www.w3.org/2000/svg" viewBox="0 0 125 125">
+							<rect y="48" width="125" height="29" rx="3.57"/>
+							<rect x="8" y="56" width="125" height="29" rx="3.57" transform="translate(133 -8) rotate(90)"/>
+						</svg>
+
+
+					</span>
+				</t>
+				<t t-elif="!props.product.sh_qty_in_bag and props.product.sh_is_bundle">
+					<t t-if="env.pos and env.pos.config.sh_enable_prduct_code">
+						<div class="product-name sh_product_name_1_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+					<t t-else="">
+						<div class="product-name product_name_no_ref_code sh_product_name_1_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+
+					<t t-if="env.pos.config.enable_product_bundle and props.product.sh_is_bundle">
+						<span class="product-bundle-icon sh_product_img_1_icon" style="position: absolute; bottom: 5px; font-size: 20px; right: 0px; line-height: 13px; border-radius: 2px; z-index: 1000; color: #7f82ac; padding: 3px;margin-right: 6px;" t-on-click.stop="trigger('click-product-bundle-icon',props.product)">
+							<svg id="Layer_1" data-name="Layer 1"
+								xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120.5 107">
+								<path d="M70,17,9.5,47.5,70,78l60-31Zm-.07,51.9L25.5,46.5,69.93,24.1l44.07,22Z" transform="translate(-9.5 -17)"></path>
+								<polygon points="0.5 53 16.5 53 60.5 76 103.5 53 120.5 53 60.5 84 0.5 53"></polygon>
+								<polygon points="0.5 76 16.5 76 60.5 99 103.5 76 120.5 76 60.5 107 0.5 76"></polygon>
+							</svg>
+						</span>
+						<img src="/sh_pos_all_in_one_retail/static/src/img/ribbon/ribbon.png" alt="ribbon" style="position: absolute;top: 0;right: 0;" />
+					</t>
+				</t>
+				<t t-else="">
+					<t t-if="env.pos and env.pos.config.sh_enable_prduct_code">
+						<div class="product-name sh_product_name_0_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+					<t t-else="">
+						<div class="product-name product_name_no_ref_code sh_product_name_0_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+
+				</t>
+
+			</t>
+			<t t-elif="(!(env.pos.config.sh_display_stock and env.pos.config.sh_show_qty_location and !env.pos.config.sh_display_stock_from_other_companies)) and (!env.pos.config.enable_product_bundle) and (env.pos.config.sh_dispaly_bag_qty)">
+
+				<t t-if="props.product.sh_qty_in_bag">
+					<t t-if="env.pos and env.pos.config.sh_enable_prduct_code">
+						<div class="product-name sh_product_name_1_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+					<t t-else="">
+						<div class="product-name product_name_no_ref_code sh_product_name_1_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+
+					<span class="product-image-icon-qty-add sh_product_img_1_icon" style="position: absolute;bottom: 5px;font-size: 20px;right: 0px;border-radius: 2px;z-index: 1000;color: #fff;padding: 3px 4px;line-height: 0;margin-right:06px;" t-on-click.stop="trigger('Add_Product',props.product)">
+						<svg style='width: 13px;' id="Layer_1" data-name="Layer 1"
+							xmlns="http://www.w3.org/2000/svg" viewBox="0 0 125 125">
+							<rect y="48" width="125" height="29" rx="3.57"/>
+							<rect x="8" y="56" width="125" height="29" rx="3.57" transform="translate(133 -8) rotate(90)"/>
+						</svg>
+
+
+					</span>
+				</t>
+				<t t-else="">
+					<t t-if="env.pos and env.pos.config.sh_enable_prduct_code">
+						<div class="product-name sh_product_name_0_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+					<t t-else="">
+						<div class="product-name product_name_no_ref_code sh_product_name_0_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+
+				</t>
+			</t>
+			<t t-elif="(env.pos.config.sh_display_stock and env.pos.config.sh_show_qty_location and !env.pos.config.sh_display_stock_from_other_companies) and (!env.pos.config.enable_product_bundle) and (!env.pos.config.sh_dispaly_bag_qty)">
+
+				<t t-if="env.pos.config.sh_display_stock">
+					<t t-if="env.pos and env.pos.config.sh_enable_prduct_code">
+						<div class="product-name sh_product_name_1_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+					<t t-else="">
+						<div class="product-name product_name_no_ref_code sh_product_name_1_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+
+					<span class="product-image-icon sh_product_img_1_icon" style="position: absolute; bottom: 5px; font-size: 20px; right: 0px; line-height: 13px; border-radius: 2px; z-index: 1000; color: #919191; padding: 3px;margin-right: 06px;" t-on-click.stop="trigger('click-product-image-icon',props.product)">
+						<svg id="Layer_1" data-name="Layer 1"
+							xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 122">
+							<path d="M100,62V25L70,9,40,26l-.5,35.5L10,77v37l31,17,29-16,31,16,29-17V76ZM40,91,15,78,41,65,66,77Zm28,21L42,127V94L68,79ZM44,27,70,13,95,25,70,39ZM72,42,97,28V61L72,74ZM99,91,74,78,99,65l25,12Zm27,22-25,14V94l25-14Z" transform="translate(-10 -9)"></path>
+						</svg>
+					</span>
+				</t>
+				<t t-else="">
+					<t t-if="env.pos and env.pos.config.sh_enable_prduct_code">
+						<div class="product-name sh_product_name_0_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+					<t t-else="">
+						<div class="product-name product_name_no_ref_code sh_product_name_0_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+
+				</t>
+
+			</t>
+			<t t-elif="(!(env.pos.config.sh_display_stock and env.pos.config.sh_show_qty_location and !env.pos.config.sh_display_stock_from_other_companies)) and (env.pos.config.enable_product_bundle) and (!env.pos.config.sh_dispaly_bag_qty)">
+				<t t-if="env.pos.config.enable_product_bundle and props.product.sh_is_bundle">
+					<t t-if="env.pos and env.pos.config.sh_enable_prduct_code">
+						<div class="product-name sh_product_name_1_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+					<t t-else="">
+						<div class="product-name product_name_no_ref_code sh_product_name_1_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+
+					<span class="product-bundle-icon sh_product_img_1_icon" style="position: absolute; bottom: 5px; font-size: 20px; right: 0px; line-height: 13px; border-radius: 2px; z-index: 1000; color: #7f82ac; padding: 3px;margin-right: 6px;" t-on-click.stop="trigger('click-product-bundle-icon',props.product)">
+						<svg id="Layer_1" data-name="Layer 1"
+							xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120.5 107">
+							<path d="M70,17,9.5,47.5,70,78l60-31Zm-.07,51.9L25.5,46.5,69.93,24.1l44.07,22Z" transform="translate(-9.5 -17)"></path>
+							<polygon points="0.5 53 16.5 53 60.5 76 103.5 53 120.5 53 60.5 84 0.5 53"></polygon>
+							<polygon points="0.5 76 16.5 76 60.5 99 103.5 76 120.5 76 60.5 107 0.5 76"></polygon>
+						</svg>
+					</span>
+					<img src="/sh_pos_all_in_one_retail/static/src/img/ribbon/ribbon.png" alt="ribbon" style="position: absolute;top: 0;right: 0;" />
+				</t>
+				<t t-else="">
+					<t t-if="env.pos and env.pos.config.sh_enable_prduct_code">
+						<div class="product-name sh_product_name_0_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+					<t t-else="">
+						<div class="product-name product_name_no_ref_code sh_product_name_0_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+
+				</t>
+			</t>
+			<t t-else="">
+				<t t-if="env.pos.config.enable_product_bundle and props.product.sh_is_bundle">
+					<t t-if="env.pos and env.pos.config.sh_enable_prduct_code">
+						<div class="product-name sh_product_name_1_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+					<t t-else="">
+						<div class="product-name product_name_no_ref_code sh_product_name_1_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+
+					<span class="product-bundle-icon sh_product_img_1_icon" style="position: absolute; bottom: 5px; font-size: 20px; right: 0px; line-height: 13px; border-radius: 2px; z-index: 1000; color: #7f82ac; padding: 3px;margin-right: 6px;" t-on-click.stop="trigger('click-product-bundle-icon',props.product)">
+						<svg id="Layer_1" data-name="Layer 1"
+							xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120.5 107">
+							<path d="M70,17,9.5,47.5,70,78l60-31Zm-.07,51.9L25.5,46.5,69.93,24.1l44.07,22Z" transform="translate(-9.5 -17)"></path>
+							<polygon points="0.5 53 16.5 53 60.5 76 103.5 53 120.5 53 60.5 84 0.5 53"></polygon>
+							<polygon points="0.5 76 16.5 76 60.5 99 103.5 76 120.5 76 60.5 107 0.5 76"></polygon>
+						</svg>
+					</span>
+					<img src="/sh_pos_all_in_one_retail/static/src/img/ribbon/ribbon.png" alt="ribbon" style="position: absolute;top: 0;right: 0;" />
+				</t>
+				<t t-else="">
+					<t t-if="env.pos and env.pos.config.sh_enable_prduct_code">
+						<div class="product-name sh_product_name_0_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+					<t t-else="">
+						<div class="product-name product_name_no_ref_code sh_product_name_0_icon" t-attf-id="article_product_{{props.product.id}}">
+							<t t-esc="props.product.display_name" />
+						</div>
+					</t>
+
+				</t>
+			</t>
+		</xpath>
+	</t>
+
+	<t t-name="ClosePosPopup" t-inherit="point_of_sale.ClosePosPopup" t-inherit-mode="extension" owl="1">
+		<xpath expr="//div[hasclass('modal-dialog')]" position="replace">
+			<div role="dialog" class="modal-dialog">
+				<div class="popup close-pos-popup sh-close-pos-popup">
+					<header class="title">
+                    CLOSING CONTROL
+					</header>
+					<main class="body">
+						<div class="session-overview">
+							<div class="overview-info">
+								<div class="info-title column-left">
+									<span>Total <t t-esc="ordersDetails.quantity"/>
+ orders</span>
+									<span>Payments</span>
+									<span>Customer Account</span>
+								</div>
+								<div class="info-value column-left">
+									<span t-esc="env.pos.format_currency(ordersDetails.amount)"/>
+									<span t-esc="env.pos.format_currency(paymentsAmount)"/>
+									<span t-esc="env.pos.format_currency(payLaterAmount)"/>
+								</div>
+							</div>
+							<div t-if="openingNotes" class="opening-note">
+								<t t-esc="openingNotes"/>
+							</div>
+						</div>
+						<div class="payment-methods-overview">
+							<table>
+								<thead>
+									<tr>
+										<th>Payment Method</th>
+										<th>Expected</th>
+										<th style="width: 25%">Counted</th>
+										<th style="width: 20%">Difference</th>
+									</tr>
+								</thead>
+								<t t-if="cashControl">
+									<tbody>
+										<tr>
+											<td t-esc="defaultCashDetails.name"/>
+											<td t-esc="env.pos.format_currency(defaultCashDetails.amount)"/>
+											<td class="flex" t-on-input="handleInputChange(defaultCashDetails.id)">
+												<input class="pos-input" type="number" t-model.number="state.payments[defaultCashDetails.id].counted"/>
+												<div class="button icon" t-on-click="openDetailsPopup()">
+													<i class="fa fa-calculator" role="img" title="Open the money details popup"/>
+												</div>
+											</td>
+											<td t-esc="env.pos.format_currency(state.payments[defaultCashDetails.id].difference)" t-att-class="{'warning': state.payments[defaultCashDetails.id].difference}"/>
+										</tr>
+									</tbody>
+									<tbody class="cash-overview">
+										<tr>
+											<td>Opening</td>
+											<td t-esc="env.pos.format_currency(defaultCashDetails.opening)"/>
+										</tr>
+										<tr t-foreach="defaultCashDetails.moves" t-as="move" t-key="move.name">
+											<td>
+												<div class="flex">
+													<div class="cash-sign" t-esc="move.amount &lt; 0 ? '-' : '+'"/>
+													<t t-esc="move.name"/>
+												</div>
+											</td>
+											<td t-esc="env.pos.format_currency(Math.abs(move.amount))" />
+										</tr>
+										<tr t-if="defaultCashDetails.payment_amount">
+											<td>
+												<div class="flex">
+													<div class="cash-sign" t-esc="defaultCashDetails.payment_amount &lt; 0 ? '-' : '+'"/>
+                                                Payments in <t t-esc="defaultCashDetails.name"/>
+												</div>
+											</td>
+											<td t-esc="env.pos.format_currency(Math.abs(defaultCashDetails.payment_amount))"/>
+										</tr>
+									</tbody>
+								</t>
+								<tbody t-if="otherPaymentMethods.length &gt; 0">
+									<tr t-foreach="otherPaymentMethods" t-as="pm" t-key="pm.id">
+										<td t-esc="pm.name"/>
+										<td t-esc="env.pos.format_currency(pm.amount)"/>
+										<t t-set="_showDiff" t-value="_getShowDiff(pm)" />
+										<td t-if="_showDiff" t-on-input="handleInputChange(pm.id)">
+											<input class="pos-input" type="number" t-model.number="state.payments[pm.id].counted"/>
+										</td>
+										<td t-if="_showDiff" t-esc="env.pos.format_currency(state.payments[pm.id].difference)" t-att-class="{'warning': state.payments[pm.id].difference}"/>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<textarea placeholder="Notes" class="closing-notes" t-model="state.notes"/>
+						<div class="accept-closing sh_custom_checkbox" t-att-class="{invisible: !hasDifference()}">
+							<t t-set="_hasUserAuthority" t-value="hasUserAuthority()" />
+							<input t-att-disabled="!_hasUserAuthority" type="checkbox" id="accept" t-model="state.acceptClosing"/>
+							<label t-att-class="{disabled: !_hasUserAuthority}" for="accept" class="chk_lbl">Accept payments difference and post a profit/loss journal entry</label>
+							<div class="warning" t-att-class="{invisible: _hasUserAuthority}">The maximum difference allowed is <t t-esc="env.pos.format_currency(amountAuthorizedDiff)"/>
+. Please contact your manager to accept the closing difference.</div>
+						</div>
+					</main>
+					<footer class="footer">
+						<div class="button" t-on-click="cancel()">Continue Selling</div>
+						<div class="button" t-on-click="closePos()">Keep Session Open</div>
+						<div class="button" t-att-class="{'disabled': !canCloseSession()}" t-on-click="closeSession()">Close Session</div>
+					</footer>
+				</div>
+				<MoneyDetailsPopup t-ref="moneyDetails" t-on-money-details-validated="updateCountedCash"/>
+			</div>
+		</xpath>
+	</t>
+
+</templates>

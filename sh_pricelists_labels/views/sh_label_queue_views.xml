@@ -1,0 +1,62 @@
+<odoo>
+    <record id='sh_label_queue_tree' model='ir.ui.view'>
+        <field name="name">sh.label.queue.tree</field>
+        <field name="model">sh.label.queue</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <header>
+                    <button string="Print Labels" type="object" name="action_open_label_layout"/>
+                </header>
+                <field name="product_tmpl_id"/>
+                <field name="pricelist_id"/>
+                <field name="label_type"/>
+                <field name="print_format"/>
+                <field name="quantity"/>
+                <field name="cost_price" optional="True"/>
+                <field name="sales_price" optional="True"/>
+                <field name="price" optional="True"/>
+                <field name="discount" optional="True"/>
+                <field name="margin" optional="True"/>
+                <field name="qty_on_hand" optional="True"/>
+                <field name="extra_content" optional="True"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="sh_label_queue_search_view" model="ir.ui.view">
+        <field name="name">sh.label.queue.search.view</field>
+        <field name="model">sh.label.queue</field>        
+        <field name="arch" type="xml">
+            <search string="Label Queue">	
+                <field name="print_format"/>
+                <field name="pricelist_id" />   
+                <separator />    
+                <group name="group" string="Group By">
+                    <filter string="Print Format" name="group_print_format" domain="[]"
+                        context="{'group_by' : 'print_format'}"/>
+                    <filter string="Pricelist" name="group_pricelist_id" domain="[]"
+                            context="{'group_by' : 'pricelist_id'}"/>
+                </group>         
+                
+            </search>
+        </field>
+    </record>
+
+    <record id="sh_label_queue_action" model="ir.actions.act_window">
+        <field name="name">Label Queue</field>
+        <field name="res_model">sh.label.queue</field>        
+        <field name="type">ir.actions.act_window</field>
+        <field name="context">{'search_default_group_print_format': 0}</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="sh_pricelists_labels.sh_label_queue_tree"/>
+        <!-- This domain filters based on the selected company -->
+        <field name="domain">[('pricelist_id.company_id', 'in', allowed_company_ids)]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Label Queue
+            </p>
+        </field>
+    </record>
+
+    <menuitem name="Label Queue" id="sh_label_queue" action="sh_label_queue_action" parent="point_of_sale.menu_point_root" sequence="30"/>
+</odoo>

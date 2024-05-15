@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+sh_lots_reports.access_sh_myob_wizard,access_sh_myob_wizard,model_sh_myob_wizard,,1,1,1,1
+sh_lots_reports.access_sh_eod_wizard,access_sh_eod_wizard,sh_lots_reports.model_sh_eod_wizard,base.group_user,1,1,1,1
+sh_lots_reports.access_sh_myob_purchase_wizard,access_sh_myob_purchase_wizard,sh_lots_reports.model_sh_myob_purchase_wizard,base.group_user,1,1,1,1

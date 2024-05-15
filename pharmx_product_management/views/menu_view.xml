@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Product Management Menus -->
+    <menuitem
+        name="Products"
+        id="product_management"
+        web_icon="pharmx_product_management,static/src/img/icons/Inventory.png"
+        sequence="8">
+
+        <menuitem id="product_management_products" name="Products" sequence="10">
+            <menuitem id="product_management_products_product" name="Products" action="product_product_action" sequence="10"/>
+            <menuitem id="product_management_supplierinfo_product" name="Items" action="product_supplierinfo_action" sequence="20"/>
+        </menuitem>
+
+        <menuitem id="product_management_partners" name="Partners" sequence="20">
+            <menuitem id="product_management_all" name="All" action="action_all" sequence="10"/>
+            <menuitem id="product_management_suppliers" name="Suppliers" action="action_suppliers" sequence="20"/>
+            <menuitem id="product_management_manufacturers" name="Manufacturers" action="action_manufacturers" sequence="30"/>
+            <menuitem id="product_management_wholesalers" name="Wholesalers" action="action_wholesalers" sequence="40"/>
+        </menuitem>
+
+        <menuitem id="product_management_pricelists" name="Pricelists" sequence="30">
+            <menuitem id="product_management_pricelists_pricelists" name="Pricelists" action="product_pricelist_action" sequence="10"/>
+        </menuitem>
+
+        <menuitem id="product_management_subscriptions_product" name="Subscriptions" action="product_subscription_action" sequence="40"/>
+
+        <menuitem id="product_management_configuration" name="Configuration" sequence="100">
+            <menuitem id="product_management_product_categories" name="Product Categories" action="product.product_category_action_form" sequence="5"/>
+        </menuitem>
+
+    </menuitem>
+
+    
+
+</odoo>

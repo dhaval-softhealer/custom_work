@@ -1,0 +1,197 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sh_pwa_backend
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.1alpha1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-10-09 11:29+0000\n"
+"PO-Revision-Date: 2020-10-09 11:29+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sh_pwa_backend
+#: model:ir.model.fields.selection,name:sh_pwa_backend.selection__sh_pwa_config__orientation__landscape
+msgid "Always Landscape"
+msgstr "Toujours paysage"
+
+#. module: sh_pwa_backend
+#: model:ir.model.fields,field_description:sh_pwa_backend.field_sh_pwa_config__background_color
+msgid "Background Color"
+msgstr "Couleur de l'arrière plan"
+
+#. module: sh_pwa_backend
+#: model:ir.model.fields,field_description:sh_pwa_backend.field_sh_pwa_config__company_id
+msgid "Company"
+msgstr "Société"
+
+#. module: sh_pwa_backend
+#: model:ir.model.fields,field_description:sh_pwa_backend.field_sh_pwa_config__create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: sh_pwa_backend
+#: model:ir.model.fields,field_description:sh_pwa_backend.field_sh_pwa_config__create_date
+msgid "Created on"
+msgstr "Créé sur"
+
+#. module: sh_pwa_backend
+#: model:ir.model.fields,field_description:sh_pwa_backend.field_sh_pwa_config__display
+msgid "Display"
+msgstr "Affichage"
+
+#. module: sh_pwa_backend
+#: model:ir.model.fields,field_description:sh_pwa_backend.field_sh_pwa_config__display_name
+msgid "Display Name"
+msgstr "Afficher un nom"
+
+#. module: sh_pwa_backend
+#: model:ir.model.fields.selection,name:sh_pwa_backend.selection__sh_pwa_config__display__fullscreen
+msgid "Fullscreen"
+msgstr "Plein écran"
+
+#. module: sh_pwa_backend
+#: model_terms:ir.ui.view,arch_db:sh_pwa_backend.sh_pwa_config_view_form
+msgid "General Configuration"
+msgstr "Configuration générale"
+
+#. module: sh_pwa_backend
+#: model_terms:ir.ui.view,arch_db:sh_pwa_backend.sh_pwa_config_view_form
+msgid "ICON Configuration"
+msgstr "Configuration de l'icône"
+
+#. module: sh_pwa_backend
+#: model:ir.model.fields,field_description:sh_pwa_backend.field_sh_pwa_config__id
+msgid "ID"
+msgstr "identifiant"
+
+#. module: sh_pwa_backend
+#: model:ir.model.fields,field_description:sh_pwa_backend.field_sh_pwa_config__icon
+msgid "Icon"
+msgstr "Icône"
+
+#. module: sh_pwa_backend
+#: model:ir.model.fields,field_description:sh_pwa_backend.field_sh_pwa_config__icon_mimetype
+msgid "Icon Mimetype"
+msgstr "Icône mimeetype"
+
+#. module: sh_pwa_backend
+#: model:ir.model.fields,field_description:sh_pwa_backend.field_sh_pwa_config__icon_size
+msgid "Icon Size"
+msgstr "Taille d'icône"
+
+#. module: sh_pwa_backend
+#: model:ir.model.fields,field_description:sh_pwa_backend.field_sh_pwa_config__icon_small
+msgid "Icon Small"
+msgstr "Icône petit"
+
+#. module: sh_pwa_backend
+#: model:ir.model.fields,field_description:sh_pwa_backend.field_sh_pwa_config__icon_small_mimetype
+msgid "Icon Small Mimetype"
+msgstr "Icon petit mimeType"
+
+#. module: sh_pwa_backend
+#: model:ir.model.fields,field_description:sh_pwa_backend.field_sh_pwa_config__icon_small_size
+msgid "Icon Small Size"
+msgstr "Icon petite taille"
+
+#. module: sh_pwa_backend
+#: model:ir.model.fields,field_description:sh_pwa_backend.field_sh_pwa_config____last_update
+msgid "Last Modified on"
+msgstr "Dernière modification sur"
+
+#. module: sh_pwa_backend
+#: model:ir.model.fields,field_description:sh_pwa_backend.field_sh_pwa_config__write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: sh_pwa_backend
+#: model:ir.model.fields,field_description:sh_pwa_backend.field_sh_pwa_config__write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: sh_pwa_backend
+#: model:ir.model.fields.selection,name:sh_pwa_backend.selection__sh_pwa_config__display__minimal-ui
+msgid "Minimal"
+msgstr "Minimal"
+
+#. module: sh_pwa_backend
+#: model:ir.model.fields,field_description:sh_pwa_backend.field_sh_pwa_config__name
+msgid "Name"
+msgstr "Nom"
+
+#. module: sh_pwa_backend
+#: model:ir.model.fields,field_description:sh_pwa_backend.field_sh_pwa_config__orientation
+msgid "Orientation"
+msgstr "Orientation"
+
+#. module: sh_pwa_backend
+#: model:ir.actions.act_window,name:sh_pwa_backend.sh_pwa_config_action
+#: model:ir.ui.menu,name:sh_pwa_backend.sh_pwa_config_root_menu
+msgid "PWA Backend Configuration"
+msgstr "Configuration du backend PWA"
+
+#. module: sh_pwa_backend
+#: model:ir.model,name:sh_pwa_backend.model_sh_pwa_config
+#: model_terms:ir.ui.view,arch_db:sh_pwa_backend.sh_pwa_config_view_form
+#: model_terms:ir.ui.view,arch_db:sh_pwa_backend.sh_pwa_config_view_tree
+msgid "PWA Configuration"
+msgstr "Configuration PWA"
+
+#. module: sh_pwa_backend
+#: model:ir.model.fields,help:sh_pwa_backend.field_sh_pwa_config__icon
+msgid "Set a big app icon. Must be at least 512x512 pixels"
+msgstr "Définir une grosse icône d'application. Doit être au moins 512x512 pixels"
+
+#. module: sh_pwa_backend
+#: model:ir.model.fields,help:sh_pwa_backend.field_sh_pwa_config__icon_small
+msgid "Set a small app icon. Must be at least 32x32 pixels"
+msgstr "Définir une petite icône d'application. Doit être au moins 32x32 pixels"
+
+#. module: sh_pwa_backend
+#: model:ir.model.fields,help:sh_pwa_backend.field_sh_pwa_config__icon_mimetype
+msgid "Set the mimetype of your icon."
+msgstr "Définissez le mimeType de votre icône."
+
+#. module: sh_pwa_backend
+#: model:ir.model.fields,help:sh_pwa_backend.field_sh_pwa_config__icon_small_mimetype
+msgid "Set the mimetype of your small icon."
+msgstr "Définissez le mimeType de votre petite icône."
+
+#. module: sh_pwa_backend
+#: model:ir.model.fields,field_description:sh_pwa_backend.field_sh_pwa_config__short_name
+msgid "Short Name"
+msgstr "Nom court"
+
+#. module: sh_pwa_backend
+#: model:ir.model.fields.selection,name:sh_pwa_backend.selection__sh_pwa_config__display__standalone
+msgid "Standalone"
+msgstr "Autonome"
+
+#. module: sh_pwa_backend
+#: model:ir.model.fields,field_description:sh_pwa_backend.field_sh_pwa_config__theme_color
+msgid "Theme Color"
+msgstr "Couleur de thème"
+
+#. module: sh_pwa_backend
+#: model:ir.model.fields.selection,name:sh_pwa_backend.selection__sh_pwa_config__icon_mimetype__image/gif
+#: model:ir.model.fields.selection,name:sh_pwa_backend.selection__sh_pwa_config__icon_small_mimetype__image/gif
+msgid "image/gif"
+msgstr "image / gif"
+
+#. module: sh_pwa_backend
+#: model:ir.model.fields.selection,name:sh_pwa_backend.selection__sh_pwa_config__icon_mimetype__image/png
+#: model:ir.model.fields.selection,name:sh_pwa_backend.selection__sh_pwa_config__icon_small_mimetype__image/png
+msgid "image/png"
+msgstr "image / png"
+
+#. module: sh_pwa_backend
+#: model:ir.model.fields.selection,name:sh_pwa_backend.selection__sh_pwa_config__icon_mimetype__image/x-icon
+#: model:ir.model.fields.selection,name:sh_pwa_backend.selection__sh_pwa_config__icon_small_mimetype__image/x-icon
+msgid "image/x-icon"
+msgstr "Image / Icône X"

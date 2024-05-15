@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem 
+        name="Draft Purchase Order"
+        action="purchase.purchase_rfq" id="purchase.menu_purchase_rfq"
+        parent="purchase.menu_procurement_management"
+        sequence="0"
+    />
+
+</odoo>

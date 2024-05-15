@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="pharmx_state_supplier" model="ir.ui.view">
+        <field name="name">pharmx.state.supplier</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='vat']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='category_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='name']" position="after">
+                <label for="sh_pharmx_type" attrs="{'invisible': [('is_company','=', False)]}"></label>
+                <field name="sh_pharmx_type" widget="many2many_tags" options= "{'no_create_edit': True, 'no_create': True}" attrs="{'invisible': [('is_company','=', False)]}"></field>
+            </xpath>
+            <xpath expr="//span[@name='address_name']" position="before">
+                <field name="trding_as" attrs="{'invisible': [('is_company','=', False)]}"/>
+                <!-- <field name="vat" placeholder="e.g. BE0477472701" string="ABN" attrs="{'readonly': [('parent_id','!=',False)],'invisible': [('is_company','=', False)]}"/> -->
+                <!-- <field name="asx" attrs="{'invisible': [('is_company','=', False)]}"/> -->
+                <!-- <field name="approval_number" attrs="{'invisible': [('is_company','=', False)]}"/> -->
+                <field name="pharmx_code" string="PharmX Code"/>
+                <field name="pharmx_site_id" options="{'format': 0}" attrs="{'invisible': [('is_company','=', False)]}"/>
+                <field name="pharmx_supplier_id" attrs="{'invisible': [('is_company','=', False)]}"/>
+            </xpath>
+            <xpath expr="//field[@name='website']" position="after">
+                <field name="pharmx_facebook" attrs="{'invisible': [('is_company','=', False)]}"/>
+                <field name="pharmx_linkedin" attrs="{'invisible': [('is_company','=', False)]}"/>
+                <field name="pharmx_instagram" attrs="{'invisible': [('is_company','=', False)]}"/>
+                <field name="pharmx_twitter" attrs="{'invisible': [('is_company','=', False)]}"/>
+                <field name="pharmx_youtube" attrs="{'invisible': [('is_company','=', False)]}"/>
+            </xpath>
+            <xpath expr="//sheet/group/group" position="inside">
+                <field name="category_id" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}" placeholder="Tags..."/>
+            </xpath>
+            <xpath expr="//notebook/page[@name='sales_purchases']" position="after">
+                <page name="company_hierarchy" string="Company Hierarchy" attrs="{'invisible': [('is_company','=', False)]}">
+                    <group>
+                        <group>
+                            <field name="sh_parent_company" widget="res_partner_many2one" domain="[('is_company', '=', True)]"/>
+                        </group>
+                    </group>                    
+                    <h3>Hierarchy Level</h3>
+                    <group>
+                        <group>
+                            <field name="level"/>
+                        </group>
+                        <group>
+                            <field name="level_value"/>
+                        </group>
+                    </group>
+                    <h3>Affiliates</h3>
+                    <div style="margin-left:10px;margin-top:10px">
+                        <field name="affiliate_company_line_ids" >
+                            <tree editable="top">
+                                <field name="affiliate_company_id" widget="res_partner_many2one" domain="[('is_company', '=', True)]" string="Company"/>
+                                <field name="relationship"/>
+                            </tree>
+                        </field>
+                    </div>
+                </page>
+                <page name="identifiers" string="Identifiers">
+                    <field name="identifier_ids" nolabel="1">
+                        <tree string="Identifiers">
+                            <field name="type" string="Scheme"/>
+                            <field name="value" string="ID"/>
+                        </tree>
+                        <form>
+                            <group>
+                                <field name="type" string="Scheme"/>
+                                <field name="value" string="ID"/>
+                            </group>
+                        </form>
+                    </field>
+                </page>
+            </xpath>
+            <xpath expr="//notebook/page[last()]" position="after">
+                <page string="Store Details" name="store_details" attrs="{'invisible': [('store_details_boolean', '=', False)]}">
+                    <group>
+                        <group>
+                            <field name="store_manager" domain="[('parent_id', '=', id)]"/>
+                            <field name="store_details_boolean" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="partner_services" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="timezone"/>
+                            <field name="open_date"/>
+                        </group>
+                        <group>
+                            <field name="floor_size"/>
+                            <field name="close_date"/>
+                        </group>
+                    </group>
+                    <h1 class="text-primary">Opening Hours</h1>
+                    <group>
+                        <group><h3 style="text-align:center">Open</h3></group>
+                        <group><h3 style="text-align:center">Close</h3></group>
+                        <group>                            
+                            <field name="mon_open" widget="float_time" string="Monday"/>
+                            <field name="tue_open" widget="float_time" string="Tuesday"/>
+                            <field name="wed_open" widget="float_time" string="Wednesday"/>
+                            <field name="thu_open" widget="float_time" string="Thursday"/>
+                            <field name="fri_open" widget="float_time" string="Friday"/>
+                            <field name="sat_open" widget="float_time" string="Saturday"/>
+                            <field name="sun_open" widget="float_time" string="Sunday"/>
+                        </group>
+                        <group>
+                            <field name="mon_close" widget="float_time" string="Monday"/>
+                            <field name="tue_close" widget="float_time" string="Tuesday"/>
+                            <field name="wed_close" widget="float_time" string="Wednesday"/>
+                            <field name="thu_close" widget="float_time" string="Thursday"/>
+                            <field name="fri_close" widget="float_time" string="Friday"/>
+                            <field name="sat_close" widget="float_time" string="Saturday"/>
+                            <field name="sun_close" widget="float_time" string="Sunday"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+            <xpath expr="//notebook/page[last()]" position="after">
+                <page string="Proposed Changes" name="proposed_changes" attrs="{'invisible': [('is_company','=', False)]}">
+                    <field name="proposed_changes_line_ids" readonly="1">
+                        <tree>
+                            <field name="source"></field>  
+                            <field name="create_date"></field>
+                            <field name="close_date"></field>
+                            <field name="status" />
+                        </tree>
+                        <form>
+                            <sheet>
+                                <div class="row">
+                                    <div class="col-md-2 col-sm-2">
+                                        <label for="source"></label>
+                                        <field name="source"></field>                                    
+                                    </div>
+                                    <div class="col-md-3 col-sm-3">
+                                        <label for="create_date"></label>
+                                        <field name="create_date"></field>
+                                    </div>
+                                    <div class="col-md-3 col-sm-3">
+                                        <label for="close_date"></label>
+                                        <field name="close_date"></field>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4">
+                                        <header>                                    
+                                            <field name="status" widget="statusbar" options="{'clickable': '1'}"/>
+                                        </header>
+                                    </div>
+                                </div>
+                                <h2>Changes</h2>
+                                <div class="row">
+                                    <div class="col-md-2 col-sm-2"/>
+                                    <div class="col-md-5 col-sm-5">
+                                        <h5>Old Value</h5>
+                                    </div>
+                                    <div class="col-md-5 col-sm-5 ">
+                                        <h5>New Value</h5>
+                                    </div>
+                                </div>
+                                <div class='row'>
+                                    <div class="col-md-2 col-sm-2">                              
+                                        <field name="field_name" nolabel="1" readonly="1"></field>                                                                                              
+                                    </div>
+                                    <div class="col-md-5 col-sm-5">
+                                        <field name="old_value" nolabel="1"></field>
+                                    </div>  
+                                    <div class="col-md-5 col-sm-5">
+                                        <field name="field_value" nolabel="1"/>
+                                    </div>
+                                                                      
+                                </div>
+                            </sheet>
+                        </form>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Commented out by AS, always throwing errrors. -->
+    <record id="pharmx_bank_account_inherit" model="ir.ui.view">
+        <field name="name">pharmx.bank.account.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account.view_partner_property_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[@name='accounting']" position="attributes">
+                <attribute name="string">Bank Accounts</attribute>>
+            </xpath>    
+            <xpath expr="//field[@name='bank_ids']/tree/field[@name='bank_id']" position="after">
+                <field name="bsb"/>
+            </xpath>
+            <xpath expr="//field[@name='bank_ids']/tree/field[@name='acc_number']" position="after">
+                <field name="pharmx_bank_types" widget="many2many_tags"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

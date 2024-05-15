@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="corum_pos_order_view" model="ir.ui.view">
+        <field name="name">corum.pos.order.view</field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_order_tree" />
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='employee_id']" position="after">
+                <field name="cost" string="Cost" widget="monetary" options="{'currency_field':'currency_id'}" optional="show" readonly="1"/>
+            </xpath>
+
+            <xpath expr="//field[@name='cost']" position="after">
+                <field name="margin" string="Margin" widget="monetary" options="{'currency_field':'currency_id'}" optional="show" readonly="1"/>
+            </xpath>
+
+            <xpath expr="//field[@name='margin']" position="after">
+                <field name="margin_percent" string="Margin (%)" widget="percentage" optional="show" readonly="1"/>
+            </xpath>
+
+            <xpath expr="//field[@name='margin_percent']" position="after">
+                <field name="amount_tax" string="Tax" widget="monetary" options="{'currency_field':'currency_id'}" optional="show" readonly="1"/>
+            </xpath>
+            
+        </field>
+    </record>
+
+    <!-- Update POS order views -->
+    <record id="corum_view_pos_pos_form" model="ir.ui.view">
+        <field name="name">pos.order.inherit.form.view</field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_pos_form" />
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='customer_note']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='price_unit']" position="attributes">
+                <attribute name="widget">monetary</attribute>
+                <attribute name="options">{'currency_field':'currency_id'}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='discount']" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </xpath>
+            <xpath expr="//field[@name='total_cost']" position="attributes">
+                <attribute name="string">Total Cost</attribute>
+            </xpath>
+            <xpath expr="//field[@name='price_subtotal']" position="attributes">
+                <attribute name="string">Subtotal</attribute>
+                <attribute name="widget">monetary</attribute>
+                <attribute name="options">{'currency_field':'currency_id'}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='price_subtotal_incl']" position="attributes">
+                <attribute name="string">Subtotal (Incl. Tax)</attribute>
+                <attribute name="widget">monetary</attribute>
+                <attribute name="options">{'currency_field':'currency_id'}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="corum_sh_pos_order_label_form" model="ir.ui.view">
+        <field name="name">corum.sh.pos_order_label_form</field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="sh_pos_all_in_one_retail.sh_pos_order_label_form" />
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='add_section']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='full_product_name']" position="attributes">
+                <attribute name="string">Product</attribute>
+            </xpath>
+            <xpath expr="//field[@name='tax_ids_after_fiscal_position']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            
+        </field>
+    </record>
+
+    <record id="corum_sh_pos_order_line_pos_note_module" model="ir.ui.view">
+        <field name="name">pos.order.line.pos.note</field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="sh_pos_all_in_one_retail.sh_pos_order_line_pos_note_module" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='line_note']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="corum_pos_order_line_inherit_bag_qty" model="ir.ui.view">
+        <field name="name">corum.pos.order.line.inherit.bag.qty</field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="sh_pos_all_in_one_retail.pos_order_line_inherit_bag_qty"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='bag_qty']" position='attributes'>
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="corum_pos_order_inherit_form_view" model="ir.ui.view">
+		<field name="name">corum.pos.order.inherit.form.view</field>
+		<field name="model">pos.order</field>
+		<field name="inherit_id" ref="sh_pos_all_in_one_retail.pos_order_inherit_form_view"/>
+		<field name="arch" type="xml">
+            <xpath expr="//field[@name='secondary_qty']" position='attributes'>
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='secondary_uom_id']" position='attributes'>
+                <attribute name="invisible">1</attribute>
+            </xpath>
+		</field>
+	</record>
+
+    <record id="corum_sh_pos_order_line_pos_note" model="ir.ui.view">
+        <field name="name">corum.sh.pos.order.line.pos.note</field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="sh_pos_all_in_one_retail.sh_pos_order_line_pos_note" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='sh_discount_code']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="corum_sh_pos_order_line_pos_discount" model="ir.ui.view">
+        <field name="name">corum.pos.order.line.pos.note</field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="sh_pos_all_in_one_retail.sh_pos_order_line_pos_discount" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='sh_return_qty']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Custom search view for POS order lines -->
+    <record id="corum_pos_order_line_search_view" model="ir.ui.view">
+        <field name="name">corum.pos.order.line.search.view</field>
+        <field name="model">pos.order.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <filter string="Date" name="groupby_date" domain="[]" context="{'group_by': 'create_date'}"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Custom list view for POS order lines -->
+    <record id="corum_pos_order_line_tree_view" model="ir.ui.view">
+        <field name="name">corum.pos.order.line.tree.view</field>
+        <field name="model">pos.order.line</field>
+        <field name="arch" type="xml">
+            <tree string="POS Order Line Tree">
+                <field name="currency_id" invisible="1"/>
+                <field name="order_id"/>
+                <field name="create_date" string="Date"/>
+                <field name="product_id"/>
+                <field name="qty" sum="Total"/>
+                <field name="product_uom_id" string="UoM"/>
+                <field name="price_unit" widget="monetary" options="{'currency_field':'currency_id'}" sum="Total"/>
+                <field name="total_cost" string="Total Cost" widget="monetary" options="{'currency_field':'currency_id'}" sum="Total"/>
+                <field name="margin" widget="monetary" options="{'currency_field':'currency_id'}" sum="Total"/>
+                <field name="margin_percent" widget="percentage" avg="Average"/>
+                <field name="tax" sum="Total"/>
+                <field name="price_subtotal_incl" string="Total" widget="monetary" options="{'currency_field':'currency_id'}" sum="Total"/>
+            </tree>
+        </field>
+    </record>
+
+</odoo>

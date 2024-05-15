@@ -1,0 +1,11 @@
+<odoo>
+    <data>
+    <record id="pharmx_code_seq" model="ir.sequence">
+        <field name="name">PharmX Code Sequence</field>
+        <field name="code">pharmx.code</field>
+        <field name="prefix">PXI-</field>
+        <field name="padding">0</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    </data>
+</odoo>

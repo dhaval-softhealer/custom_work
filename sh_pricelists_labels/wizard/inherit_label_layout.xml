@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="sh_product_label_layout_form_inherit_view" model="ir.ui.view">
+        <field name="name">sh.product.label.layout.form.inherit.view</field>
+        <field name="model">product.label.layout</field>
+        <field name="inherit_id" ref="product.product_label_layout_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_tmpl_ids']" position="after">
+                <field name="pricelist_label_ids" invisible="1" />
+            </xpath>
+            <xpath expr="//field[@name='custom_quantity']" position="before">
+                <field name="pricelist_id" required="1"></field>
+                <field name="label_type"></field>
+                <field name="goods_label_format" attrs="{'invisible': [('label_type','!=','goods')], 'required': [('label_type','=','goods')]}" widget="radio"></field>
+                <field name="shelf_label_format" attrs="{'invisible': [('label_type','!=','shelf')], 'required': [('label_type','=','shelf')]}" widget="radio"></field>
+                <field name="company_id" invisible="1"></field>
+            </xpath>
+            <xpath expr="//field[@name='print_format']" position="attributes">
+                <attribute name="invisible">1</attribute>
+             </xpath>
+            <xpath expr="//footer/button[@name='process']" position="after"> 
+                <button type="object" string="Add to Queue" name="add_lables_queue"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

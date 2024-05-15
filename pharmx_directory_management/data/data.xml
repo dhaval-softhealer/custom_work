@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Pharmx Default Value -->
+        <record id="sh_retail_value" model="pharmx.type">
+            <field name="name">Retail Store</field>
+        </record>
+        <record id="sh_ecommerce_value" model="pharmx.type">
+            <field name="name">eCommerce Store</field>
+        </record>
+        <record id="sh_supplier_value" model="pharmx.type">
+            <field name="name">Supplier</field>
+        </record>
+        <record id="sh_wholesaler_value" model="pharmx.type">
+            <field name="name">Wholesaler</field>
+        </record>
+        <record id="sh_manufacturer_value" model="pharmx.type">
+            <field name="name">Manufacturer</field>
+        </record>
+
+        <!-- Pharmx Bank Types -->
+        <!-- commented out by AS always causing errors.
+        <record id="sh_purchase_value" model="pharmx.bank.type">
+            <field name="name">Purchases</field>
+        </record>
+        <record id="sh_invoicing_value" model="pharmx.bank.type">
+            <field name="name">Invoicing</field>
+        </record>
+        <record id="sh_refunds_value" model="pharmx.bank.type">
+            <field name="name">Refunds</field>
+        </record> -->
+
+        <!-- Partner Services -->
+        <record id="partner_service_1" model="res.partner.retailservices">
+            <field name="name">Aboriginal and Torres Strait Islander Quality Use of Medicines (QUM) support</field>
+        </record>
+        <record id="partner_service_2" model="res.partner.retailservices">
+            <field name="name">Absence from Work Certificates</field>
+        </record>
+        <record id="partner_service_3" model="res.partner.retailservices">
+            <field name="name">Anaemia Testing</field>
+        </record>
+        <record id="partner_service_4" model="res.partner.retailservices">
+            <field name="name">Asthma Education</field>
+        </record>
+        <record id="partner_service_5" model="res.partner.retailservices">
+            <field name="name">Asthma Management</field>
+        </record>
+        <record id="partner_service_6" model="res.partner.retailservices">
+            <field name="name">Blood Glucose Testing</field>
+        </record>
+        <record id="partner_service_7" model="res.partner.retailservices">
+            <field name="name">Blood Pressure Monitoring</field>
+        </record>
+        <record id="partner_service_8" model="res.partner.retailservices">
+            <field name="name">Bone Density Testing</field>
+        </record>
+        <record id="partner_service_9" model="res.partner.retailservices">
+            <field name="name">Bowel Cancer Screening</field>
+        </record>
+        <record id="partner_service_10" model="res.partner.retailservices">
+            <field name="name">Chemotherapy Preparation</field>
+        </record>
+        <record id="partner_service_11" model="res.partner.retailservices">
+            <field name="name">Cholesterol Testing</field>
+        </record>
+        <record id="partner_service_12" model="res.partner.retailservices">
+            <field name="name">Complementary Health Therapies</field>
+        </record>
+        <record id="partner_service_13" model="res.partner.retailservices">
+            <field name="name">Compliance and New-to-Therapy services</field>
+        </record>
+        <record id="partner_service_14" model="res.partner.retailservices">
+            <field name="name">Compounding Services</field>
+        </record>
+        <record id="partner_service_15" model="res.partner.retailservices">
+            <field name="name">Compression Garment Supply and Advice</field>
+        </record>
+        <record id="partner_service_16" model="res.partner.retailservices">
+            <field name="name">Concessional Access RAT</field>
+        </record>
+        <record id="partner_service_17" model="res.partner.retailservices">
+            <field name="name">COPD Assessment and Management</field>
+        </record>
+        <record id="partner_service_18" model="res.partner.retailservices">
+            <field name="name">Corporate Vaccination Services</field>
+        </record>
+        <record id="partner_service_19" model="res.partner.retailservices">
+            <field name="name">Delivery Services</field>
+        </record>
+        <record id="partner_service_20" model="res.partner.retailservices">
+            <field name="name">Dementia Friendly Pharmacy</field>
+        </record>
+        <record id="partner_service_21" model="res.partner.retailservices">
+            <field name="name">Diabetes Educator</field>
+        </record>
+        <record id="partner_service_22" model="res.partner.retailservices">
+            <field name="name">Diabetes Management</field>
+        </record>
+        <record id="partner_service_23" model="res.partner.retailservices">
+            <field name="name">Diabetes MedsCheck</field>
+        </record>
+        <record id="partner_service_24" model="res.partner.retailservices">
+            <field name="name">Diabetes Screening</field>
+        </record>
+        <record id="partner_service_25" model="res.partner.retailservices">
+            <field name="name">Distance Supply</field>
+        </record>
+        <record id="partner_service_26" model="res.partner.retailservices">
+            <field name="name">DNA Testing</field>
+        </record>
+        <record id="partner_service_27" model="res.partner.retailservices">
+            <field name="name">Document Witnessing Service</field>
+        </record>
+        <record id="partner_service_28" model="res.partner.retailservices">
+            <field name="name">Dose Administration Aids</field>
+        </record>
+        <record id="partner_service_29" model="res.partner.retailservices">
+            <field name="name">Electronic Prescriptions</field>
+        </record>
+        <record id="partner_service_30" model="res.partner.retailservices">
+            <field name="name">Emergency After Hours Service</field>
+        </record>
+        <record id="partner_service_31" model="res.partner.retailservices">
+            <field name="name">Home Medicines Review</field>
+        </record>
+        <record id="partner_service_32" model="res.partner.retailservices">
+            <field name="name">INR Monitoring</field>
+        </record>
+        <record id="partner_service_33" model="res.partner.retailservices">
+            <field name="name">MedsCheck</field>
+        </record>
+        <record id="partner_service_34" model="res.partner.retailservices">
+            <field name="name">Mental Health Support</field>
+        </record>
+        <record id="partner_service_35" model="res.partner.retailservices">
+            <field name="name">Mobility Aids</field>
+        </record>
+        <record id="partner_service_36" model="res.partner.retailservices">
+            <field name="name">Mother and Baby Clinic</field>
+        </record>
+        <record id="partner_service_37" model="res.partner.retailservices">
+            <field name="name">My Health Record</field>
+        </record>
+        <record id="partner_service_38" model="res.partner.retailservices">
+            <field name="name">MyPharmacyLink App</field>
+        </record>
+        <record id="partner_service_39" model="res.partner.retailservices">
+            <field name="name">National Diabetes Scheme (NDSS)</field>
+        </record>
+        <record id="partner_service_40" model="res.partner.retailservices">
+            <field name="name">National Disability Insurance Scheme (NDIS) Provider</field>
+        </record>
+        <record id="partner_service_41" model="res.partner.retailservices">
+            <field name="name">Needle and Syringe Service</field>
+        </record>
+        <record id="partner_service_42" model="res.partner.retailservices">
+            <field name="name">Opioid Dependency Treatment</field>
+        </record>
+        <record id="partner_service_43" model="res.partner.retailservices">
+            <field name="name">Palliative Care Support</field>
+        </record>
+        <record id="partner_service_44" model="res.partner.retailservices">
+            <field name="name">Prescription Management Support</field>
+        </record>
+        <record id="partner_service_45" model="res.partner.retailservices">
+            <field name="name">Quit Smoking Support</field>
+        </record>
+        <record id="partner_service_46" model="res.partner.retailservices">
+            <field name="name">Residential Management Medication Review QUM</field>
+        </record>
+        <record id="partner_service_47" model="res.partner.retailservices">
+            <field name="name">Residential Medication Management Review</field>
+        </record>
+        <record id="partner_service_48" model="res.partner.retailservices">
+            <field name="name">Return Unwanted Medicines</field>
+        </record>
+        <record id="partner_service_49" model="res.partner.retailservices">
+            <field name="name">Skin Check Clinics</field>
+        </record>
+        <record id="partner_service_50" model="res.partner.retailservices">
+            <field name="name">Sleep Apnoea</field>
+        </record>
+        <record id="partner_service_51" model="res.partner.retailservices">
+            <field name="name">Staged Supply</field>
+        </record>
+        <record id="partner_service_52" model="res.partner.retailservices">
+            <field name="name">TeleHealth Service</field>
+        </record>
+        <record id="partner_service_53" model="res.partner.retailservices">
+            <field name="name">TeleHealth Services: e-Scripts</field>
+        </record>
+        <record id="partner_service_54" model="res.partner.retailservices">
+            <field name="name">Travel Health Services</field>
+        </record>
+        <record id="partner_service_55" model="res.partner.retailservices">
+            <field name="name">Urinary Tract Infection Service (UTI)</field>
+        </record>
+        <record id="partner_service_56" model="res.partner.retailservices">
+            <field name="name">Vaccination Services - Cholera (Not NIP)</field>
+        </record>
+        <record id="partner_service_57" model="res.partner.retailservices">
+            <field name="name">Vaccination Services - COVID (AstraZeneca)</field>
+        </record>
+        <record id="partner_service_58" model="res.partner.retailservices">
+            <field name="name">Vaccination Services - COVID (Moderna)</field>
+        </record>
+        <record id="partner_service_59" model="res.partner.retailservices">
+            <field name="name">Vaccination Services - COVID (Novavax)</field>
+        </record>
+        <record id="partner_service_60" model="res.partner.retailservices">
+            <field name="name">Vaccination Services - COVID (Pfizer ages 5-11)</field>
+        </record>
+        <record id="partner_service_61" model="res.partner.retailservices">
+            <field name="name">Vaccination Services - COVID (Pfizer)</field>
+        </record>
+        <record id="partner_service_62" model="res.partner.retailservices">
+            <field name="name">Vaccination Services - Diphtheria, Tetanus and Pertussis (dTpa)</field>
+        </record>
+        <record id="partner_service_63" model="res.partner.retailservices">
+            <field name="name">Vaccination Services - dTpa in combination with Polio</field>
+        </record>
+        <record id="partner_service_64" model="res.partner.retailservices">
+            <field name="name">Vaccination Services - Haemophilus Influenza Type B (Hib)</field>
+        </record>
+        <record id="partner_service_65" model="res.partner.retailservices">
+            <field name="name">Vaccination Services - Hepatitis A</field>
+        </record>
+        <record id="partner_service_66" model="res.partner.retailservices">
+            <field name="name">Vaccination Services - Influenza</field>
+        </record>
+        <record id="partner_service_67" model="res.partner.retailservices">
+            <field name="name">Vaccination Services - Measles, Mumps and Rubella (MMR)</field>
+        </record>
+        <record id="partner_service_68" model="res.partner.retailservices">
+            <field name="name">Vaccination Services - Meningococcal (MenACWY)</field>
+        </record>
+        <record id="partner_service_69" model="res.partner.retailservices">
+            <field name="name">Vaccination Services - Pneumococcal</field>
+        </record>
+        <record id="partner_service_70" model="res.partner.retailservices">
+            <field name="name">Vaccination Services - Polio</field>
+        </record>
+        <record id="partner_service_71" model="res.partner.retailservices">
+            <field name="name">Vaccination Services - Poliomyelitis</field>
+        </record>
+        <record id="partner_service_72" model="res.partner.retailservices">
+            <field name="name">Weight Management</field>
+        </record>
+        <record id="partner_service_73" model="res.partner.retailservices">
+            <field name="name">Wound Management</field>
+        </record>
+    </data>
+</odoo>

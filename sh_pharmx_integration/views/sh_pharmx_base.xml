@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="sh_pharmx_base_form" model="ir.ui.view">
+        <field name="name">sh.pharmx.base.form</field>
+        <field name="model">sh.pharmx.base</field>
+        <field name="arch" type="xml">
+            <form string="Authorize" create="false" delete="false">
+                <sheet>
+                    <group name="supplier" string="Supplier">                        
+                        <group> 
+                            <field name="pharmx_import_supplier" />
+                            <field name="last_sync_pharmx_supplier" />
+                        </group>
+                        <group>
+                            <field name="auto_import_pharmx_supplier" />
+                        </group>
+                    </group>
+                    <div class="row mb-4" id="supplier_id">
+                        <div class="col-md-6 col-xl-6 col-lg-6 col-sm-6">
+                            <button type="object" class="btn btn-primary" string="Import" name="import_pharmx_supplier"/>
+                        </div>
+                    </div>
+                    <group name="account" string="Accounts">                        
+                        <group> 
+                            <field name="pharmx_import_account" />
+                            <field name="last_sync_pharmx_account" />
+                        </group>
+                        <group>
+                            <field name="auto_import_pharmx_account" />
+                        </group>
+                    </group>
+                    <div class="row mb-4" id="account_id">
+                        <div class="col-md-6 col-xl-6 col-lg-6 col-sm-6">
+                            <button type="object" class="btn btn-primary" string="Import" name="import_pharmx_account"/>
+                        </div>
+                    </div>
+
+                    <h2 class="text-primary mb-2">Log History</h2>
+                    <field name="pharmx_logger_id" readonly="1">
+                        <tree decoration-success="state=='success'" decoration-danger="state=='error'">
+                            <field name="type_"/>
+                            <field name="state"/>
+                            <field name="datetime"/>
+                            <field name="error"/>                           
+                        </tree>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sh_pharmx_base_tree_view" model="ir.ui.view">
+        <field name="name">sh.pharmx.base.tree.view</field>
+        <field name="model">sh.pharmx.base</field>
+        <field name="arch" type="xml">
+            <tree name="pharmx_base">
+                <field name="last_sync_pharmx_account" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="sh_pharmx_base_action" model="ir.actions.act_window">
+        <field name="name">Configure</field>
+        <field name="res_model">sh.pharmx.base</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                PharmX Base
+            </p>
+        </field>
+    </record>
+
+    <menuitem name="PharmX" action="sh_pharmx_base_action" parent="base.menu_administration" id="sh_pharmx_base"/>    
+</odoo>

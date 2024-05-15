@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="retrigger_action" model="ir.actions.server">
+        <field name="name">Retrigger Message</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_datasync_message"></field>
+        <field name="binding_model_id" ref="model_datasync_message" />
+        <field name="state">code</field>
+        <field name="code">records.retrigger()</field>
+    </record>
+
+    <record id="replay_action" model="ir.actions.server">
+        <field name="name">Replay Message</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_datasync_message"></field>
+        <field name="binding_model_id" ref="model_datasync_message" />
+        <field name="state">code</field>
+        <field name="code">records.replay()</field>
+    </record>
+
+    <record id="refresh_queues_action" model="ir.actions.server">
+        <field name="name">Refresh Queue Stats</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_pharmx_backend"></field>
+        <field name="binding_model_id" ref="model_datasync_message" />
+        <field name="state">code</field>
+        <field name="code">model.refresh_queue_stats()</field>
+    </record>
+
+    <record id="datasync_message_config_view_form" model="ir.ui.view">
+        <field name="name">datasync.message.form</field>
+        <field name="model">datasync.message</field>
+        <field name="arch" type="xml">
+            <form string="DataSyncMessages">
+            <group string="General Configuration">
+                <group>
+                    <field name="MessageId" />
+                    <field name="MessageDateTime" />
+                    <field name="MessageType" />
+                    <field name="MessageDirection" />
+                </group>
+            </group>
+            <group string="Sender">
+                <group>
+                    <field name="OriginatingBusinessUnitID" />
+                    <field name="OriginatingBusinessUnitServiceID" />
+                    <field name="InitiatingBusinessUnitID" />
+                    <field name="InitiatingBusinessUnitServiceID" />
+                </group>
+            </group>
+            <notebook>
+                <page string="Message" name="view_message">
+                    <group>
+                        <field name="Message"/>
+                    </group>
+                </page>
+                <page string="Request Info" name="request_information">
+                    <group>
+                        <group name="request_info">
+                            <field name="RequestID" />
+                            <field name="ResponseID" />
+                            <field name="ResponseError" />
+                        </group>
+                    </group>
+                </page>
+                <page string="Telemetry" name="telemetry_information">
+                    <group>
+                        <group name="telemtry_info">
+                            <field name="QueueTime" attrs="{'invisible': [('QueueTime', '=', 0)]}"/>
+                            <field name="ValidationTime" attrs="{'invisible': [('ValidationTime', '=', 0)]}"/>
+                            <field name="RoutingTime" attrs="{'invisible': [('RoutingTime', '=', 0)]}"/>
+                            <field name="PersistenceTime" attrs="{'invisible': [('PersistenceTime', '=', 0)]}"/>
+                        </group>
+                    </group>
+                </page>
+            </notebook>
+                
+            </form>
+        </field>
+    </record>
+    
+    <record id="datasync_message_config_view_tree" model="ir.ui.view">
+        <field name="name">datasync.message.tree</field>
+        <field name="model">datasync.message</field>
+        <field name="arch" type="xml">
+            <tree default_order='MessageDateTime desc'>
+                <field name="MessageId" />
+                <field name="MessageDateTime" />
+                <field name="MessageType" />
+                <field name="MessageDirection" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="datasync_message_config_action" model="ir.actions.act_window">
+        <field name="name">DataSyncMessages</field>
+        <field name="res_model">datasync.message</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="datasync_message_view_root_menu" name="DataSync Messages" parent="base.menu_administration" action="datasync_message_config_action" sequence="9" />
+
+</odoo>

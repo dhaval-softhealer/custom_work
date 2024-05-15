@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+product_subscription,access_product_subscription,model_product_subscription,base.group_user,1,1,1,1
+product_identifier_user,access_product_identifier_user,model_product_identifier,base.group_user,1,0,0,0
+product_identifier_system,access_product_identifier_system,model_product_identifier,base.group_system,1,1,1,1
+product_pharmx_attribute_user,access_product_attribute_user,model_product_pharmx_attribute,base.group_user,1,0,0,0
+product_pharmx_attribute_system,access_product_attribute_user,model_product_pharmx_attribute,base.group_system,1,1,1,1
+product_tax_user,access_product_tax_user,model_product_tax,base.group_user,1,0,0,0
+product_tax_system,access_product_tax_user,model_product_tax,base.group_system,1,1,1,1
+product_availability_user,access_product_availability_user,model_product_availability,base.group_user,1,0,0,0
+product_availability_system,access_product_availability_user,model_product_availability,base.group_system,1,1,1,1
+product_warehouse_user,access_product_warehouse_user,model_product_warehouse,base.group_user,1,0,0,0
+product_warehouse_system,access_product_warehouse_user,model_product_warehouse,base.group_system,1,1,1,1
+subscription_cache,access_subscription_cache,model_subscription_cache,base.group_user,1,1,1,1

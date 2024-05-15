@@ -1,0 +1,30 @@
+"PurchaseOrders": [
+	{
+		"SupplierID": "1321", (Link to Suppliers.ID in JSON file)
+		"Status": "Open", (purchase_order.state)
+		"DocumentID": "1378",(purchase_order.name)
+		"DateTime": "2022-08-23T06:29:08Z" (purchase_order.date_order)
+		"AlternativeDocumentIDs": [
+			{
+				"Type": "PharmX",
+				"ID": "271234432" (purchase_order.pharmx_order_id WHERE AlternativeDocumentIDs.Type = "PharmX")
+			}
+		],
+        "LineItem": [
+			{
+				"SupplierItemID": "ABCD123", (purchase_order_line.sh_vendor_pro_code)
+				"TypeCode": "Merchandise",
+				"ItemID": "164006", (Link to Items.ItemID in JSON file)
+				"ItemDescription": "DIPROSONE CRM 0.05% 15G", (purchase_order_line.name)
+				"UnitCount": 3, (purchase_order_line.product_qty)
+				"UnitBaseCostAmount": 11.20, (purchase_order_line.price_unit)
+				"UnitsShippedCount": 0, (purchase_order_line.product_qty_received)
+				"Tax": {
+					"TaxType": "GST",
+					"Amount": "1.36" (purchase_order_line.price_tax)
+				},
+				"TaxIncludedInPriceFlag": "true"
+			}
+        ]
+    }
+]

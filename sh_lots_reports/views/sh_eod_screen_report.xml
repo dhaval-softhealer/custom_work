@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+	<template id="sh_eod_report_tbl" name="Sale Attribute Report">
+        <table class="w-100 ">
+            <thead class="sh_thead" style="padding: 10px;">
+                <tr>
+                    <t t-foreach="headers" t-as="header">
+                        <th style="height: 50px;text-align:center;"><b>
+                            <t t-esc="header" /></b>
+                        </th>
+                    </t>
+                </tr>
+            </thead>
+            <tbody>
+                <t t-foreach="rows" t-as="record">
+                    <tr>                        
+                        <t t-foreach="record" t-as="value">
+                            <td style="text-align:center;">                                
+                                <span t-esc="value"/>                                    
+                            </td>
+                        </t>
+                    </tr>
+                </t>
+            </tbody>
+        </table>
+		<style>
+			.sh_sale_attr_report_screen_table .sh_attr_report_content table, .sh_sale_attr_report_screen_table .sh_attr_report_content table th, .sh_sale_attr_report_screen_table .sh_attr_report_content table td {
+			border: 1px solid;
+			}
+			#sh_sale_attr_report_screen .sh_sale_attr_report_screen_table{padding: 20px;}
+			#sh_sale_attr_report_screen .sh_sale_attr_report_screen_table table tbody td{padding: 5px;}
+		</style>
+	</template>
+
+	<template id="sh_eod_no_report_tbl" name="Eod No Report">
+		<div class="text-center">
+			<h4>No Records found between selected dates....</h4>
+		</div>
+	</template>
+
+</odoo>

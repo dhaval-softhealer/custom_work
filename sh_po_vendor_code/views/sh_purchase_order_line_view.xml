@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sh_purchase_order_line_tree_view" model="ir.ui.view">
+        <field name="name">sh.purchase.order.line.tree.view</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//sheet//notebook//page//field[@name='order_line']//tree//field[@name='name']" position="after">
+                <field name="sh_vendor_pro_code" />
+            </xpath>
+        </field>
+    </record>
+
+    <!-- <record id="sh_product_purchase_line_tree_view" model="ir.ui.view">
+        <field name="name">sh.product.supplierinfo.line.tree.view</field>
+        <field name="model">product.supplierinfo</field>
+        <field name="inherit_id" ref="purchase.product_supplierinfo_tree_view2" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='company_id']" position="after">
+                <field name="product_code" />
+            </xpath>
+        </field>
+    </record> -->
+</odoo>

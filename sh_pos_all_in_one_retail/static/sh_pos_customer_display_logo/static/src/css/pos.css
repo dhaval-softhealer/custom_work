@@ -1,0 +1,11 @@
+.sh-pos-odoo_logo_container{
+	text-align: center;
+    height: 120px;
+    width: 120px;
+    margin: 0px auto;
+    margin-top: 20px;
+}
+.sh-pos-odoo_logo_container img.pos-logo {
+	width: 100%;
+    object-fit: cover;
+}

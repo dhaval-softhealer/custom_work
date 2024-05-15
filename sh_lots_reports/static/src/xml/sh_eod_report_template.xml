@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates  xml:space="preserve">
+
+    <t t-name="sh_eod_report.report">
+        <div id="sh_sale_attr_report_screen" style="height: 100%;">
+            <div class="sh_sale_attr_report_screen_table" style="height: 100%;display: flex;align-items: center;justify-content: center;">
+                <div class="sh_attr_report_content h-100 w-100" >
+                    <div class="">
+                        <h2 class="expence_title text-center my-3" style="margin-bottom: 0px;">EOD Report</h2>
+                    </div>
+                    
+                    <div id="js_id_sh_eod_report_content_display" class="w-100" style="height: 75%;display: flex;justify-content: center;align-items: center;">
+                        <img src="/sh_lots_reports/static/src/image/ajax-loader-circle.gif" class="sh_loader" style="width: 90px;" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+</templates>

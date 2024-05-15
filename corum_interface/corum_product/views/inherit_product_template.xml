@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="corum_product_template_form_view" model="ir.ui.view">
+        <field name="name">corum.product.template.form.view</field>
+        <field name="model">product.template</field>
+        <field name="priority">1000</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+
+            <!-- Hide options div -->
+            <xpath expr="//div[@name='options']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!-- Remove create & edit buttons for taxes_id field -->
+            <xpath expr="//field[@name='taxes_id']" position="attributes">
+                <attribute name="options">{'no_create': True, 'no_create_edit': True}</attribute>
+            </xpath>
+
+            <!-- Rename standard_price div -->
+            <xpath expr="//label[@for='standard_price']" position="attributes">
+                <attribute name="string">Cost Price</attribute>
+            </xpath>
+
+            <!-- Move supplier taxes field under cost price -->
+            <xpath expr="//div[@name='standard_price_uom']" position="after">
+                <button name="compute_bundle_cost_price" string="Compute Bundle Cost Price" type="object" class="btn-primary" attrs="{'invisible':[('sh_is_bundle','=',False)]}" />
+                <xpath expr="//field[@name='supplier_taxes_id']" position="move"/>
+            </xpath>
+
+            <!-- Remove create & edit buttons for supplier_taxes_id field -->
+            <xpath expr="//field[@name='supplier_taxes_id']" position="attributes">
+                <attribute name="options">{'no_create': True, 'no_create_edit': True}</attribute>
+            </xpath>
+
+            <!-- Move fields -->
+            <xpath expr="//field[@name='detailed_type']" position="before">
+                <xpath expr="//field[@name='product_brand_id']" position="move"/>
+                <field name="pos_categ_id" attrs="{'invisible': [('available_in_pos', '=', False)]}" string="Category"/>
+            </xpath>
+            <xpath expr="//field[@name='product_tooltip']" position="after">
+                <xpath expr="//field[@name='sh_is_bundle']" position="move"/>
+                <xpath expr="//field[@name='sale_ok']" position="move"/>
+                <xpath expr="//field[@name='purchase_ok']" position="move"/>
+            </xpath>
+
+            <!-- Move sale page content -->
+            <field name='uom_po_id' position="after">
+                <field name="available_in_pos"/>
+                <field name="to_weight" attrs="{'invisible': [('available_in_pos', '=', False)]}"/>
+            </field>
+
+            <!-- Move sales description -->
+            <xpath expr="//page[@name='general_information']/group" position="after">
+                <group>
+                    <group string="Sales Description" name="description">
+                        <field name="description_sale" nolabel="1" placeholder="This note is added to sales orders and invoices."/>
+                    </group>
+                </group>
+            </xpath>
+
+            <!-- Hide default category field -->
+            <xpath expr="//field[@name='categ_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!-- Hide invoice policy field -->
+            <xpath expr="//field[@name='invoice_policy']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!-- Hide accounting page -->
+            <xpath expr="//page[@name='invoicing']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!-- Hide sales page -->
+            <xpath expr="//page[@name='sales']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!-- Hide suggestion page -->
+            <xpath expr="//page[@name='suggestion']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- Add new fields to the product template view -->
+    <record id="corum_product_template_tree_view" model="ir.ui.view">
+        <field name="name">corum.product.template.tree.view</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='standard_price']" position="after">
+                <field name="markup_price" widget="monetary" options="{'currency_field':'currency_id'}" optional="show" readonly="1"/>
+            </xpath>
+            <xpath expr="//field[@name='markup_price']" position="after">
+                <field name="margin_percentage" widget="percentage" optional="show" readonly="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Add On Order smart button -->
+    <record id="corum_stock_product_template_form_view_procurement_button" model="ir.ui.view">
+        <field name="name">corum.stock.product.template.form.view.procurement.button</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="stock.product_template_form_view_procurement_button"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//button[@name='action_open_quants']" position="before">
+                <button class="oe_stat_button" name="action_view_on_order"
+                    type="object" icon="fa-credit-card" help="Units currently being ordered">
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_value">
+                            <field name="on_order_count" widget="statinfo" nolabel="1" class="mr4"/>
+                            <field name="uom_name"/>
+                        </span>
+                        <span class="o_stat_text">On Order</span>
+                    </div>
+                </button>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- Hide action_view_sales smart button -->
+    <record id="corum_product_template_view_form_inherit_stock" model="ir.ui.view">
+        <field name="name">corum.product.template.view.form.inherit.stock</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="sale_stock.product_template_view_form_inherit_stock"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//button[@name='action_view_sales']" position="replace"/>
+
+        </field>
+    </record>
+
+    <!-- Add Sold smart button -->
+    <record id="corum_view_product_template_purchase_buttons_from" model="ir.ui.view">
+        <field name="name">corum.view.product.template.purchase.buttons.from</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="purchase.view_product_template_purchase_buttons_from"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//button[@name='action_view_po']" position="after">
+                <button class="oe_stat_button" name="action_view_pos_order"
+                    type="object" icon="fa-usd" help="Sold in the last 365 days" attrs="{'invisible': [('sale_ok', '=', False)]}">
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_value">
+                            <field name="pos_order_count" widget="statinfo" nolabel="1" class="mr4"/>
+                            <field name="uom_name"/>
+                        </span>
+                        <span class="o_stat_text">Sold</span>
+                    </div>
+                </button>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- Hide pos group -->
+    <record id="corum_point_of_sale_product_template_form_view" model="ir.ui.view">
+        <field name="name">corum.point.of.sale.product.template.form.view</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="point_of_sale.product_template_form_view"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//group[@name='pos']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- Disable default product_tooltips -->
+    <record id="product_template_sale_form_view_hide" model="ir.ui.view">
+        <field name="name">product.template.sale.form.view.hide</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="sale.product_template_sale_form_view"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//label[@for='product_tooltip'][1]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//label[@for='product_tooltip'][2]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//div[@class='font-italic text-muted'][1]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//div[@class='font-italic text-muted'][2]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- Depends on sh_pos_all_in_one_retail module -->
+    <record id="sh_min_max_price_product_template_order_view_inherit_hide" model="ir.ui.view">
+        <field name="name">sh.min.max.price.product.template.order.view.inherit.hide</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="sh_pos_all_in_one_retail.sh_min_max_price_product_template_order_view_inherit"/>
+        <field name="arch" type="xml">
+
+            <!-- Hide min/max product fields -->
+            <xpath expr="//field[@name='pro_min_sale_price']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='pro_max_sale_price']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- Depends on sh_pos_all_in_one_retail module -->
+    <record id="sh_pos_product_variant_inherit_form_hide" model="ir.ui.view">
+        <field name="name">sh.pos.product.variant.inherit.form.hide</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="sh_pos_all_in_one_retail.sh_pos_product_variant_inherit_form"/>
+        <field name="arch" type="xml">
+
+            <!-- Hide alternate products field -->
+            <xpath expr="//field[@name='sh_alternative_products']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- Depends on sh_pos_all_in_one_retail module -->
+    <record id="sh_pos_own_product_inherit_product_template_view_hide" model="ir.ui.view">
+        <field name="name">sh.pos.own.product.inherit.product.template.view.hide</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="sh_pos_all_in_one_retail.sh_pos_own_product_inherit_product_template_view"/>
+        <field name="arch" type="xml">
+
+            <!-- Hide sale person field -->
+            <xpath expr="//field[@name='sh_select_user']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- Depends on sh_pos_all_in_one_retail module -->
+    <record id="product_template_custom_hide" model="ir.ui.view">
+        <field name="name">product.template.custom.hide</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="sh_pos_all_in_one_retail.product_template_custom"/>
+        <field name="arch" type="xml">
+
+            <!-- Hide suggestion page -->
+            <xpath expr="//page[@name='suggestion']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- Depends on sh_pos_all_in_one_retail module -->
+    <record id="sh_product_template_custom_view_hide" model="ir.ui.view">
+        <field name="name">sh.product.template.custom.view.hide</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="sh_pos_all_in_one_retail.sh_product_template_custom_view"/>
+        <field name="arch" type="xml">
+
+            <!-- Hide secondary unit -->
+            <field name='sh_is_secondary_unit' position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+
+        </field>
+    </record>
+
+    <!-- Depends on sh_pos_all_in_one_retail module -->
+    <record id="sh_stock_product_template_inherit_view_hide" model="ir.ui.view">
+        <field name="name">sh.stock.product.template.inherit.view.hide</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="sh_pos_all_in_one_retail.sh_stock_product_template_inherit_view"/>
+        <field name="arch" type="xml">
+
+            <!-- Hide on hand and forcasted quantity buttons -->
+            <xpath expr="//button[@name='action_open_quants']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_product_tmpl_forecast_report']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- Depends on sh_pos_all_in_one_retail module -->
+    <record id="sh_multiples_product_quantity_hide" model="ir.ui.view">
+        <field name="name">sh.multiples.product.quantity.hide</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="sh_pos_all_in_one_retail.sh_multiples_product_quantity"/>
+        <field name="arch" type="xml">
+
+            <!-- Hide multiple qty -->
+            <field name='sh_multiples_of_qty' position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+
+        </field>
+    </record>
+
+    <!-- Depends on sh_pos_all_in_one_retail module -->
+    <record id="sh_product_form_view_hide" model="ir.ui.view">
+        <field name="name">sh.product.form.view.hide</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="sh_pos_all_in_one_retail.sh_product_form_view"/>
+        <field name="arch" type="xml">
+
+            <!-- Hide sh_is_bundle label -->
+            <xpath expr="//label[@for='sh_is_bundle']" position="replace">
+                <label for="sh_is_bundle" invisible="1"/>
+            </xpath>
+
+            <!-- Hide compute_bundle_cost_price button -->
+            <xpath expr="//button[@name='compute_bundle_cost_price']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- Depends on sh_pos_all_in_one_retail module -->
+    <record id="sh_product_template_form_view_custom_hide" model="ir.ui.view">
+        <field name="name">sh.product.template.form.view.custom.hide</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="sh_pos_all_in_one_retail.sh_product_template_form_view_custom"/>
+        <field name="arch" type="xml">
+
+            <!-- Hide sh_qty_in_bag field -->
+            <field name='sh_qty_in_bag' position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+
+            <xpath expr="//field[@name='units_on_hand']/ancestor::button" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='units_forecasted']/ancestor::button" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- Depends on sh_barcode_scanner_adv module -->
+    <record id="sh_product_barcode_scanner_product_template_form_view_hide" model="ir.ui.view">
+        <field name="name">sh.product.barcode.scanner.product.template.form.view.hide</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="sh_barcode_scanner_adv.sh_product_barcode_scanner_product_template_form_view"/>
+        <field name="arch" type="xml">
+
+            <!-- Hide barcode scanned field -->
+            <field name='_barcode_scanned' position="replace">
+                <field name="_barcode_scanned" widget="barcode_handler" invisible="1" />
+            </field>
+
+        </field>
+    </record>
+
+    <!-- Depends on sh_product_qrcode_generator module -->
+    <record id="sh_product_qrcode_generator_product_tmpl_only_form_hide" model="ir.ui.view">
+        <field name="name">sh.product.qrcode.generator.product.tmpl.only.form.hide</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="sh_product_qrcode_generator.sh_product_qrcode_generator_product_tmpl_only_form"/>
+        <field name="arch" type="xml">
+
+            <!-- Hide QR fields -->
+            <field name='sh_qr_code' position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name='sh_qr_code_img' position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+
+        </field>
+    </record> 
+
+</odoo>

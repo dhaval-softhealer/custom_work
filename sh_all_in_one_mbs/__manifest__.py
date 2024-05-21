@@ -68,54 +68,54 @@ debit note barcode mobile scanner
 
     "data": [
 
-        "security/product_bm_security.xml",
-        "security/ir.model.access.csv",
-        "sh_product_barcode_mobile/views/res_config_settings_views.xml",
-        "sh_product_barcode_mobile/wizard/sh_product_barcode_mobile_wizard.xml",
+        # "security/product_bm_security.xml",
+        # "security/ir.model.access.csv",
+        # "sh_product_barcode_mobile/views/res_config_settings_views.xml",
+        # "sh_product_barcode_mobile/wizard/sh_product_barcode_mobile_wizard.xml",
 
-        # "views/assets_backend.xml",
+        # # "views/assets_backend.xml",
 
-        "sh_sale_barcode_mobile/views/res_config_settings_views.xml",
-        "sh_sale_barcode_mobile/views/sale_view.xml",
+        # "sh_sale_barcode_mobile/views/res_config_settings_views.xml",
+        # "sh_sale_barcode_mobile/views/sale_view.xml",
 
-        "sh_purchase_barcode_mobile/views/res_config_settings_views.xml",
-        "sh_purchase_barcode_mobile/views/purchase_view.xml",
+        # "sh_purchase_barcode_mobile/views/res_config_settings_views.xml",
+        # "sh_purchase_barcode_mobile/views/purchase_view.xml",
 
-        "sh_invoice_barcode_mobile/views/res_config_settings_views.xml",
-        "sh_invoice_barcode_mobile/views/account_view.xml",
+        # "sh_invoice_barcode_mobile/views/res_config_settings_views.xml",
+        # "sh_invoice_barcode_mobile/views/account_view.xml",
 
-        "sh_bom_barcode_mobile/views/res_config_settings_views.xml",
-        "sh_bom_barcode_mobile/views/mrp_view.xml",
+        # "sh_bom_barcode_mobile/views/res_config_settings_views.xml",
+        # "sh_bom_barcode_mobile/views/mrp_view.xml",
 
-        "sh_inventory_barcode_mobile/views/res_config_settings_views.xml",
-        "sh_inventory_barcode_mobile/views/stock_view.xml",
-        "sh_inventory_adjustment_barcode_mobile/views/stock_adjustment.xml",
-        "sh_inventory_adjustment_barcode_mobile/views/res_config_settings_views.xml",
-        # "sh_inventory_adjustment_barcode_mobile/views/stock_view.xml",
+        # "sh_inventory_barcode_mobile/views/res_config_settings_views.xml",
+        # "sh_inventory_barcode_mobile/views/stock_view.xml",
+        # "sh_inventory_adjustment_barcode_mobile/views/stock_adjustment.xml",
+        # "sh_inventory_adjustment_barcode_mobile/views/res_config_settings_views.xml",
+        # # "sh_inventory_adjustment_barcode_mobile/views/stock_view.xml",
 
-        # Product Custom Barcode MB
-        "sh_product_custom_mb/views/product.xml",
+        # # Product Custom Barcode MB
+        # "sh_product_custom_mb/views/product.xml",
         
-        # Global Search Document
-        "global_doc_search/views/res_config_settings.xml",
+        # # Global Search Document
+        # "global_doc_search/views/res_config_settings.xml",
                 
     ],
 
     "assets": {
         "web.assets_backend": [
-            "sh_all_in_one_mbs/static/src/scss/custom.scss",
-            "sh_all_in_one_mbs/static/src/js/ZXing.js",
-            "sh_all_in_one_mbs/static/src/js/global_doc_search/global_doc_search.js",
-            'sh_all_in_one_mbs/static/src/js/messaging_notification_handler.js',
-            'sh_all_in_one_mbs/static/src/js/bus_notification.js',
-            # "sh_all_in_one_mbs/static/src/js/NotificationService.js",
+            # "sh_all_in_one_mbs/static/src/scss/custom.scss",
+            # "sh_all_in_one_mbs/static/src/js/ZXing.js",
+            # "sh_all_in_one_mbs/static/src/js/global_doc_search/global_doc_search.js",
+            # 'sh_all_in_one_mbs/static/src/js/messaging_notification_handler.js',
+            # 'sh_all_in_one_mbs/static/src/js/bus_notification.js',
+            # # "sh_all_in_one_mbs/static/src/js/NotificationService.js",
 
-            "sh_all_in_one_mbs/static/src/js/search_bar/search_bar.js",
-            "sh_all_in_one_mbs/static/src/js/stock_adjustment2.js",
+            # "sh_all_in_one_mbs/static/src/js/search_bar/search_bar.js",
+            # "sh_all_in_one_mbs/static/src/js/stock_adjustment2.js",
         ],
         'web.assets_qweb': [
-            'sh_all_in_one_mbs/static/src/xml/global_doc_search/global_doc_search.xml',
-            'sh_all_in_one_mbs/static/src/xml/search_bar/search_bar.xml',
+            # 'sh_all_in_one_mbs/static/src/xml/global_doc_search/global_doc_search.xml',
+            # 'sh_all_in_one_mbs/static/src/xml/search_bar/search_bar.xml',
             # 'sh_all_in_one_mbs/static/src/xml/stock_adjustment.xml',
         ]
                 

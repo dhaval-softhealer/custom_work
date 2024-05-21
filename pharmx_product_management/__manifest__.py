@@ -5,6 +5,7 @@
     "description": "PharmX Product Management",
     "author": "Corum Group",
     'price': 0,
+    'version':'15.0.2',
     'currency': 'USD',
     "website": "https://pharmx.com.au",
     "depends": ['pharmx_edi', 'product', 'product_brand', 'product_manufacturer', 'base_automation'],    

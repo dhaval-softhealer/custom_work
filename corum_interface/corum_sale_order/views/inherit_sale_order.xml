@@ -30,20 +30,20 @@
             </xpath>
 
             <!-- Make create invoice buttons secondary -->
-            <xpath expr="//button[@name='396'][1]" position="attributes">
+            <!-- <xpath expr="//button[@name='396'][1]" position="attributes">
                 <attribute name="class">btn-secondary</attribute>
             </xpath>
             <xpath expr="//button[@name='396'][2]" position="attributes">
                 <attribute name="class">btn-secondary</attribute>
-            </xpath>
+            </xpath> -->
 
             <!-- Move create invoice buttons -->
-            <xpath expr="//button[@name='action_cancel']" position="before">
+            <!-- <xpath expr="//button[@name='action_cancel']" position="before">
                 <xpath expr="//button[@name='396'][1]" position="move"/>
             </xpath>
             <xpath expr="//button[@name='action_cancel']" position="before">
                 <xpath expr="//button[@name='396'][2]" position="move"/>
-            </xpath>
+            </xpath> -->
 
             <!-- Rename confirm buttons -->
             <xpath expr="//button[@name='action_confirm'][1]" position="attributes">

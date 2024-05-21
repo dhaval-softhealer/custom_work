@@ -205,11 +205,13 @@ odoo.define("sh_pos_loyalty.pos", function (require) {
                 self.order.set_loyalty_point(0)
                 if (self.env.pos.config.sh_enable_loyalty && order.get_client() && self.env.pos.config.sh_loyalty_rule && self.env.pos.config.sh_loyalty_rule[0] && self.env.pos.db.loyalty_by_id[self.env.pos.config.sh_loyalty_rule[0]]) {
                     if (self.env.pos.db.loyalty_by_id[self.env.pos.config.sh_loyalty_rule[0]].sh_point_per_order) {
+                        console.log("====if 1 called");
                         var point = self.env.pos.get_order().get_loyalty_point();
                         point = point + self.env.pos.db.loyalty_by_id[self.env.pos.config.sh_loyalty_rule[0]].sh_point_per_order;
                         self.env.pos.get_order().set_loyalty_point(point);
                     }
                     if (self.env.pos.db.loyalty_by_id[self.env.pos.config.sh_loyalty_rule[0]].sh_point_per_product) {
+                        console.log("====if 2 called");
                         if (self.env.pos.get_order().get_orderlines()) {
                             var point = self.env.pos.get_order().get_loyalty_point();
                             point = point + self.env.pos.get_order().get_orderlines().length * self.env.pos.db.loyalty_by_id[self.env.pos.config.sh_loyalty_rule[0]].sh_point_per_product;
@@ -217,9 +219,10 @@ odoo.define("sh_pos_loyalty.pos", function (require) {
                         }
                     }
                     if (self.env.pos.db.loyalty_by_id[self.env.pos.config.sh_loyalty_rule[0]].sh_loyalty_rule) {
-
+                        
                         _.each(self.env.pos.db.loyalty_by_id[self.env.pos.config.sh_loyalty_rule[0]].sh_loyalty_rule, function (each_rule) {
                             var rule = self.env.pos.db.loyalty_rule_by_id[each_rule]
+                            console.log("====if 3 called", rule , rule.sh_rule_type);
 
                             if (rule.sh_rule_type && rule.sh_rule_type == 'product' && rule.sh_loyalty_earned_rule == "per_product") {
                                 if (self.env.pos.get_order().get_orderlines()) {

@@ -3,7 +3,7 @@
 {
     'name': 'Lots Reports',
     "author": "Softhealer Technologies",
-    'version': '15.0.2',
+    'version': '15.0.3',
     "website": "https://www.softhealer.com",
     'category': 'Extra Tools',
     "support": "support@softhealer.com",

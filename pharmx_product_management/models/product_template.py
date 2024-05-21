@@ -8,7 +8,10 @@ class ProductInherit(models.Model):
     upi = fields.Char(string='Universal Product Identifier', required=False)
     rrp = fields.Float('Recommended Retail Price', digits='Product Price', required=False, default=0.0)
     shelf_label = fields.Char(string='Shelf Label', required=False)
-    
+    def _default_domain(self):
+        return [('id','in',self.env.user.company_ids.ids)]
+    company_id = fields.Many2one('res.company', string='Company', domain=_default_domain)
+
     # Merged fields
     is_merged = fields.Boolean("Merged")
     merged_product_id = fields.Many2one('product.template', string="Merged Product Id", index=True)

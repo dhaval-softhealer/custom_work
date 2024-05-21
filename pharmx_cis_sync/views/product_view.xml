@@ -9,10 +9,10 @@
             <field name="priority">5</field>
             <field name="inherit_id" ref="product.product_template_only_form_view"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='default_code']" position="attributes">
+                <!-- <xpath expr="//field[@name='default_code']" position="attributes">
                     <attribute name="string">UPI</attribute>
                     <attribute name="readonly">1</attribute>
-                </xpath>
+                </xpath> -->
                 <xpath expr="//field[@name='barcode']" position="attributes">
                     <attribute name="readonly">1</attribute>
                     <attribute name="invisible">1</attribute>

@@ -14,8 +14,12 @@ class ShMYOBWizard(models.TransientModel):
 
     start_date = fields.Date(required=True, default=_default_start_date)
     end_date = fields.Date(required=True, default=fields.Datetime.now)
-    company_id = fields.Many2one('res.company', string='Company', required=True, default=lambda self: self.env.company)
+    def _default_domain(self):
+        return [('id','in',self.env.user.company_ids.ids)]
+    company_id = fields.Many2one('res.company', string='Company', required=True, default=lambda self: self.env.company ,  domain=_default_domain)
 
+
+    
     @api.onchange('start_date')
     def _onchange_start_date(self):
         if self.start_date and self.end_date and self.end_date < self.start_date:

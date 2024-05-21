@@ -784,6 +784,27 @@ a#openSidebar {
 //font color ends
 
 //form
+#o-update-data{
+    height: 20px !important;
+    width:  20px !important;
+}
+.form-check.o_import_compat{
+    display: flex;
+    align-items: center;
+}
+.form-check-label{
+    margin-left: 10px !important;
+}
+#o_radioXLSX{
+    width: 20px !important;
+    height: 20px !important;
+    border-radius: 50px !important;
+}
+#o_radioCSV{
+    width: 20px !important;
+    height: 20px !important;
+    border-radius: 50px !important;
+}
 input {
     display: block;
     width: 100%;
@@ -796,9 +817,9 @@ input {
     background-color: #fff;
     background-clip: padding-box;
     border: 1px solid #ced4da !important;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
+    // -webkit-appearance: none;
+    // -moz-appearance: none;
+    // appearance: none;
     border-radius: .25rem;
     -webkit-transition: border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
     transition: border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
@@ -1634,4 +1655,10 @@ div.dropdown-menu.bootstrap-datetimepicker-widget {
 //new fix
 .o_form_view .oe_button_box + .oe_title, .o_form_view .oe_button_box + .oe_avatar + .oe_title {
     width: 100% !important;
+}
+.form-check-input{
+    position : unset !important;
+}
+.form-check-input:checked~.checkbox-container {
+    background-color:  #556ee6;
 }

@@ -7,7 +7,7 @@
     "author": "Softhealer Technologies",
     "website": "https://www.softhealer.com",
     "support": "support@softhealer.com",
-    "category": "Point Of Sale",
+    "category": "",
     "license": "OPL-1",
     "summary": "",
     "description": """.""",
@@ -17,6 +17,4 @@
         
     ],
     'installable': True,
-    "price": 25,
-    "currency": "EUR"
 }

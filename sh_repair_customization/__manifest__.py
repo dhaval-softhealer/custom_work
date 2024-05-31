@@ -14,7 +14,7 @@
     "version": "16.0.1",
     'depends': ['repair' , 'purchase'],
     "data": [
-        
+        'views/repair.xml',
     ],
     'installable': True,
 }

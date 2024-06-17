@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-extend="PartnerLine" t-inherit="point_of_sale.PartnerLine" t-inherit-mode="extension">
+        <xpath expr="//td[hasclass('partner-line-email')]" position="after">
+            <td>
+                <t t-if="props.partner.Sh_birthdate">
+                    <t t-esc="props.partner.Sh_birthdate" />
+                </t>
+                <t t-else=''>
+                    -
+                </t>
+            </td>
+            
+        </xpath>
+    </t>
+</templates>

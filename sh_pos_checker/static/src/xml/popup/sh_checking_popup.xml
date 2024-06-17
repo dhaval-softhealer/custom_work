@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="ShValodationTypePopup" owl="1" >
+       <div role="dialog" class="modal-dialog">
+            <div class="popup sh_validation_method_popup">
+                <p class="title">
+                   Select Validation Method
+                </p>
+                <p class="body">
+                    <div class="sh_customer_div">
+                        <button t-on-click="open_customer_screen">Select Customer</button>
+                    </div>
+                    <div class="sh_or_div">
+                        <span class="sh_or">or</span>
+                    </div>
+                    <div class="sh_barcode_div">
+                        <img class="login-barcode-img"
+                                src="/sh_pos_checker/static/src/img/barcode.png" t-on-click="open_barcodePopup"/>
+                    </div>
+                    <div class="sh_or_div" >
+                        <span class="sh_or">or</span>
+                    </div>
+                    <div class="sh_birthdate" t-on-click="show_date_field"> 
+                        <button>Select Birthdate</button>
+                    </div>
+                    <div class="sh_date" t-if="this.sh_show_date_field">
+                        <label for="date_input">Add Birthdate : </label>
+                        <input type="date" class="sh_date_input" id="date_input"></input>
+                    </div>
+                </p>
+                <div class="footer">
+                    <div class="button cancel" t-on-click="cancel">
+                        Cancel
+                    </div>
+                    <div class="button confirm " t-if="this.sh_show_date_field" t-on-click="sh_confirm">
+                        Confirm
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

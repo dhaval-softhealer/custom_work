@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="BarcodePopup" owl="1">
+        <div role="dialog" class="modal-dialog">
+                <div class="popup sh_barcode_popup">
+                    <main class="body">
+                        <div>
+                        <img class="login-barcode-img"
+                                src="/sh_pos_checker/static/src/img/barcode.png" />
+                            <div class="login-barcode-text">Scan your badge</div>
+                    </div>
+                    </main>
+                    <footer class="footer">
+                        <div class="button cancel" t-on-click="cancel">
+                            cancel
+                        </div>
+                    </footer>
+                </div>
+        </div>
+    </t>
+</templates>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id='sh_pos_checker_pos_product_category_view_inherit' model='ir.ui.view'>
+        <field name='name'>sh.pos.checker.inherit</field>
+        <field name='model'>pos.category</field>
+        <field name='inherit_id' ref='point_of_sale.product_pos_category_form_view'></field>
+        <field name='arch' type='xml'>
+            <xpath expr="//field[@name='sequence']" position="after">
+                <field name="sh_age" />
+            </xpath>
+            
+        </field>
+    </record>
+</odoo>

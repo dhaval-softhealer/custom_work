@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id='sh_mrp_order_form_view' model='ir.ui.view'>
+        <field name='name'>sh.mrp.order.form.inherit</field>
+        <field name='model'>mrp.production</field>
+        <field name='inherit_id' ref='mrp.mrp_production_form_view' />
+        <field name='arch' type='xml'>
+            <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+                <button class="oe_stat_button" name="action_view_po"
+                        type="object" icon="fa-credit-card" help="Purchase Orders">
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_text">Purchase</span>
+                    </div>
+                </button>
+                <!-- <button class="oe_stat_button" type="object" name="action_view_mrp_bom"
+                icon="fa-flask" >
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_text">Bills of Materials</span>
+                    </div>
+                </button>
+                <button class="oe_stat_button" type="object" name="action_view_mrp_order"
+                icon="fa-wrench" >
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_text">Manufacturing </span>
+                    </div>
+                </button> -->
+                <button class="oe_stat_button" type="object" name="action_view_attachments"
+                icon="fa-paperclip" >
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_text">Attachments</span>
+                    </div>
+                </button>
+            </xpath>
+        </field>
+    </record>
+    <record id="sh_view_attachment_tree" model="ir.ui.view">
+        <field name="name">Custom Tree View</field>
+        <field name="model">ir.attachment</field>
+        <field name="arch" type="xml">
+            <tree string="Attachments">
+                <field name="name"/>
+                <field name="datas" filename="name"  widget="binary"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

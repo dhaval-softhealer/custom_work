@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id='sh_sale_order_form_view' model='ir.ui.view'>
+        <field name='name'>sh.sale.order.form.inherit</field>
+        <field name='model'>sale.order</field>
+        <field name='inherit_id' ref='sale.view_order_form' />
+        <field name='arch' type='xml'>
+            <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+                <button class="oe_stat_button" name="action_view_po"
+                        type="object" icon="fa-credit-card" help="Purchase Orders">
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_text">Purchases</span>
+                    </div>
+                </button>
+                <button class="oe_stat_button" type="object" name="action_view_mrp_bom"
+                icon="fa-flask" >
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_text">Bills of Materials</span>
+                    </div>
+                </button>
+                <button class="oe_stat_button" type="object" name="action_view_attachments"
+                icon="fa-paperclip" >
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_text">Attachments</span>
+                    </div>
+                </button>
+            </xpath>
+            <xpath expr="//header" position="inside">
+                <button name="create_po" type="object" string="Create Purchase" />
+            </xpath>
+        </field>
+    </record>
+   
+</odoo>

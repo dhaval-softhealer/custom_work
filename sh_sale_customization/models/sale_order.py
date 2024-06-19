@@ -44,13 +44,22 @@ class shSaleOrder(models.Model):
 
 
     def action_view_po(self):
-        return {
+        action_vals = {
             'name': _('Purchase Orders'),
             'type': 'ir.actions.act_window',
             'res_model': 'purchase.order',
-            'view_mode': 'tree,form',
             'domain' : [('sh_sale_order_id','=',self.id)],
         }
+        if self.sh_purchase_order_count == 1:
+            action_vals.update({
+                'view_mode': 'form',
+                'res_id': self.sh_purchase_order_id.id,
+            })
+        else:
+            action_vals.update({
+                   'view_mode': 'tree,form',
+            })
+        return action_vals
 
     def create_po(self):
         return {
@@ -64,16 +73,29 @@ class shSaleOrder(models.Model):
         }
     
     def action_view_mrp_bom(self):
+        result = {
+            "type": "ir.actions.act_window",
+            "res_model": "mrp.bom",
+            "name": _("Bills of Materials"),
+        }
+        domain_ids = []
         for orderline in self.order_line:
-            result = {
-                "type": "ir.actions.act_window",
-                "res_model": "mrp.bom",
-                "domain": [['id', 'in', orderline.product_id.bom_ids.ids]],
-                "name": _("Bills of Materials"),
+            domain_ids.extend(orderline.product_id.bom_ids.ids)
+        
+        result["domain"] = [['id', 'in', domain_ids]]
+        
+        if self.sh_BOM_count == 1 and domain_ids:
+            result.update({
+                'view_mode': 'form',
+                'res_id': domain_ids[0],
+            })
+        else:
+            result.update({
                 'view_mode': 'tree,form',
-            }
-           
+            })
+        
         return result
+
         
     def action_view_attachments(self):
          return {
@@ -82,6 +104,6 @@ class shSaleOrder(models.Model):
             'res_model': 'ir.attachment',
             'view_mode': 'tree',
             'views': [(self.env.ref('sh_sale_customization.sh_view_attachment_tree').id, 'tree')],
-            'domain' : [('res_id','=',self.id)],
+            'domain' : [('res_id','=',self.id),('res_name','=',self.name),('res_model',"=",'sale.order')],
         }
 

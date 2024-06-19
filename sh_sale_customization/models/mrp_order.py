@@ -36,15 +36,31 @@ class shPurchaseOrder(models.Model):
 
     def action_view_po(self):
         sale_order_ids = self.procurement_group_id.mrp_production_ids.move_dest_ids.group_id.sale_id.ids
+        purchase_order_ids = []
+
         for each_id in sale_order_ids:
             sale_order = self.env["sale.order"].browse(each_id)
-            return {
+            purchase_order_ids.append(sale_order.sh_purchase_order_id.id)
+
+        result = {
             'name': _('Purchase Orders'),
             'type': 'ir.actions.act_window',
             'res_model': 'purchase.order',
-            'view_mode': 'tree,form',
-            'domain' : [('id','=',sale_order.sh_purchase_order_id.id)],
-            }
+            'domain': [('id', 'in', purchase_order_ids)],
+        }
+
+        if len(purchase_order_ids) == 1:
+            result.update({
+                'view_mode': 'form',
+                'res_id': purchase_order_ids[0],
+            })
+        else:
+            result.update({
+                'view_mode': 'tree,form',
+            })
+
+        return result
+
         
     def action_view_attachments(self):
         return {
@@ -53,6 +69,6 @@ class shPurchaseOrder(models.Model):
             'res_model': 'ir.attachment',
             'view_mode': 'tree',
             'views': [(self.env.ref('sh_sale_customization.sh_view_attachment_tree').id, 'tree')],
-            'domain' : [('res_id','=',self.id)],
+            'domain' : [('res_id','=',self.id),('res_name','=',self.name),('res_model',"=",'mrp.production')],
         }
 

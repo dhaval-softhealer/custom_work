@@ -6,32 +6,29 @@
         <field name='inherit_id' ref='purchase.purchase_order_form' />
         <field name='arch' type='xml'>
             <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+                <field name="sh_sale_order_count" invisible="1"/>
+                <field name="sh_BOM_count" invisible="1"/>
+                <field name="sh_mrp_count" invisible="1"/>
+                <field name="sh_attechment_count" invisible="1"/>
                 <button class="oe_stat_button" name="action_view_so"
-                        type="object" icon="fa-credit-card" help="Sale Orders">
-                    <div class="o_field_widget o_stat_info">
-                        <span class="o_stat_text">Sale</span>
-                    </div>
+                    type="object" icon="fa-credit-card" help="Sale Orders"
+                    attrs="{'invisible': [('sh_sale_order_count', '=', 0)]}">
+                    <field name="sh_sale_order_count" widget="statinfo" string="Sale" />
                 </button>
                 <button class="oe_stat_button" type="object" name="action_view_mrp_bom"
-                icon="fa-flask" >
-                    <div class="o_field_widget o_stat_info">
-                        <span class="o_stat_text">Bills of Materials</span>
-                    </div>
+                    icon="fa-flask" attrs="{'invisible': [('sh_BOM_count', '=', 0)]}">
+                    <field name="sh_BOM_count" widget="statinfo" string="Bills of Materials" />
                 </button>
                 <button class="oe_stat_button" type="object" name="action_view_mrp_order"
-                icon="fa-wrench" >
-                    <div class="o_field_widget o_stat_info">
-                        <span class="o_stat_text">Manufacturing </span>
-                    </div>
+                    icon="fa-wrench" attrs="{'invisible': [('sh_mrp_count', '=', 0)]}">
+                    <field name="sh_mrp_count" widget="statinfo" string="Manufacturing" />
                 </button>
                 <button class="oe_stat_button" type="object" name="action_view_attachments"
-                icon="fa-paperclip" >
-                    <div class="o_field_widget o_stat_info">
-                        <span class="o_stat_text">Attachments</span>
-                    </div>
+                    icon="fa-paperclip" attrs="{'invisible': [('sh_attechment_count', '=', 0)]}">
+                    <field name="sh_attechment_count" widget="statinfo" string="Attachments" />
                 </button>
             </xpath>
         </field>
     </record>
-   
+
 </odoo>

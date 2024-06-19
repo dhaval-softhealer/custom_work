@@ -8,7 +8,50 @@ class shPurchaseOrder(models.Model):
     _inherit = 'purchase.order'
 
     sh_sale_order_id = fields.Many2one('sale.order', string="Sale order" ,)
-    
+    sh_sale_order_count = fields.Integer(string='Sale Order Count',compute='_count_sale_order', readonly=True,)
+    sh_BOM_count = fields.Integer(string='BOM Count',compute='_count_bom', readonly=True,)
+    sh_mrp_count = fields.Integer(string='BOM Count',compute='_count_mrp', readonly=True,)
+    sh_attechment_count = fields.Integer(string='Attachments Count',compute='_count_attachment', readonly=True,)
+
+    def _count_attachment(self):
+        for order in self:
+            attachments = self.env['ir.attachment'].search([('res_id','=',order.id)])
+            print("\n\n\n\n\n\n\n\nattachments  ", attachments)
+            if attachments:
+                order.sh_attechment_count = len(attachments.ids)
+            else:
+                order.sh_attechment_count = 0
+                
+    def _count_bom(self):
+        for order in self:
+            if order.sh_sale_order_id:
+                bom_orders_list = []
+                for orderline in order.sh_sale_order_id.order_line:
+                    bom_orders = self.env['mrp.bom'].search([['id', 'in', orderline.product_id.bom_ids.ids]])
+                    bom_orders_list.extend(bom_orders)
+                if bom_orders_list:
+                    order.sh_BOM_count = len(bom_orders_list)
+                else:
+                    order.sh_BOM_count = 0
+            else:
+                order.sh_BOM_count = 0
+
+    def _count_mrp(self):
+        for order in self:
+            mrp_orders = self.env['mrp.production'].search( [('id','=',self.sh_sale_order_id.mrp_production_ids.ids)])
+            if mrp_orders:
+                order.sh_mrp_count = len(mrp_orders.ids)
+            else:
+                order.sh_mrp_count = 0
+
+    def _count_sale_order(self):
+        for order in self:
+            sale_orders = self.env['sale.order'].search( [('sh_purchase_order_id','=',order.id)])
+            if sale_orders:
+                order.sh_sale_order_count = len(sale_orders.ids)
+            else:
+                order.sh_sale_order_count = 0
+
     @api.model
     def default_get(self, default_fields):
         defaults = super().default_get(default_fields)

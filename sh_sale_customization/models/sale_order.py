@@ -35,7 +35,7 @@ class shSaleOrder(models.Model):
 
     def _count_attachment(self):
         for order in self:
-            attachments = self.env['ir.attachment'].search([('res_id','=',order.id)])
+            attachments = self.env['ir.attachment'].search([('res_id','=',self.id),('res_name','=',self.name),('res_model',"=",'sale.order')])
             print("\n\n\n\n\n\n\n\nattachments  ", attachments)
             if attachments:
                 order.sh_attechment_count = len(attachments.ids)
